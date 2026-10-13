@@ -467,7 +467,7 @@ function CompanyProfileContent() {
                 "The ascent of {profile.name} underscores an enduring economic truth: sustainable enterprise valuation is not achieved through speculative narratives, but through relentless engineering excellence and uncompromising alignment with global physical realities."
               </p>
               <p className="text-xs text-slate-500">
-                — Audited and compiled by The Enterprise Chronicle Editorial Board.
+                — Audited and compiled by Business Walkins Editorial Board.
               </p>
             </div>
 

@@ -215,20 +215,17 @@ export default function DigitalReaderModal({ issue, onClose }: DigitalReaderModa
       {/* ========================================================= */}
       <header className="bg-[#1C1C1C] border-b border-[#333333] px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between z-40">
         
-        {/* Left: Red EC Logo Monogram */}
+        {/* Left: Business Walkins Logo */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center">
-            <span className="text-[#E11925] font-serif font-black text-2xl tracking-tighter leading-none select-none">
-              E
-            </span>
-            <span className="text-[#E11925] font-serif font-black text-2xl tracking-tighter leading-none select-none">
-              C
-            </span>
-          </div>
-          <div className="h-5 w-[1.5px] bg-slate-600 mx-1.5 hidden sm:block" />
+          <img
+            src="/images/business-walkins-logo.jpg"
+            alt="Business Walkins Logo"
+            className="w-8 h-8 rounded-full object-contain bg-white p-0.5 shadow-sm"
+          />
+          <div className="h-5 w-[1.5px] bg-slate-600 mx-1 hidden sm:block" />
           <div className="hidden sm:flex flex-col">
-            <span className="text-xs font-bold tracking-tight text-white uppercase leading-none">
-              {issue.brandName || 'Enterprise Chronicle'}
+            <span className="text-xs font-bold tracking-tight text-white uppercase leading-none font-serif">
+              {issue.brandName || 'Business Walkins'}
             </span>
             <span className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold leading-tight">
               {issue.monthYear} • {issue.issueNumber}
@@ -356,22 +353,24 @@ export default function DigitalReaderModal({ issue, onClose }: DigitalReaderModa
                 {/* Top Cover Banner */}
                 <div className="relative z-10 p-5 sm:p-7 pt-4">
                   <div className="flex items-center justify-between border-b border-white/20 pb-2 mb-2 text-[9px] uppercase tracking-widest text-white/80 font-bold">
-                    <span>www.enterprisechronicle.com</span>
+                    <span>www.businesswalkins.com</span>
                     <span>ISSN 2814-9981</span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[#E11925] font-serif font-black text-2xl sm:text-3xl tracking-tighter leading-none">
-                        EC
-                      </span>
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/business-walkins-logo.jpg"
+                        alt="Business Walkins"
+                        className="w-10 h-10 object-contain rounded-full bg-white p-0.5 shadow-md"
+                      />
                       <div className="h-6 w-[1.5px] bg-white/40 mx-1" />
                       <div className="flex flex-col">
-                        <span className="font-bold text-lg sm:text-2xl text-white tracking-tight leading-none">
-                          <span className="text-[#E11925]">Enterprise</span> Chronicle
+                        <span className="font-bold text-lg sm:text-2xl text-white tracking-tight leading-none font-serif">
+                          <span className="text-[#E11925]">Business</span> Walkins
                         </span>
-                        <span className="text-[8px] uppercase tracking-[0.2em] text-white/70 font-semibold">
-                          INSPIRING GLOBAL BUSINESS LEADERSHIP
+                        <span className="text-[8px] uppercase tracking-[0.2em] text-white/90 font-semibold">
+                          EMAGZINE • IDEAS | PEOPLE | PROGRESS
                         </span>
                       </div>
                     </div>
@@ -415,7 +414,7 @@ export default function DigitalReaderModal({ issue, onClose }: DigitalReaderModa
                     <span>DIGITAL REPRODUCTION 2026</span>
                     <div className="flex items-center gap-1 bg-white px-1 py-0.5 rounded-xs text-black font-mono">
                       <span>||||| ||| |||||||</span>
-                      <span className="font-sans font-bold">EC-MAG</span>
+                      <span className="font-sans font-bold">BW-MAG</span>
                     </div>
                   </div>
                 </div>
@@ -427,7 +426,7 @@ export default function DigitalReaderModal({ issue, onClose }: DigitalReaderModa
                 {/* Page Running Header */}
                 <div className="flex items-center justify-between border-b border-slate-300 pb-2 text-[10px] uppercase tracking-wider text-slate-500 font-bold">
                   <span className="text-[#E11925] font-black">{activePageItem.section}</span>
-                  <span className="font-serif italic text-slate-600">The Enterprise Chronicle • {issue.monthYear}</span>
+                  <span className="font-serif italic text-slate-600">Business Walkins Emagzine • {issue.monthYear}</span>
                 </div>
 
                 {/* Main Editorial Body */}

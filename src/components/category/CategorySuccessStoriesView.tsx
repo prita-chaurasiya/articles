@@ -176,7 +176,7 @@ export default function CategorySuccessStoriesView() {
             </h1>
           </div>
           <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed max-w-3xl font-normal">
-            Success Stories – <strong>The Enterprise Chronicle</strong> is a leading business publication that chronicles transformative corporate breakthroughs, visionary founder journeys, bootsrapped hyper-scaling, and sustainable leadership playbooks across India and global commercial corridors.
+            Success Stories – <strong>Business Walkins</strong> is a leading business publication that chronicles transformative corporate breakthroughs, visionary founder journeys, bootsrapped hyper-scaling, and sustainable leadership playbooks across India and global commercial corridors.
           </p>
         </div>
 
@@ -479,7 +479,7 @@ export default function CategorySuccessStoriesView() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 group">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Issue"
+                  alt="Business Walkins Print Issue"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
@@ -547,7 +547,7 @@ export default function CategorySuccessStoriesView() {
 
             <div className="flex items-center justify-between pt-3 border-t border-slate-200">
               <span className="text-[11px] text-slate-500 font-medium">
-                The Enterprise Chronicle Intelligence Brief
+                Business Walkins Intelligence Brief
               </span>
               <Link
                 href={`/article/${briefModalArticle.slug}`}

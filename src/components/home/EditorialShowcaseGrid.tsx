@@ -74,7 +74,7 @@ export default function EditorialShowcaseGrid({ articles }: EditorialShowcaseGri
               </span>
             </div>
             <h2 className="font-serif text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              The Enterprise Chronicle Dispatch
+              Business Walkins Dispatch
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
               Fresh investigations, central cover story, and real-time boardroom trends

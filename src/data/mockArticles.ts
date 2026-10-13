@@ -218,7 +218,7 @@ With contracts signed with international giants like ArcelorMittal and Maersk, A
 
 The traditional playbook for sovereign wealth funds—allocating 60% of liquid assets to passive global equities and 20% to prestige Manhattan real estate—has undergone a decisive structural retirement. Over the past twenty-four months, sovereign balance sheets managing an aggregate $12.5 trillion have executed the swiftest sector pivot in modern financial history.
 
-According to proprietary transaction filings tracked by *The Enterprise Chronicle*, over $820 billion in direct capital allocations has flowed into semiconductor fabrication projects, nuclear-powered compute parks, and sovereign AI clusters across the UAE, Saudi Arabia, Singapore, and Scandinavia.
+According to proprietary transaction filings tracked by *Business Walkins*, over $820 billion in direct capital allocations has flowed into semiconductor fabrication projects, nuclear-powered compute parks, and sovereign AI clusters across the UAE, Saudi Arabia, Singapore, and Scandinavia.
 
 ### Direct Co-Investment Over Fund Intermediaries
 
@@ -1025,7 +1025,7 @@ Sitting across from Frank Conroy in his London boardroom, there is none of the r
     id: 'art-019',
     slug: 'the-enterprise-500-honors-global-business-titans-of-2026',
     title: 'The Global Enterprise Awards 2026: Honoring the Architects of the Next Industrial Era',
-    subtitle: 'From semiconductor innovators to biopharmaceutical pioneers, The Enterprise Chronicle announces the 50 corporations that reshaped global commerce this year.',
+    subtitle: 'From semiconductor innovators to biopharmaceutical pioneers, Business Walkins announces the 50 corporations that reshaped global commerce this year.',
     excerpt: 'An exhaustive year-long editorial audit evaluates corporate governance, research velocity, and shareholder stewardship across forty countries.',
     category: 'Awards',
     categorySlug: 'awards',
@@ -1052,7 +1052,7 @@ Sitting across from Frank Conroy in his London boardroom, there is none of the r
     content: `
 ### Celebrating Enduring Enterprise Value
 
-Every year, *The Enterprise Chronicle* brings together an independent council of economists, university deans, and retired sovereign fund chairpersons to evaluate over 3,000 publicly traded and private enterprises across the globe.
+Every year, *Business Walkins* brings together an independent council of economists, university deans, and retired sovereign fund chairpersons to evaluate over 3,000 publicly traded and private enterprises across the globe.
 
 We do not evaluate market capitalization alone; market euphoria is fleeting. We measure return on invested capital (ROIC), patent utility, carbon mitigation efficacy, and internal talent mobility.
 
@@ -2467,10 +2467,10 @@ At 1-nanometer equivalent gate pitches, a single transistor is smaller than a st
   // 63. TESTIMONIALS
   {
     id: 'art-063',
-    slug: 'global-enterprise-leaders-endorse-the-enterprise-chronicle',
-    title: 'Voices of Leadership: Global Fortune 500 Executives Endorse The Enterprise Chronicle',
+    slug: 'global-enterprise-leaders-endorse-business-walkins',
+    title: 'Voices of Leadership: Global Fortune 500 Executives Endorse Business Walkins',
     subtitle: 'From Wall Street managing partners to Silicon Valley founders, why the C-suite trusts our audited journalism.',
-    excerpt: 'Read unvarnished testimonials and verified feedback from corporate chairpersons, global managing directors, and technology pioneers who rely on The Enterprise Chronicle daily.',
+    excerpt: 'Read unvarnished testimonials and verified feedback from corporate chairpersons, global managing directors, and technology pioneers who rely on Business Walkins daily.',
     category: 'Testimonials',
     categorySlug: 'testimonials',
     subcategory: 'Executive Endorsements',
@@ -2492,7 +2492,7 @@ At 1-nanometer equivalent gate pitches, a single transistor is smaller than a st
     sharesCount: 4120,
     status: 'published',
     comments: [],
-    content: `### What Global Leaders Say\n\n> "The Enterprise Chronicle provides the rare depth and intellectual rigor that executive teams genuinely need to navigate high-stakes macro shifts."\n\n*— Frank Conroy, Managing Partner at Vanguard Global Capital*\n\n> "No other business publication captures the intersection of deep tech hardware, sovereign finance, and C-suite operational speed with such clarity."\n\n*— Dr. Sophia Sterling, Chief Executive Officer, Lumina Health Solutions*`
+    content: `### What Global Leaders Say\n\n> "Business Walkins provides the rare depth and intellectual rigor that executive teams genuinely need to navigate high-stakes macro shifts."\n\n*— Frank Conroy, Managing Partner at Vanguard Global Capital*\n\n> "No other business publication captures the intersection of deep tech hardware, sovereign finance, and C-suite operational speed with such clarity."\n\n*— Dr. Sophia Sterling, Chief Executive Officer, Lumina Health Solutions*`
   }
 ];
 

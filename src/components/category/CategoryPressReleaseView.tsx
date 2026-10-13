@@ -185,7 +185,7 @@ export default function CategoryPressReleaseView() {
             </div>
 
             <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed max-w-3xl font-normal mb-8">
-              Press Release – <strong>The Enterprise Chronicle</strong> is the premier verified wire service for enterprise disclosures, cross-border M&amp;A transactions, technology debuts, regulatory announcements, and institutional corporate communiques.
+              Press Release – <strong>Business Walkins</strong> is the premier verified wire service for enterprise disclosures, cross-border M&amp;A transactions, technology debuts, regulatory announcements, and institutional corporate communiques.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
@@ -475,7 +475,7 @@ export default function CategoryPressReleaseView() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 group">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Issue"
+                  alt="Business Walkins Print Issue"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
@@ -541,7 +541,7 @@ export default function CategoryPressReleaseView() {
 
             <div className="flex items-center justify-between pt-3 border-t border-slate-200">
               <span className="text-[11px] text-slate-500 font-medium">
-                The Enterprise Chronicle Corporate Wire
+                Business Walkins Corporate Wire
               </span>
               <Link
                 href={`/article/${briefModalArticle.slug}`}

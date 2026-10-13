@@ -125,25 +125,27 @@ function MagazineArchiveContent() {
                     {/* Realistic Glossy Cover Overlay & Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/60 pointer-events-none" />
 
-                    {/* Cover Masthead: Red EC + Brand (Matches Screenshot 1) */}
+                    {/* Cover Masthead: Business Walkins Logo + Brand */}
                     <div className="absolute top-0 inset-x-0 p-2 sm:p-2.5 z-10 flex flex-col">
-                      <div className="flex items-center justify-between text-[7px] text-white/75 uppercase font-bold tracking-wider border-b border-white/20 pb-0.5 mb-1">
-                        <span>www.enterprisechronicle.com</span>
+                      <div className="flex items-center justify-between text-[7px] text-white/80 uppercase font-bold tracking-wider border-b border-white/20 pb-0.5 mb-1">
+                        <span>www.businesswalkins.com</span>
                         <span>ISSN 2814</span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1">
-                          <span className="text-[#E11925] font-serif font-black text-sm sm:text-base leading-none">
-                            EC
-                          </span>
-                          <span className="text-[10px] sm:text-xs font-bold text-white tracking-tight leading-none">
-                            <span className="text-[#E11925]">Enterprise</span> Chronicle
+                        <div className="flex items-center gap-1.5">
+                          <img
+                            src="/images/business-walkins-logo.jpg"
+                            alt="BW"
+                            className="w-5 h-5 rounded-full object-contain bg-white p-0.5 shadow-sm shrink-0"
+                          />
+                          <span className="text-[10px] sm:text-xs font-bold text-white tracking-tight leading-none font-serif">
+                            <span className="text-[#E11925]">Business</span> Walkins
                           </span>
                         </div>
                       </div>
-                      <span className="text-[6px] uppercase tracking-[0.2em] text-white/70 font-semibold mt-0.5">
-                        INSPIRING BUSINESS COMMUNITY
+                      <span className="text-[6px] uppercase tracking-[0.16em] text-white/80 font-semibold mt-0.5">
+                        EMAGZINE • IDEAS | PEOPLE | PROGRESS
                       </span>
                     </div>
 
@@ -215,7 +217,7 @@ function MagazineArchiveContent() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <h2 className="text-lg sm:text-2xl font-bold text-[#111827] leading-snug mb-2">
-            The Enterprise Chronicle Magazine has garnered recognition as one of the best business magazines.
+            Business Walkins Emagzine has garnered recognition as one of the best business magazines.
           </h2>
           
           <p className="text-xs sm:text-sm text-slate-600 mb-6 font-medium">
@@ -225,7 +227,7 @@ function MagazineArchiveContent() {
           <div className="space-y-4 text-xs sm:text-[13.5px] text-slate-700 leading-relaxed">
             <div>
               <strong className="text-slate-900 font-bold">Extensive Reach:</strong>{' '}
-              With a presence in 85 countries and a readership of over 12 million global decision-makers, The Enterprise Chronicle has a wide and diverse audience, ensuring a global perspective while maintaining regional relevance.
+              With a presence in 85 countries and a readership of over 12 million global decision-makers, Business Walkins has a wide and diverse audience, ensuring a global perspective while maintaining regional relevance.
             </div>
 
             <div>
@@ -235,7 +237,7 @@ function MagazineArchiveContent() {
 
             <div>
               <strong className="text-slate-900 font-bold">Industry Leaders:</strong>{' '}
-              The Enterprise Chronicle features interviews and articles from leading business figures, providing readers with valuable insights and real-world experiences from successful entrepreneurs and Fortune 500 executives.
+              Business Walkins features interviews and articles from leading business figures, providing readers with valuable insights and real-world experiences from successful entrepreneurs and Fortune 500 executives.
             </div>
 
             <div>
@@ -245,7 +247,7 @@ function MagazineArchiveContent() {
 
             <div>
               <strong className="text-slate-900 font-bold">Digital Presence:</strong>{' '}
-              With a strong online platform, The Enterprise Chronicle Magazine ensures that its content is accessible to a wider audience, providing digital 3D interactive versions and maintaining an active global presence on executive media channels.
+              With a strong online platform, Business Walkins Emagzine ensures that its content is accessible to a wider audience, providing digital 3D interactive versions and maintaining an active global presence on executive media channels.
             </div>
 
             <div>
@@ -254,7 +256,7 @@ function MagazineArchiveContent() {
             </div>
 
             <p className="pt-2 text-slate-600 italic">
-              These factors contribute to The Enterprise Chronicle Magazine&rsquo;s reputation as a leading international business publication.
+              These factors contribute to Business Walkins Emagzine&rsquo;s reputation as a leading international business publication.
             </p>
           </div>
 

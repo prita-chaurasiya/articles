@@ -47,7 +47,7 @@ function AuthorContent() {
     name: rawId.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
     role: 'Senior Editorial Contributor',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
-    bio: 'Senior editor and investigative correspondent covering enterprise technology, capital flows, and global corporate strategy at The Enterprise Chronicle.',
+    bio: 'Senior editor and investigative correspondent covering enterprise technology, capital flows, and global corporate strategy at Business Walkins.',
   };
 
   const totalReads = authorArticles.reduce((acc, a) => acc + (a.views || 0), 0);

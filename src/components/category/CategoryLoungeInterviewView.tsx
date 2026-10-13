@@ -198,7 +198,7 @@ export default function CategoryLoungeInterviewView() {
             </h1>
           </div>
           <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed max-w-3xl font-normal">
-            Lounge Interview – <strong>The Enterprise Chronicle</strong> hosts exclusive boardroom dialogues with CEOs, managing partners, founders, and industry trailblazers, exploring their breakthrough strategies, corporate governance, and vision for India&apos;s commercial frontier.
+            Lounge Interview – <strong>Business Walkins</strong> hosts exclusive boardroom dialogues with CEOs, managing partners, founders, and industry trailblazers, exploring their breakthrough strategies, corporate governance, and vision for India&apos;s commercial frontier.
           </p>
         </div>
 
@@ -501,7 +501,7 @@ export default function CategoryLoungeInterviewView() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 group">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Issue"
+                  alt="Business Walkins Print Issue"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
@@ -569,7 +569,7 @@ export default function CategoryLoungeInterviewView() {
 
             <div className="flex items-center justify-between pt-3 border-t border-slate-200">
               <span className="text-[11px] text-slate-500 font-medium">
-                The Enterprise Chronicle Executive Dialogue
+                Business Walkins Executive Dialogue
               </span>
               <Link
                 href={`/article/${briefModalArticle.slug}`}

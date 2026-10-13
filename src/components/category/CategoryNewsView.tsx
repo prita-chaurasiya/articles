@@ -177,7 +177,7 @@ export default function CategoryNewsView() {
               {/* Top Banner Caption */}
               <div className="text-center mb-4">
                 <span className="text-xs text-slate-400 font-sans italic">
-                  News — The Enterprise Chronicle | Best Business magazine In India
+                  News — Business Walkins | Best Business Magazine In India
                 </span>
               </div>
 
@@ -186,22 +186,22 @@ export default function CategoryNewsView() {
                 <mark className="bg-[#FFFF00] text-slate-900 px-1 py-0.5 rounded-none font-black mr-1">
                   News
                 </mark>{' '}
-                – The Enterprise Chronicle | Best Business Magazine In India
+                – Business Walkins | Best Business Magazine In India
               </h2>
 
               {/* 4 Editorial Paragraphs */}
               <div className="space-y-4 text-slate-700 text-sm leading-relaxed font-normal">
                 <p>
-                  <strong>The Enterprise Chronicle</strong> is a trusted source of news for businesses of all sizes and industries. With a focus on delivering timely, authoritative, and audit-verified information, the magazine keeps readers up-to-date with the latest developments, regulatory reforms, and macro trends in the business world.
+                  <strong>Business Walkins</strong> is a trusted source of news for businesses of all sizes and industries. With a focus on delivering timely, authoritative, and audit-verified information, the magazine keeps readers up-to-date with the latest developments, regulatory reforms, and macro trends in the business world.
                 </p>
                 <p>
-                  The news section of <strong>The Enterprise Chronicle</strong> covers a wide range of topics, including industry updates, sovereign fiscal policy, market trends, executive leadership pivots, and venture funding. The magazine&apos;s team of experienced business journalists and sector analysts ensures that the news section is accurate, reliable, and unbiased, providing readers with a comprehensive understanding of the business landscape.
+                  The news section of <strong>Business Walkins</strong> covers a wide range of topics, including industry updates, sovereign fiscal policy, market trends, executive leadership pivots, and venture funding. The magazine&apos;s team of experienced business journalists and sector analysts ensures that the news section is accurate, reliable, and unbiased, providing readers with a comprehensive understanding of the business landscape.
                 </p>
                 <p>
-                  In addition to its print and digital magazine editions, <strong>The Enterprise Chronicle</strong> also offers various digital resources, including its real-time web portal, executive lounge interviews, and curated newsletters. These resources provide business leaders with continuous access to the latest news, as well as actionable insights and in-depth data analysis.
+                  In addition to its print and digital magazine editions, <strong>Business Walkins</strong> also offers various digital resources, including its real-time web portal, executive lounge interviews, and curated newsletters. These resources provide business leaders with continuous access to the latest news, as well as actionable insights and in-depth data analysis.
                 </p>
                 <p>
-                  Overall, <strong>The Enterprise Chronicle&apos;s</strong> news desk is a strategic asset for business professionals looking to stay ahead of market disruptions and make informed decisions. Its timely and objective coverage of the latest developments helps leaders adapt to macroeconomic shifts and capture high-velocity growth opportunities.
+                  Overall, <strong>Business Walkins&apos;s</strong> news desk is a strategic asset for business professionals looking to stay ahead of market disruptions and make informed decisions. Its timely and objective coverage of the latest developments helps leaders adapt to macroeconomic shifts and capture high-velocity growth opportunities.
                 </p>
               </div>
             </div>
@@ -516,7 +516,7 @@ export default function CategoryNewsView() {
               >
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Edition"
+                  alt="Business Walkins Print Edition"
                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 text-white">

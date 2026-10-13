@@ -480,7 +480,7 @@ export default function CategoryHealthcareView() {
               >
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Edition"
+                  alt="Business Walkins Print Edition"
                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 text-white">

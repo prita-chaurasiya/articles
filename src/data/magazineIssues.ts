@@ -8,7 +8,7 @@ const generatePagesForIssue = (issue: Partial<MagazineIssue>): MagazinePage[] =>
     section: 'Front Cover',
     headline: issue.title || 'Executive Edition',
     image: issue.coverImage || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1000&auto=format&fit=crop&q=80',
-    bodySnippet: `The Enterprise Chronicle • Vol. 12 • ${issue.monthYear} Edition. Certified Global Business Community Publication.`
+    bodySnippet: `Business Walkins • Vol. 12 • ${issue.monthYear} Edition. Certified Global Business Community Publication.`
   },
   {
     pageNumber: 2,
@@ -63,8 +63,8 @@ const generatePagesForIssue = (issue: Partial<MagazineIssue>): MagazinePage[] =>
     title: 'Back Cover & Archive Subscription',
     section: 'Back Cover',
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000&auto=format&fit=crop&q=80',
-    headline: 'The Enterprise Chronicle Global Edition',
-    bodySnippet: 'Inspiring Global Business Leadership across 85 countries. Print & Digital Subscription Available Worldwide.'
+    headline: 'Business Walkins Global Edition',
+    bodySnippet: 'Ideas • People • Progress. Global Business Magazine across 85 countries. Print & Digital Subscription Available Worldwide.'
   }
 ];
 
@@ -631,14 +631,14 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
   {
     id: 'issue-2018-10',
     issueNumber: 'ISSUE #01',
-    title: 'The Inaugural Chronicle: Inspiring Global Business Leadership',
+    title: 'The Inaugural Edition: Business Walkins Global Leadership',
     specialEditionTitle: 'Inaugural Special Edition 2018',
     monthYear: 'October 2018',
     coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
-    brandName: 'CHRONICLE FOUNDATION',
+    brandName: 'BUSINESS WALKINS',
     executiveName: 'Founding Editorial Board',
-    executiveRole: 'The Enterprise Chronicle',
-    description: 'The premier edition of The Enterprise Chronicle, inaugurating worldwide coverage of business leadership, technology, and market triumphs.',
+    executiveRole: 'Business Walkins',
+    description: 'The premier edition of Business Walkins, inaugurating worldwide coverage of business leadership, technology, and market triumphs.',
     pagesCount: 64,
     pdfUrl: '#download-pdf',
     featuredArticles: ['The Era of Big Data', 'SaaS Business Models', 'Global Trade Architecture'],

@@ -192,7 +192,7 @@ export default function CategoryBlogView() {
             {/* Exact E-Magazine Overview matching user's screenshot */}
             <div className="text-slate-700 text-xs sm:text-[13px] leading-relaxed mb-8 font-normal space-y-3">
               <p>
-                <strong>The Enterprise Chronicle</strong> is a premier business publication that provides a wide range of analytical blogs catering to various aspects of modern corporate leadership. These dispatches cover topics such as entrepreneurship, corporate finance, enterprise technology, marketing innovation, and industry-specific insights. Here are some popular themes you might find:
+                <strong>Business Walkins</strong> is a premier business publication that provides a wide range of analytical blogs catering to various aspects of modern corporate leadership. These dispatches cover topics such as entrepreneurship, corporate finance, enterprise technology, marketing innovation, and industry-specific insights. Here are some popular themes you might find:
               </p>
 
               <div>
@@ -251,7 +251,7 @@ export default function CategoryBlogView() {
               </div>
 
               <p className="text-slate-600 text-xs sm:text-[12.5px] leading-relaxed pt-2">
-                To access these editorial dispatches and case studies, explore The Enterprise Chronicle’s digital archive below. These reports deliver actionable intelligence and strategic clarity to help founders and corporate leaders navigate today&apos;s dynamic global markets.
+                To access these editorial dispatches and case studies, explore Business Walkins’s digital archive below. These reports deliver actionable intelligence and strategic clarity to help founders and corporate leaders navigate today&apos;s dynamic global markets.
               </p>
             </div>
 
@@ -549,7 +549,7 @@ export default function CategoryBlogView() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 group">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Issue"
+                  alt="Business Walkins Print Issue"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
@@ -617,7 +617,7 @@ export default function CategoryBlogView() {
 
             <div className="flex items-center justify-between pt-3 border-t border-slate-200">
               <span className="text-[11px] text-slate-500 font-medium">
-                The Enterprise Chronicle Blog Dispatch
+                Business Walkins Blog Dispatch
               </span>
               <Link
                 href={`/article/${briefModalArticle.slug}`}

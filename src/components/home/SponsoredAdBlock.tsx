@@ -77,7 +77,7 @@ export default function SponsoredAdBlock({ variant = 'banner' }: SponsoredAdBloc
                 <span className="text-[9px] text-blue-400 font-medium">• Reach 1.2M+ Decision Makers</span>
               </div>
               <h4 className="font-serif text-base sm:text-lg font-bold text-white">
-                Position Your Enterprise Across The Enterprise Chronicle Media Network
+                Position Your Enterprise Across Business Walkins Media Network
               </h4>
             </div>
           </div>

@@ -37,9 +37,16 @@ export default function DigitalMagazineSpotlight() {
                     {/* Cover Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent flex flex-col justify-between p-6">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif font-black text-xl tracking-tight text-white uppercase drop-shadow">
-                          CHRONICLE
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <img
+                            src="/images/business-walkins-logo.jpg"
+                            alt="Business Walkins"
+                            className="w-7 h-7 rounded-full object-contain bg-white p-0.5 shadow-sm"
+                          />
+                          <span className="font-serif font-black text-base sm:text-lg tracking-tight text-white uppercase drop-shadow">
+                            Business Walkins
+                          </span>
+                        </div>
                         <span className="text-[10px] uppercase font-bold tracking-widest text-amber-300 bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm border border-amber-400/40">
                           {activeIssue.issueNumber}
                         </span>

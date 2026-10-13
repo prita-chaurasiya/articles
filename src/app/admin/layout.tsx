@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { AdminAuthProvider } from './AdminAuthContext';
 
 export const metadata: Metadata = {
-  title: 'Admin Studio & CMS | The Enterprise Chronicle',
-  description: 'Enterprise editorial management system with role-based access control.',
+  title: 'Admin Studio & CMS | Business Walkins',
+  description: 'Business Walkins editorial management system with role-based access control.',
   robots: {
     index: false,
     follow: false,

@@ -31,7 +31,7 @@ export const CATEGORIES: CategoryInfo[] = [
     slug: 'blog',
     description: 'Thought leadership essays, founder chronicles, corporate viewpoints, and executive wisdom.',
     color: '#7C3AED',
-    featuredHeadline: 'Chronicle Blog: Strategic Commentary & Perspectives'
+    featuredHeadline: 'Business Walkins Blog: Strategic Commentary & Perspectives'
   },
   {
     id: 'press-release',

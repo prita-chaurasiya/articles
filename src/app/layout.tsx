@@ -60,11 +60,11 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
+    title: "Business Walkins | World Business Magazine & Executive Media",
     description:
-      "Global business journalism, executive interviews, annual awards, and enterprise intelligence for modern leaders.",
-    url: "https://enterprisechronicle.com",
-    siteName: "The Enterprise Chronicle",
+      "Business Walkins Emagzine — Ideas • People • Progress. Global business journalism, executive interviews, annual awards, and enterprise intelligence.",
+    url: "https://businesswalkins.com",
+    siteName: "Business Walkins",
     locale: "en_US",
     type: "website",
     images: [
@@ -72,15 +72,15 @@ export const metadata: Metadata = {
         url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&auto=format&fit=crop&q=80",
         width: 1200,
         height: 630,
-        alt: "The Enterprise Chronicle Magazine",
+        alt: "Business Walkins Magazine",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
+    title: "Business Walkins | World Business Magazine & Executive Media",
     description:
-      "Global business journalism, executive interviews, annual awards, and enterprise intelligence.",
+      "Business Walkins Emagzine — Ideas • People • Progress. Global business journalism, executive interviews, annual awards, and enterprise intelligence.",
     images: ["https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&auto=format&fit=crop&q=80"],
   },
 };

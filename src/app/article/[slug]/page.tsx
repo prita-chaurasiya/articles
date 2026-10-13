@@ -408,7 +408,7 @@ function ArticleContent() {
                 href="#"
                 className="text-base sm:text-[17px] font-black text-[#DC2626] hover:underline"
               >
-                Add The Enterprise Chronicle magazine to your Google News feed
+                Add Business Walkins magazine to your Google News feed
               </a>
             </div>
 
@@ -458,7 +458,7 @@ function ArticleContent() {
                 </div>
               </div>
               <p className="text-xs sm:text-[12.5px] text-slate-600 leading-relaxed font-normal">
-                {article.author?.bio || 'Admin is a Senior Digital Marketing & Editorial Executive at The Enterprise Chronicle. With expertise in digital research and industry insights, leads strategic brand analysis and thought leadership coverage across emerging business corridors.'}
+                {article.author?.bio || 'Admin is a Senior Digital Marketing & Editorial Executive at Business Walkins. With expertise in digital research and industry insights, leads strategic brand analysis and thought leadership coverage across emerging business corridors.'}
               </p>
             </div>
 
@@ -655,7 +655,7 @@ function ArticleContent() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 shadow-md mb-3">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Executive Issue"
+                  alt="Business Walkins Executive Issue"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -191,7 +191,7 @@ export const DUMMY_SIDEBAR_DATA = {
   ],
   magazineCover: {
     image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
-    title: 'The Enterprise Chronicle Executive Print Issue',
+    title: 'Business Walkins Executive Print Issue',
   },
 };
 

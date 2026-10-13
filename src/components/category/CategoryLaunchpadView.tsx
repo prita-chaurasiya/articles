@@ -168,7 +168,7 @@ export default function CategoryLaunchpadView() {
             </h1>
           </div>
           <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed max-w-3xl font-normal">
-            Launchpad – <strong>The Enterprise Chronicle</strong> is a leading business magazine that focuses on connecting enterprises and emerging innovators with each other to foster growth and success. The magazine provides insights into high-growth product debuts, deeptech hardware, commercial mobility rollouts, consumer electronics, and seed-stage venture launches.
+            Launchpad – <strong>Business Walkins</strong> is a leading business magazine that focuses on connecting enterprises and emerging innovators with each other to foster growth and success. The magazine provides insights into high-growth product debuts, deeptech hardware, commercial mobility rollouts, consumer electronics, and seed-stage venture launches.
           </p>
         </div>
 
@@ -473,7 +473,7 @@ export default function CategoryLaunchpadView() {
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-900 border border-slate-200 shadow-md mb-3">
                 <img
                   src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
-                  alt="The Enterprise Chronicle Print Issue"
+                  alt="Business Walkins Print Issue"
                   className="w-full h-full object-cover"
                 />
               </div>

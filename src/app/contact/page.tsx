@@ -11,11 +11,11 @@ const BUREAUS = [
     email: 'enquiry@businesswalkins.com',
     phone: '+91 92504 30016 / +91 70076 67808'
   },
-  { city: 'New York (Americas Bureau)', address: '1270 Avenue of the Americas, Suite 2400, New York, NY 10020', email: 'americas@enterprisechronicle.com' },
-  { city: 'London (European Bureau)', address: '1 Canada Square, Canary Wharf, London E14 5AA, United Kingdom', email: 'europe@enterprisechronicle.com' },
-  { city: 'Singapore (Asia-Pacific HQ)', address: '10 Collyer Quay, Ocean Financial Centre, Singapore 049315', email: 'apac@enterprisechronicle.com' },
-  { city: 'Mumbai (South Asia Bureau)', address: 'Bandra-Kurla Complex, Platinum Tower, Mumbai 400051, India', email: 'india@enterprisechronicle.com' },
-  { city: 'Frankfurt (Industrial Bureau)', address: 'Taunusanlage 8, 60329 Frankfurt am Main, Germany', email: 'germany@enterprisechronicle.com' },
+  { city: 'New York (Americas Bureau)', address: '1270 Avenue of the Americas, Suite 2400, New York, NY 10020', email: 'americas@businesswalkins.com' },
+  { city: 'London (European Bureau)', address: '1 Canada Square, Canary Wharf, London E14 5AA, United Kingdom', email: 'europe@businesswalkins.com' },
+  { city: 'Singapore (Asia-Pacific HQ)', address: '10 Collyer Quay, Ocean Financial Centre, Singapore 049315', email: 'apac@businesswalkins.com' },
+  { city: 'Mumbai (South Asia Bureau)', address: 'Bandra-Kurla Complex, Platinum Tower, Mumbai 400051, India', email: 'india@businesswalkins.com' },
+  { city: 'Frankfurt (Industrial Bureau)', address: 'Taunusanlage 8, 60329 Frankfurt am Main, Germany', email: 'germany@businesswalkins.com' },
 ];
 
 export default function ContactPage() {

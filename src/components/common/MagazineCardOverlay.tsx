@@ -22,7 +22,7 @@ export default function MagazineCardOverlay({
 }: MagazineCardOverlayProps) {
   return (
     <>
-      {/* Top Header Bar Overlay: EC Enterprise Chronicle (Left) + Badge (Center) + Category (Right) */}
+      {/* Top Header Bar Overlay: Business Walkins (Left) + Badge (Center) + Category (Right) */}
       <div className="absolute top-0 inset-x-0 bg-white/95 backdrop-blur-xs px-2 sm:px-2.5 py-1 sm:py-1.5 flex items-center justify-between border-b border-slate-200/90 z-20 shadow-2xs">
         {/* Left: BW Business Walkins Logo */}
         <div className="flex items-center gap-1.5 select-none shrink-0">

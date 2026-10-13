@@ -353,7 +353,7 @@ export default function AdminPage() {
           name: authorName,
           role: authorRole,
           avatar: authorAvatar,
-          bio: 'Journalist and contributing analyst at The Enterprise Chronicle.',
+          bio: 'Journalist and contributing analyst at Business Walkins.',
         },
         publishedAt: new Date().toISOString(),
         readTime,
@@ -1290,7 +1290,7 @@ export default function AdminPage() {
                   <label className="font-bold text-slate-700 block mb-1">Global Publication Title</label>
                   <input
                     type="text"
-                    defaultValue="The Enterprise Chronicle | World Business Magazine & Executive Media"
+                    defaultValue="Business Walkins | Ideas • People • Progress | World Business Magazine"
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl"
                   />
                 </div>
@@ -1298,7 +1298,7 @@ export default function AdminPage() {
                   <label className="font-bold text-slate-700 block mb-1">Meta Description</label>
                   <textarea
                     rows={3}
-                    defaultValue="The definitive international business magazine, executive intelligence platform, and corporate media authority covering technology, AI, finance, leadership, startups, and success stories."
+                    defaultValue="Business Walkins Emagzine is the premier international business magazine and executive intelligence platform covering technology, AI, finance, leadership, startups, and success stories."
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl"
                   />
                 </div>
@@ -1306,7 +1306,7 @@ export default function AdminPage() {
                   <label className="font-bold text-slate-700 block mb-1">Canonical Root Domain</label>
                   <input
                     type="text"
-                    defaultValue="https://enterprisechronicle.com"
+                    defaultValue="https://businesswalkins.com"
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl"
                   />
                 </div>
@@ -1317,12 +1317,12 @@ export default function AdminPage() {
                   Search Engine Preview
                 </span>
                 <div className="p-4 bg-white rounded-lg border border-slate-200 shadow-sm space-y-1">
-                  <span className="text-xs text-emerald-700 block">https://enterprisechronicle.com</span>
+                  <span className="text-xs text-emerald-700 block">https://businesswalkins.com</span>
                   <h4 className="text-sm font-bold text-blue-700 hover:underline">
-                    The Enterprise Chronicle | World Business Magazine & Executive Media
+                    Business Walkins | Ideas • People • Progress | World Business Magazine
                   </h4>
                   <p className="text-xs text-slate-600">
-                    The definitive international business magazine, executive intelligence platform, and corporate media authority covering technology, AI, finance, leadership...
+                    Business Walkins Emagzine is the premier international business magazine and executive intelligence platform covering technology, AI, finance, leadership...
                   </p>
                 </div>
                 <div className="pt-2 text-[11px] text-slate-500 space-y-1">
@@ -1595,7 +1595,7 @@ export default function AdminPage() {
                       <input
                         type="email"
                         required
-                        placeholder="m.vance@enterprisechronicle.com"
+                        placeholder="m.vance@businesswalkins.com"
                         value={newStaffEmail}
                         onChange={(e) => setNewStaffEmail(e.target.value)}
                         className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
