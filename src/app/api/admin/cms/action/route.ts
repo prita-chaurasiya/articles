@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySessionToken, ADMIN_COOKIE_NAME } from '@/lib/auth-token';
 import { hasPermission } from '@/lib/server/auth-service';
+import { saveSupabaseArticle, deleteSupabaseArticle } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   const token =
@@ -37,6 +38,11 @@ export async function POST(request: NextRequest) {
             { status: 403 }
           );
         }
+
+        if (data) {
+          await saveSupabaseArticle(data);
+        }
+
         return NextResponse.json({
           success: true,
           message: 'Article published live by authorized editorial personnel.',
@@ -51,6 +57,11 @@ export async function POST(request: NextRequest) {
             { status: 403 }
           );
         }
+
+        if (articleId) {
+          await deleteSupabaseArticle(articleId);
+        }
+
         return NextResponse.json({
           success: true,
           message: `Article ${articleId || ''} deleted by ${user.role}.`,

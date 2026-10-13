@@ -86,6 +86,7 @@ export const metadata: Metadata = {
 };
 
 import { Suspense } from "react";
+import SupabaseSync from "@/components/common/SupabaseSync";
 
 export default function RootLayout({
   children,
@@ -95,6 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable} scroll-smooth`}>
       <body className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#F8FAFC] text-[#111827] font-sans antialiased selection:bg-blue-600 selection:text-white">
+        <SupabaseSync />
         <Suspense fallback={null}>
           <Navbar />
           <BreadcrumbBar />

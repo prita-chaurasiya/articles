@@ -3,6 +3,13 @@ import { persist } from 'zustand/middleware';
 import { Article, ArticleComment } from '@/types';
 import { INITIAL_ARTICLES } from '@/data/mockArticles';
 import { ALL_BESPOKE_ARTICLES } from '@/data/bespokeArticlesData';
+import {
+  fetchSupabaseArticles,
+  saveSupabaseArticle,
+  updateSupabaseArticle,
+  deleteSupabaseArticle,
+  isSupabaseConfigured,
+} from '@/lib/supabase';
 
 const COMBINED_STORE_ARTICLES: Article[] = [
   ...INITIAL_ARTICLES,
@@ -26,6 +33,9 @@ interface ArticleState {
   setIsSearchModalOpen: (open: boolean) => void;
   setIsMegaMenuOpen: (open: boolean) => void;
   setSelectedMagazineIssueId: (id: string | null) => void;
+
+  // Supabase Sync
+  syncWithSupabase: () => Promise<void>;
 
   // Article CMS Actions
   addArticle: (newArticle: Omit<Article, 'id' | 'views' | 'comments' | 'sharesCount'> & Partial<Pick<Article, 'id' | 'views' | 'comments' | 'sharesCount'>>) => Article;
@@ -57,6 +67,29 @@ export const useArticleStore = create<ArticleState>()(
       setIsMegaMenuOpen: (open) => set({ isMegaMenuOpen: open }),
       setSelectedMagazineIssueId: (id) => set({ selectedMagazineIssueId: id }),
 
+      syncWithSupabase: async () => {
+        if (!isSupabaseConfigured()) return;
+        try {
+          const remoteArticles = await fetchSupabaseArticles();
+          if (remoteArticles && remoteArticles.length > 0) {
+            set((state) => {
+              const remoteIds = new Set(remoteArticles.map((a) => a.id));
+              const remoteSlugs = new Set(remoteArticles.map((a) => a.slug));
+
+              const remainingBase = COMBINED_STORE_ARTICLES.filter(
+                (a) => !remoteIds.has(a.id) && !remoteSlugs.has(a.slug)
+              );
+
+              return {
+                articles: [...remoteArticles, ...remainingBase],
+              };
+            });
+          }
+        } catch (err) {
+          console.warn('Sync with Supabase failed:', err);
+        }
+      },
+
       addArticle: (newArticleData) => {
         const id = newArticleData.id || `art-${Date.now()}`;
         const newArticle: Article = {
@@ -70,8 +103,13 @@ export const useArticleStore = create<ArticleState>()(
         };
 
         set((state) => ({
-          articles: [newArticle, ...state.articles],
+          articles: [newArticle, ...state.articles.filter((a) => a.id !== id)],
         }));
+
+        // Persist to Supabase in the background
+        saveSupabaseArticle(newArticle).catch((err) => {
+          console.warn('Failed to persist article to Supabase:', err);
+        });
 
         return newArticle;
       },
@@ -82,36 +120,62 @@ export const useArticleStore = create<ArticleState>()(
             art.id === id ? { ...art, ...updatedFields } : art
           ),
         }));
+
+        updateSupabaseArticle(id, updatedFields).catch((err) => {
+          console.warn('Failed to update article in Supabase:', err);
+        });
       },
 
       deleteArticle: (id) => {
         set((state) => ({
           articles: state.articles.filter((art) => art.id !== id),
         }));
+
+        deleteSupabaseArticle(id).catch((err) => {
+          console.warn('Failed to delete article in Supabase:', err);
+        });
       },
 
       toggleFeatured: (id) => {
-        set((state) => ({
-          articles: state.articles.map((art) =>
-            art.id === id ? { ...art, isFeatured: !art.isFeatured } : art
-          ),
-        }));
+        set((state) => {
+          const current = state.articles.find((a) => a.id === id);
+          if (current) {
+            updateSupabaseArticle(id, { isFeatured: !current.isFeatured }).catch(console.warn);
+          }
+          return {
+            articles: state.articles.map((art) =>
+              art.id === id ? { ...art, isFeatured: !art.isFeatured } : art
+            ),
+          };
+        });
       },
 
       toggleTrending: (id) => {
-        set((state) => ({
-          articles: state.articles.map((art) =>
-            art.id === id ? { ...art, isTrending: !art.isTrending } : art
-          ),
-        }));
+        set((state) => {
+          const current = state.articles.find((a) => a.id === id);
+          if (current) {
+            updateSupabaseArticle(id, { isTrending: !current.isTrending }).catch(console.warn);
+          }
+          return {
+            articles: state.articles.map((art) =>
+              art.id === id ? { ...art, isTrending: !art.isTrending } : art
+            ),
+          };
+        });
       },
 
       toggleEditorPick: (id) => {
-        set((state) => ({
-          articles: state.articles.map((art) =>
-            art.id === id ? { ...art, isEditorPick: !art.isEditorPick } : art
-          ),
-        }));
+        set((state) => {
+          const current = state.articles.find((a) => a.id === id);
+          if (current) {
+            updateSupabaseArticle(id, { isEditorPick: !current.isEditorPick }).catch(console.warn);
+          }
+          return {
+            articles: state.articles.map((art) =>
+              art.id === id ? { ...art, isEditorPick: !art.isEditorPick } : art
+            ),
+          };
+        });
       },
 
       incrementViews: (slug) => {
@@ -132,13 +196,20 @@ export const useArticleStore = create<ArticleState>()(
           likes: 0,
         };
 
-        set((state) => ({
-          articles: state.articles.map((art) =>
-            art.slug === slug
-              ? { ...art, comments: [newComment, ...art.comments] }
-              : art
-          ),
-        }));
+        set((state) => {
+          const target = state.articles.find((a) => a.slug === slug);
+          if (target) {
+            const updatedComments = [newComment, ...target.comments];
+            updateSupabaseArticle(target.id, { comments: updatedComments }).catch(console.warn);
+          }
+          return {
+            articles: state.articles.map((art) =>
+              art.slug === slug
+                ? { ...art, comments: [newComment, ...art.comments] }
+                : art
+            ),
+          };
+        });
       },
 
       toggleBookmark: (slug) => {
@@ -157,8 +228,12 @@ export const useArticleStore = create<ArticleState>()(
       },
     }),
     {
-      name: 'vanguard_chronicle_articles_store_v3',
-      // We skip hydration errors by handling mounted client checks where appropriate
+      name: 'business_walkins_articles_store_v1',
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.syncWithSupabase();
+        }
+      },
     }
   )
 );
