@@ -20,31 +20,13 @@ const USERS_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'admin-users.jso
 // Initialize default fallback users with bcrypt hashes
 const DEFAULT_USERS: AdminUserRecord[] = [
   {
-    id: 'usr-admin-01',
-    email: 'admin@enterprisechronicle.com',
-    name: 'Julian Vance-Stowe (Admin)',
+    id: 'usr-admin-priya',
+    email: 'hindjai286@gmail.com',
+    name: 'Priya (Administrator)',
     role: 'admin',
-    passwordHash: bcrypt.hashSync('Admin@2026!Sec', SALT_ROUNDS),
+    passwordHash: '$2b$10$IRNeA6gC0BAVNWoTmszLseO4nVvShcVKz5lzu3AkVLyaimVjC2pz6',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
     createdAt: '2026-01-01T00:00:00.000Z',
-  },
-  {
-    id: 'usr-editor-02',
-    email: 'editor@enterprisechronicle.com',
-    name: 'Elena Rostova (Senior Editor)',
-    role: 'editor',
-    passwordHash: bcrypt.hashSync('Editor@2026!Sec', SALT_ROUNDS),
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80',
-    createdAt: '2026-01-05T00:00:00.000Z',
-  },
-  {
-    id: 'usr-author-03',
-    email: 'author@enterprisechronicle.com',
-    name: 'Harrison Sterling (Contributing Author)',
-    role: 'author',
-    passwordHash: bcrypt.hashSync('Author@2026!Sec', SALT_ROUNDS),
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
-    createdAt: '2026-02-01T00:00:00.000Z',
   },
 ];
 
@@ -225,7 +207,7 @@ export function deleteUser(id: string): boolean {
   const users = loadUsersFromDisk();
   const initialLen = users.length;
   // Prevent deleting the primary admin
-  const filtered = users.filter((u) => u.id !== id || u.email === 'admin@enterprisechronicle.com');
+  const filtered = users.filter((u) => u.id !== id || u.email.toLowerCase() === 'hindjai286@gmail.com');
   const wasDeleted = filtered.length < initialLen;
   if (wasDeleted) {
     saveUsersToDisk(filtered);

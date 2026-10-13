@@ -1,32 +1,12 @@
 [
   {
-    "id": "usr-admin-01",
-    "email": "admin@enterprisechronicle.com",
-    "name": "Julian Vance-Stowe (Admin)",
+    "id": "usr-admin-priya",
+    "email": "hindjai286@gmail.com",
+    "name": "Priya (Administrator)",
     "role": "admin",
-    "passwordHash": "$2b$10$MyzKmkIOApAqgDzYmyRNjeKiNeRMNHFgVCq432fL3qI.45SHJVK0i",
+    "passwordHash": "$2b$10$IRNeA6gC0BAVNWoTmszLseO4nVvShcVKz5lzu3AkVLyaimVjC2pz6",
     "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
     "createdAt": "2026-01-01T00:00:00.000Z",
-    "lastLogin": "2026-10-13T14:17:17.626Z"
-  },
-  {
-    "id": "usr-editor-02",
-    "email": "editor@enterprisechronicle.com",
-    "name": "Elena Rostova (Senior Editor)",
-    "role": "editor",
-    "passwordHash": "$2b$10$/s.4nsqLHNjXLs74mjCnVOojQQ5Zb5DhIJzb.MC464Iel8HwDGTt2",
-    "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80",
-    "createdAt": "2026-01-05T00:00:00.000Z",
-    "lastLogin": "2026-10-13T14:12:43.491Z"
-  },
-  {
-    "id": "usr-author-03",
-    "email": "author@enterprisechronicle.com",
-    "name": "Harrison Sterling (Contributing Author)",
-    "role": "author",
-    "passwordHash": "$2b$10$fUwtyRezwIVnShl7pasJJeC9DCNNm.nCA5mq2dryYF5C9aPpo8Wf6",
-    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80",
-    "createdAt": "2026-02-01T00:00:00.000Z",
-    "lastLogin": "2026-10-13T14:12:43.727Z"
+    "lastLogin": "2026-10-13T14:30:08.453Z"
   }
 ]

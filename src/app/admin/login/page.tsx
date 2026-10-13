@@ -57,12 +57,6 @@ function LoginForm() {
     }
   };
 
-  const fillCredentials = (roleEmail: string, rolePass: string) => {
-    setEmail(roleEmail);
-    setPassword(rolePass);
-    setError(null);
-  };
-
   return (
     <div className="min-h-screen bg-[#0F172A] text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background radial glow */}
@@ -174,85 +168,6 @@ function LoginForm() {
               )}
             </button>
           </form>
-
-          {/* Quick Demo Credentials Panel for testing */}
-          <div className="mt-6 pt-5 border-t border-slate-800">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
-              ✦ Quick One-Click Demo Credentials:
-            </span>
-            <div className="space-y-2">
-              
-              {/* Admin Button */}
-              <button
-                type="button"
-                onClick={() => fillCredentials('admin@enterprisechronicle.com', 'Admin@2026!Sec')}
-                className="w-full text-left p-2.5 rounded-lg bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800 hover:border-blue-500/50 transition-all flex items-center justify-between group cursor-pointer"
-              >
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-blue-500" />
-                    <span className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">
-                      Administrator Role
-                    </span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 font-semibold">
-                      Full Access
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    admin@enterprisechronicle.com
-                  </div>
-                </div>
-                <span className="text-[11px] text-slate-500 group-hover:text-blue-400 font-medium">Use →</span>
-              </button>
-
-              {/* Editor Button */}
-              <button
-                type="button"
-                onClick={() => fillCredentials('editor@enterprisechronicle.com', 'Editor@2026!Sec')}
-                className="w-full text-left p-2.5 rounded-lg bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800 hover:border-amber-500/50 transition-all flex items-center justify-between group cursor-pointer"
-              >
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" />
-                    <span className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">
-                      Senior Editor Role
-                    </span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-semibold">
-                      Publish &amp; CMS
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    editor@enterprisechronicle.com
-                  </div>
-                </div>
-                <span className="text-[11px] text-slate-500 group-hover:text-amber-400 font-medium">Use →</span>
-              </button>
-
-              {/* Author Button */}
-              <button
-                type="button"
-                onClick={() => fillCredentials('author@enterprisechronicle.com', 'Author@2026!Sec')}
-                className="w-full text-left p-2.5 rounded-lg bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/50 transition-all flex items-center justify-between group cursor-pointer"
-              >
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-500" />
-                    <span className="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">
-                      Author Role
-                    </span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-semibold">
-                      Drafts Only
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    author@enterprisechronicle.com
-                  </div>
-                </div>
-                <span className="text-[11px] text-slate-500 group-hover:text-purple-400 font-medium">Use →</span>
-              </button>
-
-            </div>
-          </div>
 
           {/* Security Protocols Footnote */}
           <div className="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">

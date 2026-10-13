@@ -1499,9 +1499,7 @@ export default function AdminPage() {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {(staffUsers.length > 0 ? staffUsers : [
-                      { id: '1', name: 'Julian Vance-Stowe (Admin)', email: 'admin@enterprisechronicle.com', role: 'admin', createdAt: '2026-01-01' },
-                      { id: '2', name: 'Elena Rostova (Senior Editor)', email: 'editor@enterprisechronicle.com', role: 'editor', createdAt: '2026-01-05' },
-                      { id: '3', name: 'Harrison Sterling (Contributing Author)', email: 'author@enterprisechronicle.com', role: 'author', createdAt: '2026-02-01' },
+                      { id: '1', name: 'Priya (Administrator)', email: 'hindjai286@gmail.com', role: 'admin', createdAt: '2026-01-01' },
                     ]).map((u) => (
                       <tr key={u.id} className="hover:bg-slate-50/80 transition-colors">
                         <td className="py-3 px-4">
