@@ -125,19 +125,19 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
             
             {/* Left: Brand Logo & Subtitle */}
-            <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-              <div className="flex items-center gap-2">
-                <span className="font-serif text-2xl sm:text-3xl font-black text-[#DC2626] tracking-tighter">
-                  EC
+            <Link href="/" className="flex items-center gap-3 shrink-0 group">
+              <img
+                src="/images/business-walkins-logo.jpg"
+                alt="Business Walkins Logo"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shadow-sm border border-amber-300/60 shrink-0 group-hover:scale-105 transition-transform"
+              />
+              <div>
+                <span className="font-serif text-lg sm:text-xl font-black tracking-tight text-[#0F172A] leading-none block uppercase">
+                  Business <span className="text-[#C28B30]">Walkins</span>
                 </span>
-                <div>
-                  <span className="font-serif text-lg sm:text-xl font-black tracking-tight text-[#0F172A] leading-none block">
-                    The Enterprise Chronicle
-                  </span>
-                  <span className="text-[8.5px] uppercase tracking-[0.2em] text-slate-500 font-semibold block mt-0.5">
-                    INSPIRING GLOBAL BUSINESS LEADERSHIP
-                  </span>
-                </div>
+                <span className="text-[8.5px] uppercase tracking-[0.2em] text-[#C28B30] font-bold block mt-0.5">
+                  EMAGZINE • IDEAS | PEOPLE | PROGRESS
+                </span>
               </div>
             </Link>
 
@@ -176,7 +176,7 @@ export default function Footer() {
               About us
             </h3>
             <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-              The Enterprise Chronicle is an international executive business media platform covering visionary leaders, high-growth enterprises, and pivotal global economic trends.
+              Business Walkins Emagzine is an international executive business media platform covering visionary leaders, high-growth enterprises, and pivotal global economic trends.
             </p>
 
             {/* Social Media Circular Black Buttons */}
@@ -507,7 +507,7 @@ export default function Footer() {
       <div className="border-t border-slate-300/80 bg-[#E5E7EB] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 font-medium">
           <div className="text-center sm:text-left">
-            © 2026 All Rights Reserved by The Enterprise Chronicle Media Group
+            © 2026 All Rights Reserved by Business Walkins Media Group
           </div>
           <div className="flex items-center gap-3">
             <Link

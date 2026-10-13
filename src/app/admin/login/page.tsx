@@ -66,12 +66,14 @@ function LoginForm() {
         
         {/* Brand Header */}
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 group mb-4">
-            <span className="font-serif text-3xl font-black text-[#DC2626] tracking-tighter">
-              EC
-            </span>
-            <span className="font-serif text-xl font-black tracking-tight text-white group-hover:text-blue-400 transition-colors">
-              The Enterprise Chronicle
+          <Link href="/" className="inline-flex items-center gap-2.5 group mb-4">
+            <img
+              src="/images/business-walkins-logo.jpg"
+              alt="Business Walkins Logo"
+              className="w-10 h-10 rounded-full object-cover border border-amber-400/60 shadow"
+            />
+            <span className="font-serif text-xl font-black tracking-tight text-white group-hover:text-amber-400 transition-colors uppercase">
+              Business Walkins
             </span>
           </Link>
           

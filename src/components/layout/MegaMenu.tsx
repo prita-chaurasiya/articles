@@ -228,7 +228,7 @@ export default function MegaMenu() {
               </Link>
             </div>
             <p className="text-[11px] text-slate-400">
-              The Enterprise Chronicle • Verified Global Financial & Media Authority
+              Business Walkins Emagzine • Ideas • People • Progress
             </p>
           </div>
 

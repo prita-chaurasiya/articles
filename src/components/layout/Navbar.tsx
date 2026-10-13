@@ -197,38 +197,26 @@ export default function Navbar() {
 
             {/* Center: Brand Masthead Logo matching Reference Image */}
             <div className="text-center mx-auto lg:mx-0 min-w-0 max-w-[calc(100vw-110px)] sm:max-w-none">
-              <Link href="/" className="inline-flex items-center group max-w-full">
-                {/* Monogram EC with MAGAZINE text and vertical divider | */}
-                <div className="flex items-center shrink-0">
-                  <div className="relative flex items-center select-none">
-                    <span className="text-[#E11925] text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tighter leading-none">
-                      E
-                    </span>
-                    <div className="relative flex items-center justify-center">
-                      <span className="text-[#E11925] text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tighter leading-none">
-                        C
-                      </span>
-                      <span className="absolute text-[4px] sm:text-[5px] md:text-[6px] font-sans font-black uppercase text-slate-900 tracking-tighter -rotate-90 origin-center pointer-events-none">
-                        MAGAZINE
-                      </span>
-                    </div>
-                  </div>
-                  {/* Vertical gray line divider */}
-                  <div className="mx-1.5 sm:mx-2 md:mx-2.5 h-6 sm:h-7 md:h-8 w-[1.5px] bg-[#9CA3AF]/80 shrink-0" />
-                </div>
+              <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-3 group max-w-full">
+                {/* Official Circular 3D Emblem Logo */}
+                <img
+                  src="/images/business-walkins-logo.jpg"
+                  alt="Business Walkins Logo"
+                  className="w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full object-cover shadow-sm border border-amber-300/60 shrink-0 group-hover:scale-105 transition-transform"
+                />
 
-                {/* Brand Name: Enterprise (Red) + Chronicle (Dark Charcoal) + Right-aligned Subtitle */}
+                {/* Brand Name: Business Walkins + Subtitle */}
                 <div className="flex flex-col text-left min-w-0">
                   <div className="flex items-baseline leading-none whitespace-nowrap">
-                    <span className="font-sans font-bold text-lg sm:text-2xl md:text-[32px] text-[#E11925] tracking-tight">
-                      Enterprise
+                    <span className="font-serif font-black text-lg sm:text-2xl md:text-[30px] text-[#111827] tracking-tight uppercase">
+                      Business
                     </span>
-                    <span className="font-sans font-bold text-lg sm:text-2xl md:text-[32px] text-[#222222] tracking-tight ml-1 sm:ml-1.5 md:ml-2">
-                      Chronicle
+                    <span className="font-serif font-black text-lg sm:text-2xl md:text-[30px] text-[#C28B30] tracking-tight ml-1 sm:ml-1.5 md:ml-2 uppercase">
+                      Walkins
                     </span>
                   </div>
-                  <p className="text-[7px] sm:text-[9px] md:text-[10px] font-sans font-bold uppercase tracking-[0.14em] sm:tracking-[0.24em] text-slate-500 text-right mt-0.5 sm:mt-1 leading-none truncate">
-                    INSPIRING GLOBAL BUSINESS LEADERSHIP
+                  <p className="text-[7.5px] sm:text-[9px] md:text-[10px] font-sans font-extrabold uppercase tracking-[0.14em] sm:tracking-[0.22em] text-[#C28B30] mt-0.5 sm:mt-1 leading-none">
+                    EMAGZINE • IDEAS | PEOPLE | PROGRESS
                   </p>
                 </div>
               </Link>
@@ -397,16 +385,18 @@ export default function Navbar() {
               <div>
                 {/* Drawer Header: Title & Close Button */}
                 <div className="p-4 sm:p-5 flex items-center justify-between border-b border-neutral-900">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 bg-white text-black font-serif font-black rounded flex items-center justify-center text-xs">
-                      EC
-                    </div>
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src="/images/business-walkins-logo.jpg"
+                      alt="Business Walkins"
+                      className="w-8 h-8 rounded-full object-cover border border-amber-400/50"
+                    />
                     <div>
                       <span className="font-serif text-sm font-black tracking-tight text-white uppercase block leading-none">
-                        Chronicle
+                        Business Walkins
                       </span>
-                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold">
-                        Global Media
+                      <span className="text-[8px] uppercase tracking-widest text-[#C28B30] font-bold">
+                        Ideas • People • Progress
                       </span>
                     </div>
                   </div>

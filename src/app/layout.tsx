@@ -28,12 +28,13 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "The Enterprise Chronicle | World Business Magazine & Executive Media",
-    template: "%s | The Enterprise Chronicle",
+    default: "Business Walkins | Ideas • People • Progress | World Business Magazine",
+    template: "%s | Business Walkins",
   },
   description:
-    "The Enterprise Chronicle is the premier international business magazine and executive intelligence platform. Explore exclusive corporate insights, C-Suite lounge interviews, technology breakthroughs, AI disruption, and inspirational startup success stories.",
+    "Business Walkins Emagzine is the premier international business magazine and executive intelligence platform. Explore exclusive corporate insights, C-Suite lounge interviews, technology breakthroughs, AI disruption, and inspirational startup success stories.",
   keywords: [
+    "business walkins",
     "business magazine",
     "corporate media",
     "executive interviews",
@@ -46,9 +47,9 @@ export const metadata: Metadata = {
     "international magazines",
     "global leadership",
   ],
-  authors: [{ name: "Enterprise Chronicle Editorial Bureau", url: "https://enterprisechronicle.com" }],
-  creator: "The Enterprise Chronicle Media Group",
-  publisher: "The Enterprise Chronicle",
+  authors: [{ name: "Business Walkins Editorial Bureau", url: "https://businesswalkins.com" }],
+  creator: "Business Walkins Media Group",
+  publisher: "Business Walkins",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },

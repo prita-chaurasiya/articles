@@ -24,13 +24,15 @@ export default function MagazineCardOverlay({
     <>
       {/* Top Header Bar Overlay: EC Enterprise Chronicle (Left) + Badge (Center) + Category (Right) */}
       <div className="absolute top-0 inset-x-0 bg-white/95 backdrop-blur-xs px-2 sm:px-2.5 py-1 sm:py-1.5 flex items-center justify-between border-b border-slate-200/90 z-20 shadow-2xs">
-        {/* Left: EC Enterprise Chronicle Logo */}
-        <div className="flex items-center gap-1 select-none shrink-0">
-          <span className="text-[#E11925] font-serif font-black text-xs sm:text-[13px] leading-none">
-            EC
-          </span>
-          <span className="text-[9.5px] sm:text-[10.5px] font-bold text-[#111827] tracking-tight leading-none">
-            <span className="text-[#E11925]">Enterprise</span> Chronicle
+        {/* Left: BW Business Walkins Logo */}
+        <div className="flex items-center gap-1.5 select-none shrink-0">
+          <img
+            src="/images/business-walkins-logo.jpg"
+            alt="BW"
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full object-cover border border-amber-300 shrink-0"
+          />
+          <span className="text-[9px] sm:text-[10px] font-bold text-[#111827] tracking-tight leading-none uppercase">
+            Business <span className="text-[#C28B30]">Walkins</span>
           </span>
         </div>
 

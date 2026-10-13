@@ -467,9 +467,16 @@ export default function AdminPage() {
               </span>
               <span className="text-xs text-slate-500">• Production Digital Media Suite</span>
             </div>
-            <h1 className="font-serif text-3xl font-black text-slate-900 tracking-tight">
-              Enterprise Editorial Management Dashboard
-            </h1>
+            <div className="flex items-center gap-3">
+              <img
+                src="/images/business-walkins-logo.jpg"
+                alt="Business Walkins Logo"
+                className="w-9 h-9 rounded-full object-cover border border-amber-300 shadow-sm"
+              />
+              <h1 className="font-serif text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Business Walkins Editorial Dashboard
+              </h1>
+            </div>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
               Publish and orchestrate stories, media issues, dossiers, and taxonomies with instant cross-platform reactivity.
             </p>
