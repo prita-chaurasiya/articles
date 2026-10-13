@@ -27,16 +27,60 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
-  description: "The definitive international business magazine, executive intelligence platform, and corporate media authority covering technology, AI, finance, leadership, startups, and success stories.",
-  keywords: "business magazine, corporate media, executive interviews, fortune 500, enterprise technology, AI business, venture capital, success stories",
+  title: {
+    default: "The Enterprise Chronicle | World Business Magazine & Executive Media",
+    template: "%s | The Enterprise Chronicle",
+  },
+  description:
+    "The Enterprise Chronicle is the premier international business magazine and executive intelligence platform. Explore exclusive corporate insights, C-Suite lounge interviews, technology breakthroughs, AI disruption, and inspirational startup success stories.",
+  keywords: [
+    "business magazine",
+    "corporate media",
+    "executive interviews",
+    "fortune 500",
+    "enterprise technology",
+    "AI business",
+    "venture capital",
+    "startup success stories",
+    "lounge interview",
+    "international magazines",
+    "global leadership",
+  ],
+  authors: [{ name: "Enterprise Chronicle Editorial Bureau", url: "https://enterprisechronicle.com" }],
+  creator: "The Enterprise Chronicle Media Group",
+  publisher: "The Enterprise Chronicle",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
   openGraph: {
     title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
-    description: "Global business journalism, executive interviews, and enterprise intelligence.",
+    description:
+      "Global business journalism, executive interviews, annual awards, and enterprise intelligence for modern leaders.",
     url: "https://enterprisechronicle.com",
     siteName: "The Enterprise Chronicle",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&auto=format&fit=crop&q=80",
+        width: 1200,
+        height: 630,
+        alt: "The Enterprise Chronicle Magazine",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
+    description:
+      "Global business journalism, executive interviews, annual awards, and enterprise intelligence.",
+    images: ["https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&auto=format&fit=crop&q=80"],
   },
 };
 

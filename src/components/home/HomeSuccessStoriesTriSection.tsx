@@ -186,9 +186,11 @@ export default function HomeSuccessStoriesTriSection({ articles }: HomeSuccessSt
             <div className="border border-slate-200 p-3 sm:p-4 bg-white">
               {/* Solid Black Header Banner */}
               <div className="bg-black text-white text-center py-2 px-3 mb-3">
-                <h3 className="font-bold text-sm tracking-wide">
-                  Guest Post
-                </h3>
+                <Link href="/category/guest-posts" className="hover:text-red-400 transition-colors inline-block w-full">
+                  <h3 className="font-bold text-sm tracking-wide">
+                    Guest Post
+                  </h3>
+                </Link>
               </div>
 
               {/* 6 Text Links */}
@@ -221,9 +223,11 @@ export default function HomeSuccessStoriesTriSection({ articles }: HomeSuccessSt
             {/* WIDGET 2: BRAND IMPACT (Enclosed border box with top black line) */}
             <div className="border border-slate-200 p-3 sm:p-4 bg-white">
               <div className="border-t-2 border-black pt-2 mb-4">
-                <h3 className="font-black text-base text-slate-900 uppercase tracking-tight">
-                  BRAND IMPACT
-                </h3>
+                <Link href="/category/press-release" className="hover:text-[#DC2626] transition-colors inline-block">
+                  <h3 className="font-black text-base text-slate-900 uppercase tracking-tight">
+                    BRAND IMPACT
+                  </h3>
+                </Link>
               </div>
 
               {/* 5 Thumbnail Items (Thumbnail Left) */}
@@ -264,9 +268,11 @@ export default function HomeSuccessStoriesTriSection({ articles }: HomeSuccessSt
             
             {/* Section Header */}
             <div className="mb-6 pb-2">
-              <h2 className="text-2xl sm:text-[26px] font-black text-slate-900 tracking-tight leading-snug">
-                Best Business Magazine in India Success Stories
-              </h2>
+              <Link href="/category/success-stories" className="group inline-block">
+                <h2 className="text-2xl sm:text-[26px] font-black text-slate-900 group-hover:text-[#DC2626] transition-colors tracking-tight leading-snug">
+                  Best Business Magazine in India Success Stories
+                </h2>
+              </Link>
             </div>
 
             {/* 5 Stacked Horizontal Editorial Rows (Divider between rows) */}
@@ -332,9 +338,11 @@ export default function HomeSuccessStoriesTriSection({ articles }: HomeSuccessSt
             {/* WIDGET 1: PRESS RELEASE (Enclosed or bordered with top black bar) */}
             <div className="border border-slate-200 p-3 sm:p-4 bg-white">
               <div className="border-t-2 border-black pt-2 mb-4">
-                <h3 className="font-black text-base text-slate-900 uppercase tracking-tight">
-                  PRESS RELEASE
-                </h3>
+                <Link href="/category/press-release" className="hover:text-[#DC2626] transition-colors inline-block">
+                  <h3 className="font-black text-base text-slate-900 uppercase tracking-tight">
+                    PRESS RELEASE
+                  </h3>
+                </Link>
               </div>
 
               {/* 7 Items with Thumbnail on Right */}

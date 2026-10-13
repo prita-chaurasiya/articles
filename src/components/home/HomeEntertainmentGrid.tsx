@@ -87,9 +87,11 @@ export default function HomeEntertainmentGrid({ articles }: HomeEntertainmentGri
         {/* SECTION HEADER: ENTERTAINMENT (Clean, Bold, Uppercase)  */}
         {/* ======================================================= */}
         <div className="mb-7 pb-2 border-b border-slate-200">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-sans uppercase">
-            ENTERTAINMENT
-          </h2>
+          <Link href="/category/lifestyle" className="group inline-block">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 group-hover:text-[#DC2626] transition-colors tracking-tight font-sans uppercase">
+              ENTERTAINMENT
+            </h2>
+          </Link>
         </div>
 
         {/* ======================================================= */}

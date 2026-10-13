@@ -120,9 +120,12 @@ export default function HomeCategoryTriStrip({ articles }: HomeCategoryTriStripP
               
               {/* Header Badge (Solid Black Box) */}
               <div className="mb-4">
-                <span className="inline-block bg-black text-white text-xs font-bold uppercase px-3 py-1.5 tracking-wider">
+                <Link
+                  href={col.category.toLowerCase() === 'travels' ? '/category/travel' : `/category/${col.category.toLowerCase()}`}
+                  className="inline-block bg-black hover:bg-[#DC2626] text-white text-xs font-bold uppercase px-3 py-1.5 tracking-wider transition-colors"
+                >
                   {col.badge}
-                </span>
+                </Link>
               </div>
 
               {/* Lead Top Card */}

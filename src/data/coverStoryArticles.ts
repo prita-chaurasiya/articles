@@ -196,11 +196,6 @@ export const DUMMY_SIDEBAR_DATA = {
 };
 
 export function getCoverStoryOrSidebarArticle(slug: string): Article | null {
-  const bespoke = ALL_BESPOKE_ARTICLES.find((a) => a.slug === slug);
-  if (bespoke) {
-    return bespoke;
-  }
-
   const allDummy = [
     ...DUMMY_COVER_STORIES_P1,
     ...DUMMY_COVER_STORIES_P2,
@@ -371,9 +366,39 @@ export function getCoverStoryOrSidebarArticle(slug: string): Article | null {
     },
   ];
 
-  const found = allDummy.find((d) => d.slug === slug);
+  // Alias mapping to ensure any homepage card opens its rich bespoke article
+  const SLUG_ALIASES: Record<string, string> = {
+    'sp-law-chambers-litigation-firm-trust-solutions': 'sp-law-chambers-litigation-corporate-advocacy',
+    'sp-law-chambers-full-service-litigation-firm': 'sp-law-chambers-litigation-corporate-advocacy',
+    'sp-law-chambers-full-service-litigation-firm-trust-expertise': 'sp-law-chambers-litigation-corporate-advocacy',
+    'ratovate-redefining-digital-transformation': 'ratovate-technologies-enterprise-digital-transformation',
+    'technoshrine-intelligence-personified-bhubaneswar-it-firm': 'technoshrine-bhubaneswar-ai-software-solutions',
+    'technoshrine-intelligence-personified-it-firm-engineering-growth': 'technoshrine-bhubaneswar-ai-software-solutions',
+    'belstar-microfinance-limited-building-future': 'belstar-microfinance-financial-inclusion-impact',
+    'belstar-microfinance-limited-building-the-future': 'belstar-microfinance-financial-inclusion-impact',
+    'belstar-microfinance-limited-building-future-financial-inclusion': 'belstar-microfinance-financial-inclusion-impact',
+    'from-poverty-to-billionaire-inspiring-story-whatsapp-co-founder': 'from-poverty-to-a-billionaire-inspiring-story-of-whatsapp-co-founder',
+    'from-poverty-to-billionaire-inspiring-story-whatsapp': 'from-poverty-to-a-billionaire-inspiring-story-of-whatsapp-co-founder',
+    'meet-youngest-prime-minister-britain-rishi-sunak': 'meet-indian-origin-youngest-prime-minister-of-britain-rishi-sunak',
+    'meet-indian-origin-youngest-prime-minister-britain': 'meet-indian-origin-youngest-prime-minister-of-britain-rishi-sunak',
+    'untold-story-vineeta-singh-sugar-cosmetics': 'untold-story-of-vineeta-singh-rejected-one-crore-job-offer',
+    'untold-story-vineeta-singh-rejected-one-crore-offer': 'untold-story-of-vineeta-singh-rejected-one-crore-job-offer',
+    'life-lessons-muniba-mazari-iron-lady': 'life-lessons-from-muniba-mazari-story-embrace-gratitude-after-adversity',
+    'life-lessons-muniba-mazari-embrace-gratitude': 'life-lessons-from-muniba-mazari-story-embrace-gratitude-after-adversity',
+    'novatech-intelligence-personified-cloud-architecture': 'novatech-ai-solutions-scalable-cloud-infrastructure',
+  };
+
+  const targetSlug = SLUG_ALIASES[slug] || slug;
+
+  // 1. Check ALL_BESPOKE_ARTICLES first to return rich bespoke articles
+  const bespoke = ALL_BESPOKE_ARTICLES.find((b) => b.slug === targetSlug || b.slug === slug);
+  if (bespoke) {
+    return bespoke;
+  }
+
+  const found = allDummy.find((d) => d.slug === targetSlug || d.slug === slug);
   if (!found) {
-    const formattedTitle = slug
+    const formattedTitle = targetSlug
       .split('-')
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
       .join(' ');

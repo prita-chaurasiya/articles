@@ -182,14 +182,16 @@ export default function HomeLoungeInterviewSection({ articles }: HomeLoungeInter
             {/* Header: Title + Red Underline + [ View More ] Button */}
             <div className="flex items-center justify-between pb-4 mb-7 border-b border-slate-200">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-black text-[#DC2626] tracking-tight uppercase font-sans">
-                  LOUNGE INTERVIEW
-                </h2>
-                <div className="w-16 h-1 bg-[#DC2626] mt-1.5" />
+                <Link href="/category/lounge-interview" className="group inline-block">
+                  <h2 className="text-2xl sm:text-3xl font-black text-[#DC2626] tracking-tight uppercase font-sans">
+                    LOUNGE INTERVIEW
+                  </h2>
+                  <div className="w-16 h-1 bg-[#DC2626] mt-1.5" />
+                </Link>
               </div>
 
               <Link
-                href="/category/interviews"
+                href="/category/lounge-interview"
                 className="px-4 py-1.5 rounded-full border border-slate-300 hover:border-slate-400 text-xs font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
               >
                 View More
@@ -244,9 +246,11 @@ export default function HomeLoungeInterviewSection({ articles }: HomeLoungeInter
             <div className="border border-slate-200 bg-white">
               {/* Solid Black Header Banner */}
               <div className="bg-black text-white text-center py-2 px-3">
-                <h3 className="font-bold text-sm tracking-wide">
-                  Launchpad
-                </h3>
+                <Link href="/category/launchpad" className="hover:text-red-400 transition-colors inline-block w-full">
+                  <h3 className="font-bold text-sm tracking-wide">
+                    Launchpad
+                  </h3>
+                </Link>
               </div>
 
               {/* Featured Top Card with Red NEWS Badge */}
@@ -303,9 +307,11 @@ export default function HomeLoungeInterviewSection({ articles }: HomeLoungeInter
               {/* Header with Red Accent Vertical Bar */}
               <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200">
                 <span className="w-1.5 h-5 bg-[#DC2626] inline-block" />
-                <h3 className="font-black text-lg text-slate-900 tracking-tight font-sans">
-                  Latest Edition
-                </h3>
+                <Link href="/magazine" className="hover:text-[#DC2626] transition-colors">
+                  <h3 className="font-black text-lg text-slate-900 tracking-tight font-sans">
+                    Latest Edition
+                  </h3>
+                </Link>
               </div>
 
               {/* 4 Items (Thumbnail on Right) */}

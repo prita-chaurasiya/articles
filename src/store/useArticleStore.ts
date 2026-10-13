@@ -2,6 +2,14 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Article, ArticleComment } from '@/types';
 import { INITIAL_ARTICLES } from '@/data/mockArticles';
+import { ALL_BESPOKE_ARTICLES } from '@/data/bespokeArticlesData';
+
+const COMBINED_STORE_ARTICLES: Article[] = [
+  ...INITIAL_ARTICLES,
+  ...ALL_BESPOKE_ARTICLES.filter(
+    (b) => !INITIAL_ARTICLES.some((a) => a.slug === b.slug)
+  ),
+];
 
 interface ArticleState {
   articles: Article[];
@@ -35,7 +43,7 @@ interface ArticleState {
 export const useArticleStore = create<ArticleState>()(
   persist(
     (set, get) => ({
-      articles: INITIAL_ARTICLES,
+      articles: COMBINED_STORE_ARTICLES,
       bookmarkedSlugs: [],
       searchQuery: '',
       selectedCategoryFilter: 'all',

@@ -83,9 +83,11 @@ export default function HomeBlogGridSection({ articles }: HomeBlogGridSectionPro
         {/* SECTION HEADER: BLOG (Clean, Bold, Matches Screenshot 3)*/}
         {/* ======================================================= */}
         <div className="mb-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-sans uppercase">
-            BLOG
-          </h2>
+          <Link href="/category/blog" className="group inline-block">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 group-hover:text-[#DC2626] transition-colors tracking-tight font-sans uppercase">
+              BLOG
+            </h2>
+          </Link>
         </div>
 
         {/* ======================================================= */}

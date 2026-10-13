@@ -128,12 +128,14 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
             <div>
               {/* Header Title + Subtitle */}
               <div className="mb-3.5">
-                <h2 className="text-2xl sm:text-[27px] font-black tracking-tight text-slate-900 leading-none font-sans">
-                  Fresh Stories
-                </h2>
-                <p className="text-xs font-semibold text-slate-700 mt-1.5 leading-snug">
-                  Today: Browse our editor&apos;s hand picked articles!
-                </p>
+                <Link href="/news" className="group block">
+                  <h2 className="text-2xl sm:text-[27px] font-black tracking-tight text-slate-900 group-hover:text-[#E11925] transition-colors leading-none font-sans">
+                    Fresh Stories
+                  </h2>
+                  <p className="text-xs font-semibold text-slate-700 mt-1.5 leading-snug group-hover:text-slate-900 transition-colors">
+                    Today: Browse our editor&apos;s hand picked articles!
+                  </p>
+                </Link>
               </div>
 
               {/* Item 1: Magazine Card with EC Logo & LOUNGE Interview Header Strip */}
@@ -331,11 +333,13 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
           <div className="lg:col-span-2">
             {/* Bright Cyan / Aqua Header (3 Lines matching screenshot) */}
             <div className="text-center mb-4">
-              <h3 className="font-extrabold text-xl text-[#00BCD4] leading-tight tracking-tight uppercase">
-                Best Business<br />
-                Magazine In<br />
-                India
-              </h3>
+              <Link href="/magazine" className="group block">
+                <h3 className="font-extrabold text-xl text-[#00BCD4] group-hover:text-[#E11925] transition-colors leading-tight tracking-tight uppercase">
+                  Best Business<br />
+                  Magazine In<br />
+                  India
+                </h3>
+              </Link>
             </div>
 
             {/* 5 Stacked Articles with Red Category Badges */}

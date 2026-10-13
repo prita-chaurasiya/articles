@@ -45,9 +45,11 @@ export default function AwardsSection() {
                 Annual Corporate Honors • Class of 2026
               </span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight uppercase">
-              Global Enterprise Awards 2026
-            </h2>
+            <Link href="/awards" className="group inline-block">
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-white group-hover:text-[#DC2626] transition-colors tracking-tight uppercase">
+                Global Enterprise Awards 2026
+              </h2>
+            </Link>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
               Celebrating corporations and chief executives reshaping global industry, governance, and technology
             </p>

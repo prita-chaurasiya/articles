@@ -31,9 +31,11 @@ export default function PopularAndMostRead({ articles }: PopularAndMostReadProps
             <div className="flex items-center justify-between pb-3.5 mb-6 border-b-2 border-slate-900">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#DC2626]"></span>
-                <h3 className="font-serif text-xl sm:text-2xl font-black text-slate-900 tracking-tight uppercase">
-                  Popular Articles
-                </h3>
+                <Link href="/news" className="hover:text-[#DC2626] transition-colors">
+                  <h3 className="font-serif text-xl sm:text-2xl font-black text-slate-900 hover:text-[#DC2626] transition-colors tracking-tight uppercase">
+                    Popular Articles
+                  </h3>
+                </Link>
               </div>
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Audience Favorites

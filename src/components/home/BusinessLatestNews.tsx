@@ -96,9 +96,11 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
         {/* SECTION TITLE: Centered Bold Bright Cyan/Aqua Headline  */}
         {/* ======================================================= */}
         <div className="text-center mb-10 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#00BCD4] tracking-tight font-sans">
-            Business Magazine Latest News
-          </h2>
+          <Link href="/news" className="group inline-block">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#00BCD4] group-hover:text-white transition-colors tracking-tight font-sans">
+              Business Magazine Latest News
+            </h2>
+          </Link>
         </div>
 
         {/* ======================================================= */}
