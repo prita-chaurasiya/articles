@@ -2,69 +2,153 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Clock, Sparkles } from 'lucide-react';
 import { Article } from '@/types';
-import { LargeFeaturedCard, MediumHorizontalCard, SmallVerticalCard } from '@/components/common/ArticleCards';
+import MagazineCardOverlay from '@/components/common/MagazineCardOverlay';
 
 interface BusinessLatestNewsProps {
-  articles: Article[];
+  articles?: Article[];
 }
 
+export const LATEST_NEWS_GRID_DATA = [
+  // ROW 1 (4 Cards)
+  {
+    id: 'bln-1',
+    slug: 'kinetic-aero-ventures-hybrid-propulsion',
+    title: 'Kinetic Aero Ventures Opc Pvt. Ltd. : A visionary enterprise scaling ripples across aerospace...',
+    author: 'admin',
+    date: 'August 4, 2026',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'The field of aerospace mobility is diverse and competitive. Here, the role of hybrid propulsion architectures is transforming regional flight benchmarks...',
+  },
+  {
+    id: 'bln-2',
+    slug: 'from-research-labs-to-unicorns-deeptech-founders',
+    title: 'From Research to Founders: The Incredible Stories Behind DeepTech Unicorn Breakthroughs...',
+    author: 'admin',
+    date: 'August 4, 2026',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'From scientific laboratory discoveries to billion-dollar platforms, these visionary founders prove how perseverance translates into enterprise dominance...',
+  },
+  {
+    id: 'bln-3',
+    slug: 'ascent-autonomous-logistics-synapse-ai',
+    title: 'The Rise of the Autonomous Enterprise: How Synapse AI Is Redefining Decision Intelligence...',
+    author: 'admin',
+    date: 'July 29, 2026',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'Artificial intelligence has entered a new phase. The conversation has moved beyond automating repetitive tasks into full multi-agent orchestration...',
+  },
+  {
+    id: 'bln-4',
+    slug: 'terra-verde-infrastructure-green-smart-cities',
+    title: 'TERRA VERDE PROPERTIES AND INFRASTRUCTURE PRIVATE LIMITED',
+    author: 'admin',
+    date: 'July 21, 2026',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'Terra Verde Capitals: Building Next-Generation Sustainable Wealth Through Land Intelligence and Sovereign Infrastructure-Led Urban Corridors...',
+  },
+
+  // ROW 2 (4 Cards)
+  {
+    id: 'bln-5',
+    slug: 'oxford-global-leadership-academy-ethical-executives',
+    title: 'Global Leadership Academy Beyond the Classroom: Education’s Answer to an Uncertain Future',
+    author: 'admin',
+    date: 'July 18, 2026',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'As market disruptions multiply, modern boardroom leaders require intellectual resilience, crisis agility, and deep governance principles to guide organizations...',
+  },
+  {
+    id: 'bln-6',
+    slug: 'alliance-urban-architecture-sustainable-redevelopment',
+    title: 'Alliance City Urban Architects: Building More Than Commercial Structures',
+    author: 'admin',
+    date: 'July 12, 2026',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'Urban renewal projects across major financial capitals are moving away from monolithic high-rises toward human-centric biophilic spaces that harmonize life...',
+  },
+  {
+    id: 'bln-7',
+    slug: 'aura-illumination-technologies-heritage-lighting',
+    title: 'A Zero-Impact Approach to Heritage Illumination and Architectural Marvels',
+    author: 'admin',
+    date: 'July 5, 2026',
+    image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'Balancing historical preservation with ultra-efficient photonic projection, modern illumination brings timeless heritage sites to vibrant nocturnal life...',
+  },
+  {
+    id: 'bln-8',
+    slug: 'vanguard-petcare-networks-high-tech-ecosystem',
+    title: 'VANGUARD HEALTH: BUILDING A STRONGER, SMARTER GLOBAL CARE ECOSYSTEM',
+    author: 'admin',
+    date: 'June 28, 2026',
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80',
+    excerpt: 'Combining genetic profiling with automated diagnostic telemetry, forward-thinking health consortiums are modernizing specialized clinical networks worldwide...',
+  },
+];
+
 export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps) {
-  // Sort articles descending by publication date
-  const sortedArticles = [...articles].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-
-  const leadNews = sortedArticles[0];
-  const secondaryNews = sortedArticles.slice(1, 4);
-  const gridNews = sortedArticles.slice(4, 8);
-
-  if (!leadNews) return null;
-
   return (
-    <section className="py-12 bg-white border-b border-slate-200">
+    <section className="bg-[#111622] text-white py-12 sm:py-16 border-t border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex items-center justify-between pb-3.5 mb-8 border-b-2 border-slate-900">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-sm bg-[#DC2626]"></span>
-            <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
-                Business Magazine Latest News
-              </h2>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">
-                Up-to-the-minute executive dispatches, global markets & strategic shifts
-              </p>
-            </div>
-          </div>
-
-          <Link
-            href="/#fresh-stories"
-            className="text-xs font-bold text-[#DC2626] hover:text-slate-900 flex items-center gap-1 uppercase tracking-wider transition-colors shrink-0"
-          >
-            <span>Continuous Feed</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+        {/* ======================================================= */}
+        {/* SECTION TITLE: Centered Bold Bright Cyan/Aqua Headline  */}
+        {/* ======================================================= */}
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#00BCD4] tracking-tight font-sans">
+            Business Magazine Latest News
+          </h2>
         </div>
 
-        {/* Top Split: 1 Large + 3 Stacked Horizontal */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-8">
-          <div className="lg:col-span-7">
-            <LargeFeaturedCard article={leadNews} />
-          </div>
-          <div className="lg:col-span-5 space-y-4">
-            {secondaryNews.map((art) => (
-              <MediumHorizontalCard key={art.id} article={art} />
-            ))}
-          </div>
-        </div>
+        {/* ======================================================= */}
+        {/* 4-COLUMN × 2-ROW GRID (Exactly matches reference layout)*/}
+        {/* ======================================================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+          {LATEST_NEWS_GRID_DATA.map((item) => (
+            <article
+              key={item.id}
+              className="group flex flex-col justify-between"
+            >
+              <div>
+                {/* 16:10 / 16:9 Aspect Ratio Thumbnail */}
+                <Link
+                  href={`/article/${item.slug}`}
+                  className="block aspect-[16/10] w-full overflow-hidden bg-slate-900 rounded-sm border border-slate-800 group-hover:border-slate-700 transition-colors shadow-sm relative"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <MagazineCardOverlay categoryTag="LATEST NEWS" />
+                </Link>
 
-        {/* Bottom 4-Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-slate-100">
-          {gridNews.map((art) => (
-            <SmallVerticalCard key={art.id} article={art} />
+                {/* Article Headline */}
+                <Link
+                  href={`/article/${item.slug}`}
+                  className="block mt-3 group-hover:text-[#DC2626] transition-colors"
+                >
+                  <h3 className="font-bold text-sm sm:text-[14.5px] leading-snug text-white line-clamp-2">
+                    {item.title}
+                  </h3>
+                </Link>
+
+                {/* Author Meta: By admin — Date */}
+                <div className="text-[11.5px] text-slate-400 mt-1.5 flex items-center gap-1 font-normal">
+                  <span>By</span>
+                  <span className="font-bold text-white">{item.author}</span>
+                  <span>—</span>
+                  <span>{item.date}</span>
+                </div>
+
+                {/* Excerpt */}
+                <p className="text-slate-300 text-xs sm:text-[12.5px] leading-relaxed line-clamp-3 mt-2.5 font-normal">
+                  {item.excerpt}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
 

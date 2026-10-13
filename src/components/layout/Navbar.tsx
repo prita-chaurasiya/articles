@@ -159,24 +159,24 @@ export default function Navbar() {
         {/* ROW 1: TOP BRANDING BAR (WHITE BACKGROUND)             */}
         {/* ======================================================= */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-3 sm:py-4 border-b border-slate-100">
+          <div className="flex items-center justify-between py-3.5 sm:py-4 border-b border-slate-200">
             
-            {/* Left: Contact Info (Mail us & Call us) - Desktop */}
-            <div className="hidden lg:flex flex-col justify-center text-xs text-slate-800 space-y-1 shrink-0">
-              <div className="flex items-center gap-1.5 leading-tight">
-                <span className="font-bold text-slate-900">Mail us :</span>
+            {/* Left: Contact Info (Mail us & Call us) - Matches Reference Image */}
+            <div className="hidden lg:flex flex-col justify-center text-xs sm:text-[13px] text-slate-800 space-y-0.5 shrink-0 font-sans">
+              <div className="flex items-center leading-snug">
+                <span className="font-bold text-[#111827] mr-1.5">Mail us :</span>
                 <a
                   href="mailto:editorial@enterprisechronicle.com"
-                  className="text-slate-600 hover:text-blue-600 transition-colors"
+                  className="text-[#2b2b2b] hover:text-[#E11925] transition-colors"
                 >
                   editorial@enterprisechronicle.com
                 </a>
               </div>
-              <div className="flex items-center gap-1.5 leading-tight">
-                <span className="font-bold text-slate-900">Call us at :</span>
+              <div className="flex items-center leading-snug">
+                <span className="font-bold text-[#111827] mr-1.5">Call us at :</span>
                 <a
                   href="tel:+12128493000"
-                  className="text-slate-600 hover:text-blue-600 transition-colors"
+                  className="text-[#2b2b2b] hover:text-[#E11925] transition-colors"
                 >
                   +1 (212) 849-3000 / +44 20 7946 0192
                 </a>
@@ -184,55 +184,76 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Left: Hamburger Sections Button */}
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden shrink-0">
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
                 aria-label="Toggle Navigation Menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
 
-            {/* Center: Brand Masthead Logo & Subtitle */}
-            <div className="text-center mx-auto lg:mx-0">
-              <Link href="/" className="inline-block group text-center">
-                <div className="flex items-center justify-center gap-2 mb-0.5">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#0F172A] rounded flex items-center justify-center text-white font-serif font-black text-xs sm:text-sm shadow group-hover:bg-[#DC2626] transition-colors">
-                    EC
+            {/* Center: Brand Masthead Logo matching Reference Image */}
+            <div className="text-center mx-auto lg:mx-0 min-w-0 max-w-[calc(100vw-110px)] sm:max-w-none">
+              <Link href="/" className="inline-flex items-center group max-w-full">
+                {/* Monogram EC with MAGAZINE text and vertical divider | */}
+                <div className="flex items-center shrink-0">
+                  <div className="relative flex items-center select-none">
+                    <span className="text-[#E11925] text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tighter leading-none">
+                      E
+                    </span>
+                    <div className="relative flex items-center justify-center">
+                      <span className="text-[#E11925] text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tighter leading-none">
+                        C
+                      </span>
+                      <span className="absolute text-[4px] sm:text-[5px] md:text-[6px] font-sans font-black uppercase text-slate-900 tracking-tighter -rotate-90 origin-center pointer-events-none">
+                        MAGAZINE
+                      </span>
+                    </div>
                   </div>
-                  <h1 className="font-serif text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[#0F172A] uppercase leading-none">
-                    The Enterprise Chronicle
-                  </h1>
+                  {/* Vertical gray line divider */}
+                  <div className="mx-1.5 sm:mx-2 md:mx-2.5 h-6 sm:h-7 md:h-8 w-[1.5px] bg-[#9CA3AF]/80 shrink-0" />
                 </div>
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-slate-500 font-bold">
-                  INSPIRING GLOBAL BUSINESS LEADERSHIP
-                </p>
+
+                {/* Brand Name: Enterprise (Red) + Chronicle (Dark Charcoal) + Right-aligned Subtitle */}
+                <div className="flex flex-col text-left min-w-0">
+                  <div className="flex items-baseline leading-none whitespace-nowrap">
+                    <span className="font-sans font-bold text-lg sm:text-2xl md:text-[32px] text-[#E11925] tracking-tight">
+                      Enterprise
+                    </span>
+                    <span className="font-sans font-bold text-lg sm:text-2xl md:text-[32px] text-[#222222] tracking-tight ml-1 sm:ml-1.5 md:ml-2">
+                      Chronicle
+                    </span>
+                  </div>
+                  <p className="text-[7px] sm:text-[9px] md:text-[10px] font-sans font-bold uppercase tracking-[0.14em] sm:tracking-[0.24em] text-slate-500 text-right mt-0.5 sm:mt-1 leading-none truncate">
+                    INSPIRING GLOBAL BUSINESS LEADERSHIP
+                  </p>
+                </div>
               </Link>
             </div>
 
             {/* Right: Search Button & Red 'INTERNATIONAL MAGAZINES' Button */}
-            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
               
-              {/* Search Icon Trigger */}
+              {/* Search Icon Trigger (Clean standalone outline icon) */}
               <button
                 type="button"
                 onClick={() => setIsSearchModalOpen(true)}
-                className="p-2 sm:p-2.5 rounded-full text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors cursor-pointer flex items-center justify-center"
+                className="p-1.5 text-[#111827] hover:text-[#E11925] transition-colors cursor-pointer flex items-center justify-center"
                 aria-label="Search publication"
                 title="Search stories (⌘K)"
               >
-                <Search className="w-5 h-5 sm:w-5.5 sm:h-5.5" />
+                <Search className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.4} />
               </button>
 
-              {/* Red CTA Button: 'INTERNATIONAL MAGAZINES' (Hidden on small mobile to match screenshot 2) */}
+              {/* Red CTA Button: 'INTERNATIONAL MAGAZINES' (Text only, solid red, matching reference) */}
               <Link
                 href="/magazine"
-                className="hidden md:inline-flex px-3 sm:px-4 py-2 sm:py-2.5 rounded bg-[#DC2626] hover:bg-[#B91C1C] text-white text-[10px] sm:text-xs font-black uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow items-center gap-1.5"
+                className="hidden sm:inline-flex px-4 sm:px-5 py-2 sm:py-2.5 rounded-sm bg-[#E11925] hover:bg-[#C9131E] text-white text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-colors shadow-none items-center justify-center"
               >
-                <BookOpen className="w-3.5 h-3.5 hidden sm:inline" />
-                <span>INTERNATIONAL MAGAZINES</span>
+                INTERNATIONAL MAGAZINES
               </Link>
 
             </div>

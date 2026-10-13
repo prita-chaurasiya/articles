@@ -32,10 +32,28 @@ export default function BreadcrumbBar() {
       );
     }
 
-    // 1. Category Page (/category/[slug])
-    if (pathname.startsWith('/category/') || pathname === '/testimonials') {
-      const slug = pathname === '/testimonials' ? 'testimonials' : pathname.replace('/category/', '').split('/')[0];
-      const categoryName = getCategoryTitle(slug);
+    // 1. Direct or dynamic Category Page (/category/[slug] or direct category routes)
+    const directCategoryMap: Record<string, string> = {
+      '/blog': 'Blog',
+      '/press-release': 'Press Release',
+      '/guest-posts': 'Guest Posts',
+      '/launchpad': 'Launchpad',
+      '/lounge-interview': 'Lounge Interview',
+      '/healthcare': 'Healthcare',
+      '/news': 'News',
+      '/testimonials': 'Testimonials',
+      '/cover-story': 'Cover Story',
+    };
+
+    if (directCategoryMap[pathname] || pathname.startsWith('/category/')) {
+      let categoryName = '';
+      if (directCategoryMap[pathname]) {
+        categoryName = directCategoryMap[pathname];
+      } else {
+        const slug = pathname.replace('/category/', '').split('/')[0];
+        categoryName = getCategoryTitle(slug);
+      }
+
       return (
         <>
           <Link href="/" className="text-slate-500 hover:text-[#DC2626] transition-colors">

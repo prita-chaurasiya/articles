@@ -75,39 +75,28 @@ export default function TestimonialsView() {
     <div className="min-h-screen bg-[#FDFDFD]">
       
       {/* ======================================================= */}
-      {/* 1. TOP HEADER BANNER (Original Enterprise Chronicle)    */}
+      {/* 1. TOP HEADER BANNER (Matches Reference Screenshot)     */}
       {/* ======================================================= */}
-      <section className="bg-white border-b border-slate-200 overflow-hidden shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="w-full rounded-2xl overflow-hidden shadow-md border border-slate-200/90 relative bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white p-8 sm:p-12 md:p-14 flex flex-col items-center justify-center text-center">
-            {/* Subtle decorative background glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-600/15 via-transparent to-transparent pointer-events-none" />
-            
-            <div className="relative z-10 max-w-3xl space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-red-600/20 text-red-400 border border-red-500/30">
-                <Star className="w-3.5 h-3.5 fill-red-500 text-red-500" />
-                Verified Partner Testimonials
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tight text-white leading-tight">
-                Global Voices of Leadership &amp; Innovation
-              </h2>
-              <p className="text-slate-300 text-xs sm:text-sm font-normal max-w-2xl mx-auto leading-relaxed">
-                Reflections and verified endorsements from Fortune 500 executives, pioneering founders, and enterprise partners featured across The Enterprise Chronicle.
-              </p>
-            </div>
+      <section className="bg-white border-b border-slate-200 py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Banner Graphic Frame */}
+          <div className="w-full overflow-hidden border border-slate-200 shadow-sm bg-white rounded-none sm:rounded-sm">
+            <img
+              src="/images/testimonials-banner.jpg"
+              alt="Testimonials Banner"
+              className="w-full h-auto object-contain block mx-auto"
+              loading="eager"
+            />
+          </div>
+
+          {/* Heading directly under banner (Matches Screenshot) */}
+          <div className="text-center mt-8 mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-[32px] font-black text-slate-900 tracking-tight font-sans">
+              Business Magazine Testimonials
+            </h1>
           </div>
         </div>
       </section>
-
-      {/* ======================================================= */}
-      {/* 2. SECTION TITLE                                        */}
-      {/* ======================================================= */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 text-center">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#111827] tracking-tight font-serif">
-          Executive &amp; Leader Testimonials
-        </h1>
-        <div className="w-16 h-1 bg-[#DC2626] mx-auto mt-3 rounded-full" />
-      </div>
 
       {/* ======================================================= */}
       {/* 3. TESTIMONIAL CARDS GRID                               */}

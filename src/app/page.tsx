@@ -3,37 +3,37 @@
 import React from 'react';
 import { useArticleStore } from '@/store/useArticleStore';
 
-// Section 1: Hero Editorial Tri-Column (Left 25%, Center 45%, Right 30%)
-import EditorialShowcaseGrid from '@/components/home/EditorialShowcaseGrid';
+// Section 1: Hero Editorial 4-Column Grid (Fresh Stories, Center Lead, Stacked Spotlight, Best Magazine List)
+import EditorialHeroQuad from '@/components/home/EditorialHeroQuad';
 
 // Section 2: Business Magazine Latest News
 import BusinessLatestNews from '@/components/home/BusinessLatestNews';
 
-// Section 3: Featured Companies
-import FeaturedCompaniesStrip from '@/components/home/FeaturedCompaniesStrip';
+// Section 3: Best Business Magazine in India Success Stories (3-Column Layout: Left Guest Posts + Center Success Stories + Right Press Release)
+import HomeSuccessStoriesTriSection from '@/components/home/HomeSuccessStoriesTriSection';
 
-// Section 4: Success Stories
-import SuccessStoriesShowcase from '@/components/home/SuccessStoriesShowcase';
+// Section 4: BLOG (4-Column x 2-Row Grid)
+import HomeBlogGridSection from '@/components/home/HomeBlogGridSection';
 
-// Section 5 - 11, 13, 14: Category Beats
-import EditorialCategorySection from '@/components/home/EditorialCategorySection';
+// Section 5: LOUNGE INTERVIEW (9 Interview Cards + Right Sidebar: Launchpad & Latest Edition)
+import HomeLoungeInterviewSection from '@/components/home/HomeLoungeInterviewSection';
 
-// Section 12: Interviews (CXO & Lounge Dialogues)
-import CXOInterviewSpotlight from '@/components/home/CXOInterviewSpotlight';
+// Section 6: Category Tri-Strip (TRAVELS | HEALTHCARE | FINANCE)
+import HomeCategoryTriStrip from '@/components/home/HomeCategoryTriStrip';
 
-// Section 15: Magazine Editions
+// Section 7: ENTERTAINMENT (Ranked 1 to 8 Cards Grid)
+import HomeEntertainmentGrid from '@/components/home/HomeEntertainmentGrid';
+
+// Section 8: Magazine Editions (Interactive Flipbook)
 import DigitalMagazineSpotlight from '@/components/home/DigitalMagazineSpotlight';
 
-// Section 16: Awards
+// Section 9: Awards & Recognitions
 import AwardsSection from '@/components/home/AwardsSection';
 
-// Section 17: Events
-import UpcomingEventsStrip from '@/components/home/UpcomingEventsStrip';
-
-// Section 18 & 19: Popular Articles & Most Read
+// Section 10: Popular Articles & Most Read
 import PopularAndMostRead from '@/components/home/PopularAndMostRead';
 
-// Section 20: Newsletter
+// Section 11: Newsletter
 import NewsletterSection from '@/components/home/NewsletterSection';
 
 export default function HomePage() {
@@ -41,115 +41,37 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      {/* 1. Hero Editorial Section (Row 1: Left 25%, Center 45%, Right 30%) */}
-      <EditorialShowcaseGrid articles={articles} />
+      {/* 1. Hero Editorial Section (4-Column Layout: Fresh Stories | Center Lead | Stacked Spotlight | Best Magazine) */}
+      <EditorialHeroQuad articles={articles} />
 
-      {/* 2. Business Magazine Latest News */}
+      {/* 2. Business Magazine Latest News (4-Column x 2-Row Dark Grid) */}
       <BusinessLatestNews articles={articles} />
 
-      {/* 3. Featured Companies */}
-      <FeaturedCompaniesStrip articles={articles} />
+      {/* 3. Best Business Magazine in India Success Stories (3-Column Layout: Left Guest Posts + Center Success Stories + Right Press Release) */}
+      <HomeSuccessStoriesTriSection articles={articles} />
 
-      {/* 4. Success Stories */}
-      <SuccessStoriesShowcase articles={articles} />
+      {/* 4. BLOG Section (4-Column x 2-Row Grid) */}
+      <HomeBlogGridSection articles={articles} />
 
-      {/* 5. Technology */}
-      <EditorialCategorySection
-        title="Technology"
-        subtitle="Deep semiconductor physics, enterprise architectures & cloud infrastructures"
-        categorySlug="technology"
-        articles={articles}
-        variant="featured-split"
-      />
+      {/* 5. LOUNGE INTERVIEW (9 Interview Cards + Right Sidebar: Launchpad & Latest Edition) */}
+      <HomeLoungeInterviewSection articles={articles} />
 
-      {/* 6. AI */}
-      <EditorialCategorySection
-        title="AI & Automation"
-        subtitle="Autonomous agent swarms, foundation models & cognitive enterprise workflows"
-        categorySlug="ai"
-        articles={articles}
-        variant="grid-3"
-      />
+      {/* 6. Category Tri-Strip (TRAVELS | HEALTHCARE | FINANCE) */}
+      <HomeCategoryTriStrip articles={articles} />
 
-      {/* 7. Business */}
-      <EditorialCategorySection
-        title="Business"
-        subtitle="Corporate strategy, antitrust litigation, governance & international trade"
-        categorySlug="business"
-        articles={articles}
-        variant="horizontal-stack"
-      />
+      {/* 7. ENTERTAINMENT (Ranked 1 to 8 Cards Grid) */}
+      <HomeEntertainmentGrid articles={articles} />
 
-      {/* 8. Finance */}
-      <EditorialCategorySection
-        title="Finance & Capital"
-        subtitle="Sovereign wealth funds, private equity, debt liquidity & fintech infrastructure"
-        categorySlug="finance"
-        articles={articles}
-        variant="featured-split"
-      />
-
-      {/* 9. Healthcare */}
-      <EditorialCategorySection
-        title="Healthcare & Biotech"
-        subtitle="Generative oncology binders, precision medicine & life sciences innovation"
-        categorySlug="healthcare"
-        articles={articles}
-        variant="grid-3"
-      />
-
-      {/* 10. Leadership */}
-      <EditorialCategorySection
-        title="Leadership"
-        subtitle="C-Suite strategy, boardroom dynamics, talent density & executive culture"
-        categorySlug="leadership"
-        articles={articles}
-        variant="horizontal-stack"
-      />
-
-      {/* 11. Startups */}
-      <EditorialCategorySection
-        title="Startups & Venture"
-        subtitle="High-velocity scaleups, venture capital syndicates & unicorn milestones"
-        categorySlug="startups"
-        articles={articles}
-        variant="grid-3"
-      />
-
-      {/* 12. Interviews (Lounge / CXO Dialogues) */}
-      <CXOInterviewSpotlight articles={articles} />
-
-      {/* 13. Guest Posts */}
-      <EditorialCategorySection
-        title="Guest Posts & Opinions"
-        subtitle="Perspectives from university deans, economists, and managing directors"
-        categorySlug="blog"
-        articles={articles}
-        variant="grid-4"
-      />
-
-      {/* 14. Press Releases */}
-      <EditorialCategorySection
-        title="Corporate Press Releases"
-        subtitle="Official enterprise disclosures, regulatory filings & strategic partnerships"
-        categorySlug="business"
-        articles={articles}
-        variant="horizontal-stack"
-      />
-
-      {/* 15. Magazine Editions */}
+      {/* 8. Magazine Editions (Interactive Digital Flipbook Reader) */}
       <DigitalMagazineSpotlight />
 
-      {/* 16. Awards */}
+      {/* 9. Awards & Recognitions */}
       <AwardsSection />
 
-      {/* 17. Events */}
-      <UpcomingEventsStrip />
-
-      {/* 18 & 19. Popular Articles & Most Read */}
+      {/* 10. Popular Articles & Most Read Leaderboard */}
       <PopularAndMostRead articles={articles} />
 
-      {/* 20. Newsletter CTA */}
+      {/* 11. Newsletter CTA */}
       <NewsletterSection />
     </div>
   );

@@ -75,10 +75,20 @@ export interface CategoryInfo {
   featuredHeadline?: string;
 }
 
+export interface MagazinePage {
+  pageNumber: number;
+  title: string;
+  section: string;
+  image?: string;
+  headline?: string;
+  bodySnippet?: string;
+}
+
 export interface MagazineIssue {
   id: string;
   issueNumber: string;
   title: string;
+  specialEditionTitle?: string;
   monthYear: string;
   coverImage: string;
   description: string;
@@ -86,4 +96,8 @@ export interface MagazineIssue {
   pdfUrl?: string;
   featuredArticles: string[];
   highlights: string[];
+  brandName?: string;
+  executiveName?: string;
+  executiveRole?: string;
+  pages?: MagazinePage[];
 }

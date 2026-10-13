@@ -10,6 +10,15 @@ import { formatDate, formatNumber } from '@/lib/utils';
 import SponsoredAdBlock from '@/components/home/SponsoredAdBlock';
 import TestimonialsView from '@/components/testimonials/TestimonialsView';
 import CoverStoryView from '@/components/cover-story/CoverStoryView';
+import CategoryNewsView from '@/components/category/CategoryNewsView';
+import CategoryHealthcareView from '@/components/category/CategoryHealthcareView';
+import CategoryLaunchpadView from '@/components/category/CategoryLaunchpadView';
+import CategorySuccessStoriesView from '@/components/category/CategorySuccessStoriesView';
+import CategoryLoungeInterviewView from '@/components/category/CategoryLoungeInterviewView';
+import CategoryBlogView from '@/components/category/CategoryBlogView';
+
+import CategoryPressReleaseView from '@/components/category/CategoryPressReleaseView';
+import CategoryGuestPostsView from '@/components/category/CategoryGuestPostsView';
 
 export default function CategoryPage() {
   return (
@@ -22,6 +31,46 @@ export default function CategoryPage() {
 function CategoryContent() {
   const routerParams = useParams();
   const slug = (routerParams?.slug as string) || '';
+
+  // If blog category, render dedicated authentic Blog view matching screenshot
+  if (slug.toLowerCase() === 'blog') {
+    return <CategoryBlogView />;
+  }
+
+  // If press-release category, render dedicated authentic Press Release view
+  if (slug.toLowerCase() === 'press-release') {
+    return <CategoryPressReleaseView />;
+  }
+
+  // If guest-posts category, render dedicated authentic Guest Posts view
+  if (slug.toLowerCase() === 'guest-posts') {
+    return <CategoryGuestPostsView />;
+  }
+
+  // If lounge-interview category, render dedicated authentic Lounge Interview view matching screenshot
+  if (slug.toLowerCase() === 'lounge-interview') {
+    return <CategoryLoungeInterviewView />;
+  }
+
+  // If success-stories category, render dedicated authentic Success Stories view matching screenshot
+  if (slug.toLowerCase() === 'success-stories') {
+    return <CategorySuccessStoriesView />;
+  }
+
+  // If launchpad category, render dedicated authentic Launchpad view matching screenshot
+  if (slug.toLowerCase() === 'launchpad') {
+    return <CategoryLaunchpadView />;
+  }
+
+  // If healthcare category, render dedicated authentic Healthcare view matching screenshot
+  if (slug.toLowerCase() === 'healthcare') {
+    return <CategoryHealthcareView />;
+  }
+
+  // If news category, render dedicated authentic News view matching screenshot
+  if (slug.toLowerCase() === 'news') {
+    return <CategoryNewsView />;
+  }
 
   // If testimonials category, render dedicated authentic Testimonials view
   if (slug.toLowerCase() === 'testimonials') {

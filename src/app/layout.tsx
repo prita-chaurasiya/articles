@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import Navbar from "@/components/layout/Navbar";
 import BreadcrumbBar from "@/components/layout/BreadcrumbBar";
 import Footer from "@/components/layout/Footer";
@@ -20,6 +19,12 @@ const newsreader = Newsreader({
   display: "swap",
   style: ["normal", "italic"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   title: "The Enterprise Chronicle | World Business Magazine & Executive Media",
@@ -44,9 +49,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#111827] font-sans antialiased selection:bg-blue-600 selection:text-white">
+      <body className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#F8FAFC] text-[#111827] font-sans antialiased selection:bg-blue-600 selection:text-white">
         <Suspense fallback={null}>
-          <AnnouncementBar />
           <Navbar />
           <BreadcrumbBar />
           <MegaMenu />

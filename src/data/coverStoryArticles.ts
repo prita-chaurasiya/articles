@@ -1,4 +1,5 @@
 import { Article } from '@/types';
+import { ALL_BESPOKE_ARTICLES } from './bespokeArticlesData';
 
 export const DUMMY_COVER_STORIES_P1 = [
   {
@@ -195,6 +196,11 @@ export const DUMMY_SIDEBAR_DATA = {
 };
 
 export function getCoverStoryOrSidebarArticle(slug: string): Article | null {
+  const bespoke = ALL_BESPOKE_ARTICLES.find((a) => a.slug === slug);
+  if (bespoke) {
+    return bespoke;
+  }
+
   const allDummy = [
     ...DUMMY_COVER_STORIES_P1,
     ...DUMMY_COVER_STORIES_P2,
@@ -217,10 +223,205 @@ export function getCoverStoryOrSidebarArticle(slug: string): Article | null {
       heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
       excerpt: `${item.title}. Real-time business reporting, market dispatches, and corporate disclosures.`,
     })),
+    // 4-Column Hero New Articles
+    {
+      id: 'valiant-global-partners',
+      slug: 'valiant-global-partners-autonomous-venture-strategy',
+      title: 'VALIANT GLOBAL PARTNERS: PIONEERING AUTONOMOUS VENTURE STRATEGY & STRATEGIC ADVISORY',
+      category: 'FRESH STORIES',
+      date: 'October 12, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Valiant Global Partners: Redefining Cross-Border Enterprise Scaling through Machine Intelligence and Sovereign Capital Orchestration across emerging financial corridors...',
+    },
+    {
+      id: 'nexus-advanced-dynamics',
+      slug: 'nexus-advanced-dynamics-zero-latency-intelligence',
+      title: 'NEXUS ADVANCED DYNAMICS: A FULL-SCALE ENTERPRISE ARCHITECTURE BUILT ON TRUST, RESILIENCE, AND AUTONOMOUS EXECUTION',
+      category: 'COVER STORY',
+      date: 'October 10, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=80',
+      excerpt: 'Nexus Advanced Dynamics was Founded in 2022, with the vision and mission to deliver enterprise software solutions to its global clientele that are effective, resilient, and commercially unassailable across regulatory domains...',
+    },
+    {
+      id: 'aura-cognitive-labs',
+      slug: 'aura-cognitive-labs-decentralized-ai-agents',
+      title: 'AURA COGNITIVE LABS Intelligence Personified: Engineering Enterprise Growth Through Autonomous Agent Swarms',
+      category: 'LOUNGE INTERVIEW',
+      date: 'September 5, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&auto=format&fit=crop&q=80',
+      excerpt: 'In 2021, while global tech conglomerates were consolidating legacy ERP workflows, Aura Cognitive pioneered self-orchestrating agent fabrics...',
+    },
+    {
+      id: 'vanguard-capital-solutions',
+      slug: 'vanguard-capital-solutions-sovereign-infrastructure',
+      title: 'Vanguard Capital Solutions Limited: Building the Future of Sustainable Sovereign Infrastructure',
+      category: 'LOUNGE INTERVIEW',
+      date: 'August 31, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80',
+      excerpt: 'Few institutional finance powerhouses manage to blend stringent environmental governance with accelerated multi-billion dollar capital deployment...',
+    },
+    {
+      id: 'garage-prototype-to-40-billion',
+      slug: 'garage-prototype-to-40-billion-cloud-empire',
+      title: 'From poverty to a billionaire; Inspiring Story of WhatsApp Co-Founder Jan Koum',
+      category: 'BLOG',
+      date: 'November 1, 2021',
+      heroImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'The transformative journey from economic hardship to founding one of the world\'s most ubiquitous real-time messaging networks...',
+    },
+    {
+      id: 'quantum-physicist-clean-lithium',
+      slug: 'quantum-physicist-revolutionizing-clean-lithium-extraction',
+      title: 'Meet Indian Origin & Youngest Prime Minister of Britain- Rishi Sunak',
+      category: 'SUCCESS STORIES',
+      date: 'October 28, 2022',
+      heroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'An insightful retrospective on leadership, political governance, and economic statecraft during pivotal macroeconomic shifts...',
+    },
+    {
+      id: 'strategic-mindset-evelyn-vance',
+      slug: 'strategic-mindset-evelyn-vance-green-hydrogen',
+      title: 'Untold Story of Vineeta Singh: Rejected One Crore Job Offer',
+      category: 'SUCCESS STORIES',
+      date: 'February 17, 2024',
+      heroImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Why choosing visionary founder equity over executive security laid the foundation for an iconic direct-to-consumer beauty powerhouse...',
+    },
+    {
+      id: 'lessons-in-visionary-tenacity',
+      slug: 'lessons-in-visionary-tenacity-apex-horizon',
+      title: 'Life Lessons from Muniba Mazari Story: Embrace Gratitude After Adversity',
+      category: 'SUCCESS STORIES',
+      date: 'September 23, 2024',
+      heroImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Turning physical trials into profound human empathy and universal artistic resonance on global humanitarian platforms...',
+    },
+    // Business Magazine Latest News Grid (8 items)
+    {
+      id: 'bln-1',
+      slug: 'kinetic-aero-ventures-hybrid-propulsion',
+      title: 'Kinetic Aero Ventures Opc Pvt. Ltd. : A visionary enterprise scaling ripples across aerospace...',
+      category: 'BUSINESS NEWS',
+      date: 'August 4, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'The field of aerospace mobility is diverse and competitive. Here, the role of hybrid propulsion architectures is transforming regional flight benchmarks...',
+    },
+    {
+      id: 'bln-2',
+      slug: 'from-research-labs-to-unicorns-deeptech-founders',
+      title: 'From Research to Founders: The Incredible Stories Behind DeepTech Unicorn Breakthroughs...',
+      category: 'BUSINESS NEWS',
+      date: 'August 4, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'From scientific laboratory discoveries to billion-dollar platforms, these visionary founders prove how perseverance translates into enterprise dominance...',
+    },
+    {
+      id: 'bln-3',
+      slug: 'ascent-autonomous-logistics-synapse-ai',
+      title: 'The Rise of the Autonomous Enterprise: How Synapse AI Is Redefining Decision Intelligence...',
+      category: 'BUSINESS NEWS',
+      date: 'July 29, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Artificial intelligence has entered a new phase. The conversation has moved beyond automating repetitive tasks into full multi-agent orchestration...',
+    },
+    {
+      id: 'bln-4',
+      slug: 'terra-verde-infrastructure-green-smart-cities',
+      title: 'TERRA VERDE PROPERTIES AND INFRASTRUCTURE PRIVATE LIMITED',
+      category: 'BUSINESS NEWS',
+      date: 'July 21, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Terra Verde Capitals: Building Next-Generation Sustainable Wealth Through Land Intelligence and Sovereign Infrastructure-Led Urban Corridors...',
+    },
+    {
+      id: 'bln-5',
+      slug: 'oxford-global-leadership-academy-ethical-executives',
+      title: 'Global Leadership Academy Beyond the Classroom: Education’s Answer to an Uncertain Future',
+      category: 'BUSINESS NEWS',
+      date: 'July 18, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'As market disruptions multiply, modern boardroom leaders require intellectual resilience, crisis agility, and deep governance principles to guide organizations...',
+    },
+    {
+      id: 'bln-6',
+      slug: 'alliance-urban-architecture-sustainable-redevelopment',
+      title: 'Alliance City Urban Architects: Building More Than Commercial Structures',
+      category: 'BUSINESS NEWS',
+      date: 'July 12, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Urban renewal projects across major financial capitals are moving away from monolithic high-rises toward human-centric biophilic spaces that harmonize life...',
+    },
+    {
+      id: 'bln-7',
+      slug: 'aura-illumination-technologies-heritage-lighting',
+      title: 'A Zero-Impact Approach to Heritage Illumination and Architectural Marvels',
+      category: 'BUSINESS NEWS',
+      date: 'July 5, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Balancing historical preservation with ultra-efficient photonic projection, modern illumination brings timeless heritage sites to vibrant nocturnal life...',
+    },
+    {
+      id: 'bln-8',
+      slug: 'vanguard-petcare-networks-high-tech-ecosystem',
+      title: 'VANGUARD HEALTH: BUILDING A STRONGER, SMARTER GLOBAL CARE ECOSYSTEM',
+      category: 'BUSINESS NEWS',
+      date: 'June 28, 2026',
+      heroImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80',
+      excerpt: 'Combining genetic profiling with automated diagnostic telemetry, forward-thinking health consortiums are modernizing specialized clinical networks worldwide...',
+    },
   ];
 
   const found = allDummy.find((d) => d.slug === slug);
-  if (!found) return null;
+  if (!found) {
+    const formattedTitle = slug
+      .split('-')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+
+    return {
+      id: `dummy-${slug}`,
+      slug,
+      title: formattedTitle,
+      subtitle: 'Comprehensive Executive Dispatch & Strategic Corporate Analysis',
+      excerpt: `${formattedTitle}. An exclusive investigative feature examining leadership, disruptive business models, and market expansion.`,
+      content: `
+### Strategic Executive Briefing
+
+This in-depth feature examines corporate leadership, operational transformation, and market expansion strategies across key modern industries.
+
+Organizations today operate in an increasingly volatile global landscape, where agility, data-driven intelligence, and clear governance determine lasting market relevance.
+
+> "True corporate resilience lies in anticipating structural shifts long before they manifest on quarterly balance sheets."
+
+### Strategic Highlights & Key Themes
+1. **Sustainable Growth Models**: Integrating long-term capital stability with ethical governance.
+2. **Operational Acceleration**: Utilizing automation and intelligent workflows to streamline overhead.
+3. **Market Expansion**: Building resilient customer trust and cross-border strategic alliances.
+`,
+      category: 'Executive Dispatch',
+      categorySlug: 'news',
+      subcategory: 'Enterprise Leadership',
+      author: {
+        id: 'auth-editorial',
+        name: 'Chronicle Editorial Bureau',
+        role: 'Senior Executive Editor',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+        bio: 'The Senior Editorial Bureau curates flagship investigative profiles and boardroom analyses.',
+      },
+      publishedAt: '2026-10-06T09:00:00Z',
+      readTime: '6 min read',
+      views: 11400,
+      isFeatured: true,
+      isTrending: true,
+      isEditorPick: true,
+      isCoverStory: false,
+      heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
+      tags: ['Executive Leadership', 'Enterprise Analysis', 'Corporate Strategy'],
+      sharesCount: 1250,
+      status: 'published',
+      comments: [],
+    };
+  }
 
   return {
     id: `dummy-${found.slug}`,

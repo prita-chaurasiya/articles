@@ -6,6 +6,7 @@ import { Clock, Eye, ArrowRight, Bookmark, Building2, Flame } from 'lucide-react
 import { Article } from '@/types';
 import { formatDate } from '@/lib/utils';
 import { useArticleStore } from '@/store/useArticleStore';
+import MagazineCardOverlay from '@/components/common/MagazineCardOverlay';
 
 interface BaseCardProps {
   article: Article;
@@ -23,25 +24,13 @@ export function LargeFeaturedCard({ article, className = '' }: BaseCardProps) {
   return (
     <article className={`group bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${className}`}>
       <div>
-        <Link href={`/article/${article.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-900">
+        <Link href={`/article/${article.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-900 rounded-xs">
           <img
             src={article.heroImage}
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-
-          {/* Top badges */}
-          <div className="absolute top-3 left-3 flex items-center gap-2">
-            <span className="px-2.5 py-1 rounded bg-[#DC2626] text-white text-[10px] font-black uppercase tracking-wider shadow">
-              {article.category}
-            </span>
-            {article.isCoverStory && (
-              <span className="px-2 py-0.5 rounded bg-black/80 text-amber-300 text-[9px] font-bold uppercase tracking-wider">
-                Cover Story
-              </span>
-            )}
-          </div>
+          <MagazineCardOverlay categoryTag={article.category} />
 
           {/* Company logo if present */}
           {article.companyProfile && (
@@ -172,15 +161,13 @@ export function SmallVerticalCard({ article, className = '' }: BaseCardProps) {
   return (
     <article className={`group bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${className}`}>
       <div>
-        <Link href={`/article/${article.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-900">
+        <Link href={`/article/${article.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-900 rounded-xs">
           <img
             src={article.heroImage}
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute top-2 left-2 px-2 py-0.5 bg-[#0B0F19] text-white text-[9px] font-bold uppercase tracking-wider rounded">
-            {article.category}
-          </div>
+          <MagazineCardOverlay categoryTag={article.category} />
         </Link>
 
         <div className="p-4 space-y-2">
