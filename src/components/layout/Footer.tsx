@@ -55,6 +55,14 @@ function YoutubeIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   );
 }
 
+function WhatsAppIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.405z" />
+    </svg>
+  );
+}
+
 export default function Footer() {
   const { articles } = useArticleStore();
   const latestPosts = articles.slice(0, 3);
@@ -63,6 +71,25 @@ export default function Footer() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const totalIssues = MAGAZINE_ISSUES.length;
+
+  // Scroll to top button visibility state
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Auto-play timer for slider (cycles every 3.5 seconds when not hovered)
   useEffect(() => {
@@ -88,7 +115,7 @@ export default function Footer() {
   ].filter(Boolean);
 
   return (
-    <footer className="bg-[#ECEEF2] text-slate-800 border-t border-slate-300 text-sm select-none">
+    <footer className="bg-[#ECEEF2] text-slate-800 border-t border-slate-300 text-sm select-none relative">
       
       {/* ======================================================= */}
       {/* 1. TOP SUB-NAV BAR (Matches Reference Screenshot)       */}
@@ -141,7 +168,7 @@ export default function Footer() {
       {/* 2. MAIN FOOTER CONTENT GRID (Matches Reference Columns) */}
       {/* ======================================================= */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
           
           {/* COLUMN 1: About us & Social Icons (Col span 3) */}
           <div className="lg:col-span-3 space-y-4">
@@ -151,6 +178,7 @@ export default function Footer() {
             <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
               The Enterprise Chronicle is an international executive business media platform covering visionary leaders, high-growth enterprises, and pivotal global economic trends.
             </p>
+
             {/* Social Media Circular Black Buttons */}
             <div className="flex items-center gap-2 pt-1">
               <a
@@ -199,10 +227,32 @@ export default function Footer() {
                 <YoutubeIcon className="w-4 h-4" />
               </a>
             </div>
+
+            {/* Executive Leadership & Network Reference from Business Walkins */}
+            <div className="pt-3 border-t border-slate-300/80 space-y-2 text-xs">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+                  Executive Leadership
+                </span>
+                <div className="space-y-0.5 text-[11.5px] text-slate-700">
+                  <div><strong className="text-slate-900">Dr. Neha Gupta</strong> — Founder</div>
+                  <div><strong className="text-slate-900">Ms. Tanishqa Gupta</strong> — Co-Founder</div>
+                  <div><strong className="text-slate-900">Ms. Mannat Gupta</strong> — Co-Founder</div>
+                </div>
+              </div>
+              <div className="pt-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-0.5">
+                  Organization Network
+                </span>
+                <p className="text-[11px] text-slate-600 leading-snug">
+                  • <strong className="text-slate-800">Tamanya Physio &amp; Health Clinic</strong> (Physiotherapy &amp; Pelvic Floor Rehab)
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* COLUMN 2: Latest Posts (Col span 3) */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* COLUMN 2: Latest Posts (Col span 2) */}
+          <div className="lg:col-span-2 space-y-4">
             <h3 className="font-serif font-black text-slate-900 text-lg sm:text-xl tracking-tight">
               Latest Posts
             </h3>
@@ -254,48 +304,110 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* COLUMN 4: Contact Informations (Col span 2) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h3 className="font-serif font-black text-slate-900 text-lg sm:text-xl tracking-tight">
-              Contact Informations
-            </h3>
+          {/* COLUMN 4: Contact Us (Col span 3) - Real Business Walkins Details */}
+          <div className="lg:col-span-3 space-y-3.5">
+            <div className="flex items-center justify-between border-b border-slate-300 pb-1.5">
+              <h3 className="font-serif font-black text-slate-900 text-lg sm:text-xl tracking-tight">
+                Contact Us
+              </h3>
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                Direct Line
+              </span>
+            </div>
             
-            <div className="space-y-3.5 text-xs sm:text-[13px]">
-              {/* Email */}
-              <div className="pb-3 border-b border-slate-300/80">
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-0.5">
-                  <Mail className="w-4 h-4 text-slate-700 shrink-0" />
-                  <span>Email</span>
+            <div className="space-y-2.5 text-xs sm:text-[13px]">
+              
+              {/* Phone Numbers Card */}
+              <div className="bg-white/90 p-3 rounded-xl border border-slate-300/80 shadow-2xs hover:border-slate-400 transition-colors">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-1.5">
+                  <div className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-800 flex items-center justify-center shrink-0">
+                    <Phone className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                    Phone Numbers
+                  </span>
                 </div>
-                <a
-                  href="mailto:editorial@enterprisechronicle.com"
-                  className="text-slate-600 hover:text-[#DC2626] transition-colors break-all text-[12px] block"
-                >
-                  editorial@enterprisechronicle.com
-                </a>
+                <div className="space-y-1 pl-6.5 text-[12.5px] font-semibold text-slate-800">
+                  <div>
+                    <a
+                      href="tel:+919250430016"
+                      className="hover:text-[#DC2626] transition-colors inline-flex items-center gap-1.5"
+                    >
+                      <span>+91 92504 30016</span>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href="tel:+917007667808"
+                      className="hover:text-[#DC2626] transition-colors inline-flex items-center gap-1.5"
+                    >
+                      <span>+91 70076 67808</span>
+                    </a>
+                  </div>
+                </div>
               </div>
 
-              {/* Phone */}
-              <div className="pb-3 border-b border-slate-300/80">
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-0.5">
-                  <Phone className="w-4 h-4 text-slate-700 shrink-0" />
-                  <span>Phone Number</span>
+              {/* Email Addresses Card */}
+              <div className="bg-white/90 p-3 rounded-xl border border-slate-300/80 shadow-2xs hover:border-slate-400 transition-colors">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-1.5">
+                  <div className="w-5 h-5 rounded-md bg-blue-500/15 text-blue-800 flex items-center justify-center shrink-0">
+                    <Mail className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                    Email Addresses
+                  </span>
                 </div>
-                <div className="text-slate-600 text-[12px] leading-tight">
-                  +1 (212) 849-3000 / +44 20 7946 0192
+                <div className="space-y-1 pl-6.5 text-[12px] font-medium text-slate-700">
+                  <div>
+                    <a
+                      href="mailto:enquiry@businesswalkins.com"
+                      className="hover:text-[#DC2626] transition-colors break-all block"
+                    >
+                      enquiry@businesswalkins.com
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href="mailto:dr.neha25btr@gmail.com"
+                      className="hover:text-[#DC2626] transition-colors break-all block"
+                    >
+                      dr.neha25btr@gmail.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              {/* Address */}
-              <div>
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-0.5">
-                  <MapPin className="w-4 h-4 text-slate-700 shrink-0" />
-                  <span>Address</span>
+              {/* Official Venue & Address Card */}
+              <div className="bg-white/90 p-3 rounded-xl border border-slate-300/80 shadow-2xs hover:border-slate-400 transition-colors">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 mb-1.5">
+                  <div className="w-5 h-5 rounded-md bg-rose-500/15 text-rose-800 flex items-center justify-center shrink-0">
+                    <MapPin className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                    Official Venue &amp; Address
+                  </span>
                 </div>
-                <p className="text-slate-600 text-[11px] leading-relaxed">
-                  747 Third Avenue, 28th Floor, New York, NY 10017
-                </p>
+                <div className="pl-6.5 text-[11.5px] leading-relaxed text-slate-600 space-y-1">
+                  <p>
+                    <strong className="text-slate-800">HQ:</strong> SA 1/177 TN, Pandeypur, Varanasi, Uttar Pradesh – 221002
+                  </p>
+                  <p className="text-[11px] text-slate-500">
+                    <strong className="text-slate-700">Venue:</strong> Hotel Taj Ganges, Darbar Hall, Varanasi
+                  </p>
+                </div>
               </div>
+
+              {/* Direct WhatsApp CTA Button */}
+              <a
+                href="https://wa.me/919250430016?text=Hi%2C%20I%20would%20like%20to%20connect%20with%20your%20team."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-md transition-all transform hover:-translate-y-0.5 cursor-pointer"
+              >
+                <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+                <span>Chat on WhatsApp (+91 92504 30016)</span>
+              </a>
+
             </div>
           </div>
 
@@ -407,6 +519,46 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* ======================================================= */}
+      {/* 4. FLOATING ACTION CONTROLS (WhatsApp + Scroll To Top)   */}
+      {/* Matches Business Walkins floating widgets UX            */}
+      {/* ======================================================= */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 select-none pointer-events-auto">
+        {/* Scroll To Top Button */}
+        {showScrollTop && (
+          <button
+            type="button"
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            className="w-10 h-10 rounded-lg bg-[#0F172A] hover:bg-[#DC2626] text-white flex items-center justify-center shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer border border-slate-700/50"
+            title="Scroll to top"
+          >
+            <ChevronRight className="w-5 h-5 -rotate-90 transform" />
+          </button>
+        )}
+
+        {/* Floating WhatsApp Action Button */}
+        <a
+          href="https://wa.me/919250430016?text=Hi%2C%20I%20would%20like%20to%20connect%20with%20your%20team."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="group relative flex items-center justify-center w-13 h-13 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl shadow-emerald-500/30 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5"
+          title="Direct WhatsApp Support"
+        >
+          <WhatsAppIcon className="w-7 h-7 fill-white" />
+          {/* Subtle pulse indicator */}
+          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white"></span>
+          </span>
+          {/* Tooltip on hover */}
+          <span className="absolute right-15 bg-slate-900 text-white text-[11px] font-semibold py-1 px-2.5 rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Chat on WhatsApp (+91 92504 30016)
+          </span>
+        </a>
       </div>
 
     </footer>

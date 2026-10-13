@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Plus,
@@ -37,12 +37,17 @@ import {
   Check,
   AlertCircle,
   Download,
+  LogOut,
+  UserCheck,
+  Lock,
+  ShieldCheck,
 } from 'lucide-react';
 import { useArticleStore } from '@/store/useArticleStore';
 import { CATEGORIES } from '@/data/categories';
 import { MAGAZINE_ISSUES } from '@/data/magazineIssues';
 import { Article } from '@/types';
 import { generateSlug, formatDate, formatNumber } from '@/lib/utils';
+import { useAdminAuth } from './AdminAuthContext';
 
 const PRESET_IMAGES = [
   { label: 'Boardroom Executive', url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1600&auto=format&fit=crop&q=80' },
@@ -72,9 +77,12 @@ type AdminTab =
   | 'subscribers'
   | 'ads'
   | 'seo'
-  | 'analytics';
+  | 'analytics'
+  | 'users';
 
 export default function AdminPage() {
+  const { user: authUser, logout, hasPermission: hasAuthPermission } = useAdminAuth();
+
   const {
     articles,
     addArticle,
@@ -93,6 +101,75 @@ export default function AdminPage() {
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [successNotification, setSuccessNotification] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+
+  // Staff Users State (for Admin RBAC tab)
+  const [staffUsers, setStaffUsers] = useState<any[]>([]);
+  const [isStaffLoading, setIsStaffLoading] = useState(false);
+  const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+  const [newStaffName, setNewStaffName] = useState('');
+  const [newStaffEmail, setNewStaffEmail] = useState('');
+  const [newStaffRole, setNewStaffRole] = useState<'admin' | 'editor' | 'author'>('editor');
+  const [newStaffPassword, setNewStaffPassword] = useState('');
+  const [addUserError, setAddUserError] = useState<string | null>(null);
+  const [addUserSuccess, setAddUserSuccess] = useState<string | null>(null);
+
+  const fetchStaffUsers = async () => {
+    if (authUser?.role !== 'admin') return;
+    setIsStaffLoading(true);
+    try {
+      const res = await fetch('/api/admin/users', { credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        setStaffUsers(data.users || []);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setIsStaffLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'users' || authUser?.role === 'admin') {
+      fetchStaffUsers();
+    }
+  }, [activeTab, authUser?.role]);
+
+  const handleCreateStaffUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddUserError(null);
+    setAddUserSuccess(null);
+
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          name: newStaffName,
+          email: newStaffEmail,
+          role: newStaffRole,
+          password: newStaffPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setAddUserError(data.error || 'Failed to create user account.');
+        return;
+      }
+
+      setAddUserSuccess(`Staff account for ${newStaffName} created with ${newStaffRole} role!`);
+      setNewStaffName('');
+      setNewStaffEmail('');
+      setNewStaffPassword('');
+      setIsAddUserModalOpen(false);
+      fetchStaffUsers();
+      setTimeout(() => setAddUserSuccess(null), 5000);
+    } catch {
+      setAddUserError('Server error creating user account.');
+    }
+  };
 
   // Form Fields
   const [title, setTitle] = useState('');
@@ -234,6 +311,9 @@ export default function AdminPage() {
         }
       : undefined;
 
+    // Role-based status: Authors cannot directly publish live
+    const finalStatus = authUser?.role === 'author' ? 'draft' : status;
+
     if (editingArticleId) {
       updateArticle(editingArticleId, {
         title,
@@ -250,10 +330,14 @@ export default function AdminPage() {
         isTrending,
         isEditorPick,
         isCoverStory,
-        status,
+        status: finalStatus,
         companyProfile: companyProfileData,
       });
-      setSuccessNotification(`Article "${title.slice(0, 35)}..." updated successfully!`);
+      setSuccessNotification(
+        authUser?.role === 'author'
+          ? `Draft "${title.slice(0, 35)}..." updated and submitted for Senior Editor review!`
+          : `Article "${title.slice(0, 35)}..." updated successfully!`
+      );
     } else {
       addArticle({
         slug,
@@ -279,12 +363,14 @@ export default function AdminPage() {
         isCoverStory,
         heroImage,
         tags,
-        status,
+        status: finalStatus,
         companyProfile: companyProfileData,
       });
 
       setSuccessNotification(
-        `Article published live! Automatically appeared on Homepage Fresh Stories, Category "${category}", Search, Author page, and Tag pages.`
+        authUser?.role === 'author'
+          ? `Draft article created successfully! Submitted for Senior Editor approval before publishing live.`
+          : `Article published live! Automatically appeared on Homepage Fresh Stories, Category "${category}", Search, Author page, and Tag pages.`
       );
     }
 
@@ -390,26 +476,77 @@ export default function AdminPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => {
-                if (confirm('Reset store back to default 50 seed articles?')) {
-                  resetToDefaultArticles();
-                  setSuccessNotification('Database reset to 50 seed articles.');
-                  setTimeout(() => setSuccessNotification(null), 4000);
-                }
-              }}
-              className="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <RefreshCw className="w-3.5 h-3.5 text-slate-500" />
-              <span>Reset Seed</span>
-            </button>
+            {/* Authenticated Staff User Pill */}
+            {authUser && (
+              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                {authUser.avatar ? (
+                  <img
+                    src={authUser.avatar}
+                    alt={authUser.name}
+                    className="w-7 h-7 rounded-full object-cover border border-slate-300"
+                  />
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">
+                    {authUser.name.charAt(0)}
+                  </div>
+                )}
+                <div className="text-left">
+                  <div className="text-xs font-bold text-slate-900 leading-tight">
+                    {authUser.name}
+                  </div>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <span
+                      className={`text-[9.5px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded ${
+                        authUser.role === 'admin'
+                          ? 'bg-blue-100 text-blue-800'
+                          : authUser.role === 'editor'
+                          ? 'bg-amber-100 text-amber-800'
+                          : 'bg-purple-100 text-purple-800'
+                      }`}
+                    >
+                      {authUser.role === 'admin'
+                        ? 'Admin (Full Rights)'
+                        : authUser.role === 'editor'
+                        ? 'Senior Editor'
+                        : 'Author (Drafts)'}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="ml-2 p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  title="Sign out of Admin Studio"
+                  aria-label="Sign out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Reset Seed Button - Only for Admin */}
+            {authUser?.role === 'admin' && (
+              <button
+                onClick={() => {
+                  if (confirm('Reset store back to default 50 seed articles?')) {
+                    resetToDefaultArticles();
+                    setSuccessNotification('Database reset to 50 seed articles.');
+                    setTimeout(() => setSuccessNotification(null), 4000);
+                  }
+                }}
+                className="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5 text-slate-500" />
+                <span>Reset Seed</span>
+              </button>
+            )}
 
             <button
               onClick={openCreateModal}
               className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Publish Article</span>
+              <span>{authUser?.role === 'author' ? 'Create New Draft' : 'Publish Article'}</span>
             </button>
           </div>
         </div>
@@ -441,6 +578,9 @@ export default function AdminPage() {
             { id: 'ads', label: 'Advertisements', icon: Megaphone },
             { id: 'seo', label: 'SEO Settings', icon: Globe },
             { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+            ...(authUser?.role === 'admin'
+              ? [{ id: 'users', label: `Staff & RBAC (${staffUsers.length || 3})`, icon: UserCheck }]
+              : []),
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -730,9 +870,11 @@ export default function AdminPage() {
                           <button onClick={() => openEditModal(art)} className="p-1.5 rounded hover:bg-slate-100 text-slate-400 hover:text-blue-600">
                             <Edit className="w-3.5 h-3.5" />
                           </button>
-                          <button onClick={() => deleteArticle(art.id)} className="p-1.5 rounded hover:bg-slate-100 text-slate-400 hover:text-rose-600">
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
+                          {authUser?.role !== 'author' && (
+                            <button onClick={() => deleteArticle(art.id)} className="p-1.5 rounded hover:bg-slate-100 text-slate-400 hover:text-rose-600" title="Delete article">
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -1241,6 +1383,267 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* 17. USERS & RBAC PERMISSIONS TAB (Only for Administrator) */}
+        {activeTab === 'users' && authUser?.role === 'admin' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* Header banner */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-200">
+                    Administrator Shield
+                  </span>
+                  <span className="text-xs text-slate-500">• Role-Based Access Control (RBAC)</span>
+                </div>
+                <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
+                  Editorial Staff &amp; Access Permissions
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Enforce strict cryptographic security, manage staff accounts, and configure publishing authorities.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setIsAddUserModalOpen(true)}
+                className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer self-start sm:self-auto"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Staff User</span>
+              </button>
+            </div>
+
+            {addUserSuccess && (
+              <div className="p-4 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>{addUserSuccess}</span>
+              </div>
+            )}
+
+            {/* RBAC Privilege Matrix Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-5 rounded-2xl bg-white border border-blue-200 shadow-xs">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                    <Shield className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm">Administrator</h4>
+                    <span className="text-[10px] text-blue-600 font-bold uppercase">Superuser Level</span>
+                  </div>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Manage Staff Accounts &amp; RBAC</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Create, Edit &amp; Publish Articles</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Global Settings &amp; SEO Controls</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Database Reset &amp; Media Management</li>
+                </ul>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white border border-amber-200 shadow-xs">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-500 text-white flex items-center justify-center">
+                    <Edit className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm">Senior Editor</h4>
+                    <span className="text-[10px] text-amber-600 font-bold uppercase">Editorial Level</span>
+                  </div>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Create, Edit &amp; Publish Live</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Review &amp; Approve Author Drafts</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Media Library &amp; Asset Management</li>
+                  <li className="flex items-center gap-1.5 text-slate-400"><X className="w-3.5 h-3.5 text-slate-400" /> Cannot manage users or reset system</li>
+                </ul>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white border border-purple-200 shadow-xs">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm">Contributing Author</h4>
+                    <span className="text-[10px] text-purple-600 font-bold uppercase">Contributor Level</span>
+                  </div>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Create New Article Drafts</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Edit Assigned Draft Content</li>
+                  <li className="flex items-center gap-1.5 text-slate-400"><X className="w-3.5 h-3.5 text-slate-400" /> Cannot publish directly (needs approval)</li>
+                  <li className="flex items-center gap-1.5 text-slate-400"><X className="w-3.5 h-3.5 text-slate-400" /> Cannot delete articles or access users</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Staff Users Table */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between">
+                <h4 className="font-serif font-bold text-slate-900 text-base">
+                  Authorized Editorial Accounts ({staffUsers.length || 3})
+                </h4>
+                <span className="text-xs text-slate-500 font-medium">Bcrypt Encrypted &bull; 24h JWT Session</span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-400 uppercase tracking-wider font-bold">
+                    <tr>
+                      <th className="py-3 px-4">Staff Member</th>
+                      <th className="py-3 px-4">Email Address</th>
+                      <th className="py-3 px-4">Assigned Role</th>
+                      <th className="py-3 px-4">Security Level</th>
+                      <th className="py-3 px-4">Created Date</th>
+                      <th className="py-3 px-4 text-right">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {(staffUsers.length > 0 ? staffUsers : [
+                      { id: '1', name: 'Julian Vance-Stowe (Admin)', email: 'admin@enterprisechronicle.com', role: 'admin', createdAt: '2026-01-01' },
+                      { id: '2', name: 'Elena Rostova (Senior Editor)', email: 'editor@enterprisechronicle.com', role: 'editor', createdAt: '2026-01-05' },
+                      { id: '3', name: 'Harrison Sterling (Contributing Author)', email: 'author@enterprisechronicle.com', role: 'author', createdAt: '2026-02-01' },
+                    ]).map((u) => (
+                      <tr key={u.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2.5">
+                            {u.avatar ? (
+                              <img src={u.avatar} alt="" className="w-7 h-7 rounded-full object-cover border border-slate-200" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
+                                {u.name.charAt(0)}
+                              </div>
+                            )}
+                            <span className="font-bold text-slate-900">{u.name}</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 font-mono text-slate-600">{u.email}</td>
+                        <td className="py-3 px-4">
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              u.role === 'admin'
+                                ? 'bg-blue-100 text-blue-800'
+                                : u.role === 'editor'
+                                ? 'bg-amber-100 text-amber-800'
+                                : 'bg-purple-100 text-purple-800'
+                            }`}
+                          >
+                            {u.role}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
+                          bcrypt (10 rounds)
+                        </td>
+                        <td className="py-3 px-4 text-slate-500">
+                          {formatDate(u.createdAt)}
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal for Creating New Staff User */}
+            {isAddUserModalOpen && (
+              <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-fadeIn">
+                <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 overflow-hidden">
+                  <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                    <h3 className="font-serif font-bold text-slate-900 text-base">
+                      Add New Staff Member
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setIsAddUserModalOpen(false)}
+                      className="p-1.5 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-800 cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleCreateStaffUser} className="p-6 space-y-4 text-xs">
+                    {addUserError && (
+                      <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl">
+                        {addUserError}
+                      </div>
+                    )}
+
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Full Name</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Marcus Vance"
+                        value={newStaffName}
+                        onChange={(e) => setNewStaffName(e.target.value)}
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Work Email</label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="m.vance@enterprisechronicle.com"
+                        value={newStaffEmail}
+                        onChange={(e) => setNewStaffEmail(e.target.value)}
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Role / Permissions</label>
+                      <select
+                        value={newStaffRole}
+                        onChange={(e) => setNewStaffRole(e.target.value as any)}
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-900"
+                      >
+                        <option value="editor">Senior Editor (Create, Edit &amp; Publish)</option>
+                        <option value="author">Contributing Author (Create &amp; Edit Drafts)</option>
+                        <option value="admin">Administrator (Complete System Access)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Initial Password</label>
+                      <input
+                        type="password"
+                        required
+                        placeholder="Minimum 8 characters (hashed with bcrypt)"
+                        value={newStaffPassword}
+                        onChange={(e) => setNewStaffPassword(e.target.value)}
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-900"
+                      />
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddUserModalOpen(false)}
+                        className="px-4 py-2 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider shadow-sm cursor-pointer"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
       </div>
 
       {/* CREATE / EDIT ARTICLE MODAL */}
@@ -1264,6 +1667,16 @@ export default function AdminPage() {
             </div>
 
             <form onSubmit={handleSaveArticle} className="p-6 space-y-6 text-xs">
+              {/* Author Mode Notice */}
+              {authUser?.role === 'author' && (
+                <div className="p-3 bg-purple-50 border border-purple-200 text-purple-900 rounded-xl text-xs flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-purple-600 shrink-0" />
+                  <span>
+                    <strong>Author Role:</strong> You have author draft permissions. Submissions are saved as drafts and require Senior Editor review to publish live.
+                  </span>
+                </div>
+              )}
+
               {/* Row 1: Title & Subtitle */}
               <div className="space-y-4">
                 <div>
@@ -1481,15 +1894,21 @@ export default function AdminPage() {
                 </label>
 
                 <div>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as any)}
-                    className="w-full p-1 bg-white border border-slate-200 rounded text-xs font-semibold"
-                  >
-                    <option value="published">Status: Published</option>
-                    <option value="draft">Status: Draft</option>
-                    <option value="scheduled">Status: Scheduled</option>
-                  </select>
+                  {authUser?.role === 'author' ? (
+                    <div className="w-full p-1.5 bg-amber-50 border border-amber-200 rounded text-xs font-bold text-amber-800">
+                      Status: Draft (Pending Editor Approval)
+                    </div>
+                  ) : (
+                    <select
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value as any)}
+                      className="w-full p-1 bg-white border border-slate-200 rounded text-xs font-semibold"
+                    >
+                      <option value="published">Status: Published</option>
+                      <option value="draft">Status: Draft</option>
+                      <option value="scheduled">Status: Scheduled</option>
+                    </select>
+                  )}
                 </div>
               </div>
 
@@ -1569,7 +1988,11 @@ export default function AdminPage() {
                   className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider shadow-lg shadow-blue-600/20 transition-all flex items-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>{editingArticleId ? 'Update Article' : 'Publish Article Now'}</span>
+                  <span>
+                    {authUser?.role === 'author'
+                      ? (editingArticleId ? 'Update Draft' : 'Submit Draft for Approval')
+                      : (editingArticleId ? 'Update Article' : 'Publish Article Now')}
+                  </span>
                 </button>
               </div>
             </form>

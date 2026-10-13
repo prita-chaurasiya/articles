@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Article } from '@/types';
 import MagazineCardOverlay from '@/components/common/MagazineCardOverlay';
+import { formatDate } from '@/lib/utils';
 
 interface HomeBlogGridSectionProps {
   articles?: Article[];
@@ -72,6 +73,23 @@ export const HOME_BLOG_DATA = [
 ];
 
 export default function HomeBlogGridSection({ articles }: HomeBlogGridSectionProps) {
+  const dynamicBlogs = (articles || [])
+    .filter(
+      (a) =>
+        a.status === 'published' &&
+        (a.category.toLowerCase() === 'blog' || a.tags?.some((t) => t.toLowerCase() === 'blog')) &&
+        !HOME_BLOG_DATA.some((b) => b.slug === a.slug)
+    )
+    .map((a) => ({
+      id: a.id,
+      slug: a.slug,
+      title: a.title,
+      date: formatDate(a.publishedAt),
+      image: a.heroImage,
+    }));
+
+  const displayBlogs = [...dynamicBlogs, ...HOME_BLOG_DATA].slice(0, 8);
+
   return (
     <section 
       style={{ backgroundColor: '#DCEAF4' }}
@@ -94,7 +112,7 @@ export default function HomeBlogGridSection({ articles }: HomeBlogGridSectionPro
         {/* 4-COLUMN × 2-ROW GRID (Exactly matches Screenshot 3)    */}
         {/* ======================================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
-          {HOME_BLOG_DATA.map((item) => (
+          {displayBlogs.map((item) => (
             <article key={item.id} className="group">
               <Link href={`/article/${item.slug}`} className="block">
                 {/* 16:9 Aspect Ratio Image with EC Magazine Brand Overlay */}

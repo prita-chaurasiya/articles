@@ -5,7 +5,13 @@ import Link from 'next/link';
 import { Mail, Globe, MapPin, Send, CheckCircle2, Shield, Phone } from 'lucide-react';
 
 const BUREAUS = [
-  { city: 'New York (Americas HQ)', address: '1270 Avenue of the Americas, Suite 2400, New York, NY 10020', email: 'americas@enterprisechronicle.com' },
+  { 
+    city: 'Varanasi (Corporate Headquarters & Editorial Desk)', 
+    address: 'SA 1/177 TN, Pandeypur, Varanasi, Uttar Pradesh – 221002 (Official Venue: Hotel Taj Ganges, Darbar Hall)', 
+    email: 'enquiry@businesswalkins.com',
+    phone: '+91 92504 30016 / +91 70076 67808'
+  },
+  { city: 'New York (Americas Bureau)', address: '1270 Avenue of the Americas, Suite 2400, New York, NY 10020', email: 'americas@enterprisechronicle.com' },
   { city: 'London (European Bureau)', address: '1 Canada Square, Canary Wharf, London E14 5AA, United Kingdom', email: 'europe@enterprisechronicle.com' },
   { city: 'Singapore (Asia-Pacific HQ)', address: '10 Collyer Quay, Ocean Financial Centre, Singapore 049315', email: 'apac@enterprisechronicle.com' },
   { city: 'Mumbai (South Asia Bureau)', address: 'Bandra-Kurla Complex, Platinum Tower, Mumbai 400051, India', email: 'india@enterprisechronicle.com' },
@@ -54,6 +60,12 @@ export default function ContactPage() {
                     <Mail className="w-3.5 h-3.5" />
                     <span>{b.email}</span>
                   </p>
+                  {b.phone && (
+                    <p className="text-xs text-slate-700 font-semibold flex items-center gap-1.5 mt-1">
+                      <Phone className="w-3.5 h-3.5 text-amber-600" />
+                      <span>{b.phone}</span>
+                    </p>
+                  )}
                 </div>
               ))}
             </div>

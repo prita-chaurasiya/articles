@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Article } from '@/types';
 import MagazineCardOverlay from '@/components/common/MagazineCardOverlay';
+import { formatDate } from '@/lib/utils';
 
 interface BusinessLatestNewsProps {
   articles?: Article[];
@@ -88,6 +89,21 @@ export const LATEST_NEWS_GRID_DATA = [
 ];
 
 export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps) {
+  const dynamicItems = (articles || [])
+    .filter((a) => a.status === 'published' && !LATEST_NEWS_GRID_DATA.some((d) => d.slug === a.slug))
+    .slice(0, 4)
+    .map((a) => ({
+      id: a.id,
+      slug: a.slug,
+      title: a.title,
+      author: a.author?.name || 'admin',
+      date: formatDate(a.publishedAt),
+      image: a.heroImage,
+      excerpt: a.excerpt,
+    }));
+
+  const displayList = [...dynamicItems, ...LATEST_NEWS_GRID_DATA].slice(0, 8);
+
   return (
     <section className="bg-[#111622] text-white py-12 sm:py-16 border-t border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,7 +123,7 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
         {/* 4-COLUMN × 2-ROW GRID (Exactly matches reference layout)*/}
         {/* ======================================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
-          {LATEST_NEWS_GRID_DATA.map((item) => (
+          {displayList.map((item) => (
             <article
               key={item.id}
               className="group flex flex-col justify-between"

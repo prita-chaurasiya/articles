@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Article } from '@/types';
 import MagazineCardOverlay from '@/components/common/MagazineCardOverlay';
+import { formatDate } from '@/lib/utils';
 
 interface EditorialHeroQuadProps {
   articles?: Article[];
@@ -111,6 +112,42 @@ export const HERO_QUAD_DATA = {
 export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) {
   const data = HERO_QUAD_DATA;
 
+  // Support newly published stories dynamically
+  const userCover = (articles || []).find(
+    (a) => a.status === 'published' && a.isCoverStory && a.slug !== HERO_QUAD_DATA.mainLead.slug
+  );
+  const mainLead = userCover
+    ? {
+        slug: userCover.slug,
+        title: userCover.title,
+        excerpt: userCover.excerpt,
+        image: userCover.heroImage,
+        badge: userCover.subcategory?.toUpperCase() || userCover.category.toUpperCase(),
+        caption: `By ${userCover.author?.name || 'Editorial Board'} • ${userCover.author?.role || 'Contributor'}`,
+        buttonText: 'READ MORE',
+      }
+    : HERO_QUAD_DATA.mainLead;
+
+  const userPublished = (articles || []).filter(
+    (a) =>
+      a.status === 'published' &&
+      !HERO_QUAD_DATA.freshStories.some((f) => f.slug === a.slug) &&
+      mainLead.slug !== a.slug
+  );
+
+  const freshStories = [
+    ...userPublished.map((a) => ({
+      id: a.id,
+      slug: a.slug,
+      title: a.title,
+      image: a.heroImage,
+      badge: a.subcategory?.toUpperCase() || a.category.toUpperCase(),
+      date: formatDate(a.publishedAt),
+      caption: `By ${a.author?.name || 'Staff'} • ${a.author?.role || 'Author'}`,
+    })),
+    ...HERO_QUAD_DATA.freshStories,
+  ].slice(0, 3);
+
   return (
     <section className="bg-white border-b border-slate-200 py-6 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -140,19 +177,19 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
 
               {/* Item 1: Magazine Card with EC Logo & LOUNGE Interview Header Strip */}
               <div className="group pb-3.5 border-b border-slate-100">
-                <Link href={`/article/${data.freshStories[0].slug}`} className="block">
+                <Link href={`/article/${freshStories[0].slug}`} className="block">
                   <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-2 relative rounded-xs shadow-2xs">
                     <img
-                      src={data.freshStories[0].image}
-                      alt={data.freshStories[0].title}
+                      src={freshStories[0].image}
+                      alt={freshStories[0].title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
                     {/* Official Magazine Interview Overlay (EC Logo + Seal + LOUNGE Interview Badge) */}
                     <MagazineCardOverlay
-                      badge={data.freshStories[0].badge}
+                      badge={freshStories[0].badge}
                       categoryTag="LOUNGE Interview"
-                      caption={data.freshStories[0].caption}
+                      caption={freshStories[0].caption}
                       showMonogram
                       monogramLetter="S"
                       monogramSubtext="LAW CHAMBERS"
@@ -160,24 +197,24 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
                   </div>
 
                   <h3 className="font-extrabold text-xs sm:text-[13px] uppercase leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-3">
-                    {data.freshStories[0].title}
+                    {freshStories[0].title}
                   </h3>
                 </Link>
               </div>
 
               {/* Item 2: Title + Black Tag Pill + Date */}
               <div className="group pt-3 pb-3 border-b border-slate-100">
-                <Link href={`/article/${data.freshStories[1].slug}`} className="block">
+                <Link href={`/article/${freshStories[1].slug}`} className="block">
                   <h4 className="font-bold text-xs leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-2">
-                    {data.freshStories[1].title}
+                    {freshStories[1].title}
                   </h4>
                   
                   <div className="mt-2">
                     <span className="inline-block bg-black text-white text-[9.5px] font-black uppercase px-2 py-0.5 tracking-wider rounded-2xs">
-                      {data.freshStories[1].badge}
+                      {freshStories[1].badge}
                     </span>
                     <span className="text-[10px] text-slate-400 block mt-1 font-normal">
-                      {data.freshStories[1].date}
+                      {freshStories[1].date}
                     </span>
                   </div>
                 </Link>
@@ -185,17 +222,17 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
 
               {/* Item 3: Title + Black Pill Badge + Date */}
               <div className="group pt-3">
-                <Link href={`/article/${data.freshStories[2].slug}`} className="block">
+                <Link href={`/article/${freshStories[2].slug}`} className="block">
                   <h4 className="font-bold text-xs leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-2">
-                    {data.freshStories[2].title}
+                    {freshStories[2].title}
                   </h4>
                   
                   <div className="mt-2 flex items-center gap-2">
                     <span className="inline-block bg-black text-white text-[9.5px] font-black uppercase px-2 py-0.5 tracking-wider rounded-2xs">
-                      {data.freshStories[2].badge}
+                      {freshStories[2].badge}
                     </span>
                     <span className="text-[10px] text-slate-400 font-normal">
-                      {data.freshStories[2].date}
+                      {freshStories[2].date}
                     </span>
                   </div>
                 </Link>
@@ -208,20 +245,20 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
           {/* ========================================================= */}
           <div className="lg:col-span-4 border-b md:border-b-0 md:border-r border-slate-200 pb-6 md:pb-0 pr-0 md:pr-5">
             <div className="group">
-              <Link href={`/article/${data.mainLead.slug}`} className="block">
+              <Link href={`/article/${mainLead.slug}`} className="block">
                 {/* 16:10 Main Lead Image with EC Magazine Brand Overlay */}
                 <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 relative shadow-sm group-hover:shadow-md transition-shadow rounded-xs">
                   <img
-                    src={data.mainLead.image}
-                    alt={data.mainLead.title}
+                    src={mainLead.image}
+                    alt={mainLead.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 
                   {/* Official Magazine Interview Overlay (Matches User Screenshot 100%) */}
                   <MagazineCardOverlay
-                    badge={data.mainLead.badge}
+                    badge={mainLead.badge}
                     categoryTag="LOUNGE Interview"
-                    caption={data.mainLead.caption}
+                    caption={mainLead.caption}
                     showMonogram
                     monogramLetter="S"
                     monogramSubtext="LAW CHAMBERS"
@@ -230,17 +267,17 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
 
                 {/* Big Bold Headline */}
                 <h3 className="font-sans text-lg sm:text-[20px] font-black uppercase leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors mb-2.5">
-                  {data.mainLead.title}
+                  {mainLead.title}
                 </h3>
 
                 {/* Excerpt */}
                 <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-3 font-normal mb-4">
-                  {data.mainLead.excerpt}
+                  {mainLead.excerpt}
                 </p>
 
                 {/* [ READ MORE ] Box Button */}
                 <div className="inline-block px-4 py-1.5 border border-slate-300 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800 text-[11px] font-bold uppercase tracking-wider transition-all rounded-sm cursor-pointer">
-                  {data.mainLead.buttonText}
+                  {mainLead.buttonText}
                 </div>
               </Link>
             </div>

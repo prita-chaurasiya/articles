@@ -161,24 +161,24 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-3.5 sm:py-4 border-b border-slate-200">
             
-            {/* Left: Contact Info (Mail us & Call us) - Matches Reference Image */}
+            {/* Left: Contact Info (Mail us & Call us) - Real Contact Numbers */}
             <div className="hidden lg:flex flex-col justify-center text-xs sm:text-[13px] text-slate-800 space-y-0.5 shrink-0 font-sans">
               <div className="flex items-center leading-snug">
                 <span className="font-bold text-[#111827] mr-1.5">Mail us :</span>
                 <a
-                  href="mailto:editorial@enterprisechronicle.com"
+                  href="mailto:enquiry@businesswalkins.com"
                   className="text-[#2b2b2b] hover:text-[#E11925] transition-colors"
                 >
-                  editorial@enterprisechronicle.com
+                  enquiry@businesswalkins.com
                 </a>
               </div>
               <div className="flex items-center leading-snug">
                 <span className="font-bold text-[#111827] mr-1.5">Call us at :</span>
                 <a
-                  href="tel:+12128493000"
-                  className="text-[#2b2b2b] hover:text-[#E11925] transition-colors"
+                  href="tel:+919250430016"
+                  className="text-[#2b2b2b] hover:text-[#E11925] transition-colors font-medium"
                 >
-                  +1 (212) 849-3000 / +44 20 7946 0192
+                  +91 92504 30016 / +91 70076 67808
                 </a>
               </div>
             </div>
@@ -527,8 +527,8 @@ export default function Navbar() {
                 </Link>
 
                 <div className="pt-2 text-[11px] text-slate-400 space-y-1">
-                  <div>Mail: editorial@enterprisechronicle.com</div>
-                  <div>Tel: +1 (212) 849-3000</div>
+                  <div>Mail: enquiry@businesswalkins.com</div>
+                  <div>Tel: +91 92504 30016 / +91 70076 67808</div>
                 </div>
               </div>
 
