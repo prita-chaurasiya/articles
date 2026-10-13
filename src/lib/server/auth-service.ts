@@ -20,11 +20,29 @@ const USERS_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'admin-users.jso
 // Initialize default fallback users with bcrypt hashes
 const DEFAULT_USERS: AdminUserRecord[] = [
   {
-    id: 'usr-admin-priya',
-    email: 'hindjai286@gmail.com',
-    name: 'Priya (Administrator)',
+    id: 'usr-admin-priya-1',
+    email: 'priya-hindjai286@gmail.com',
+    name: 'Priya Chaurasiya (Super Admin)',
     role: 'admin',
-    passwordHash: '$2b$10$IRNeA6gC0BAVNWoTmszLseO4nVvShcVKz5lzu3AkVLyaimVjC2pz6',
+    passwordHash: '$2b$10$QN4iQu4VtxGLiMYjwUSsf.Xbcb0IMnafCffTIN/1a5VXCNmx6xGmS',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+    createdAt: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 'usr-admin-priya-2',
+    email: 'hindjai286@gmail.com',
+    name: 'Priya Chaurasiya (Super Admin)',
+    role: 'admin',
+    passwordHash: '$2b$10$QN4iQu4VtxGLiMYjwUSsf.Xbcb0IMnafCffTIN/1a5VXCNmx6xGmS',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+    createdAt: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 'usr-admin-default',
+    email: 'admin@businesswalkins.com',
+    name: 'Business Walkins Admin',
+    role: 'admin',
+    passwordHash: '$2b$10$QN4iQu4VtxGLiMYjwUSsf.Xbcb0IMnafCffTIN/1a5VXCNmx6xGmS',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
     createdAt: '2026-01-01T00:00:00.000Z',
   },

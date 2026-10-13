@@ -2,36 +2,49 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Article } from '@/types';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-let cachedClient: SupabaseClient | null = null;
+const supabaseKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  '';
 
-export function getSupabaseClient(): SupabaseClient | null {
-  if (typeof window === 'undefined') {
-    if (!supabaseUrl || !supabaseAnonKey) return null;
-    return createClient(supabaseUrl, supabaseAnonKey);
+let cachedServerClient: SupabaseClient | null = null;
+
+// Only used on the server (Node.js runtime / Next.js API routes)
+export function getServerSupabaseClient(): SupabaseClient | null {
+  if (cachedServerClient) return cachedServerClient;
+  if (!supabaseUrl || !supabaseKey) return null;
+
+  try {
+    cachedServerClient = createClient(supabaseUrl, supabaseKey, {
+      auth: { persistSession: false },
+    });
+    return cachedServerClient;
+  } catch (err) {
+    console.error('Failed to create server Supabase client:', err);
+    return null;
   }
-
-  if (cachedClient) return cachedClient;
-
-  if (supabaseUrl && supabaseAnonKey) {
-    cachedClient = createClient(supabaseUrl, supabaseAnonKey);
-    return cachedClient;
-  }
-
-  return null;
 }
 
 export function isSupabaseConfigured(): boolean {
-  return Boolean(
-    (process.env.NEXT_PUBLIC_SUPABASE_URL || supabaseUrl) &&
-    (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || supabaseAnonKey)
-  );
+  return Boolean(supabaseUrl && supabaseKey);
 }
 
-// Fetch all articles from Supabase
+// Fetch all articles: Client calls Next.js API; Server queries Supabase directly
 export async function fetchSupabaseArticles(): Promise<Article[]> {
-  const client = getSupabaseClient();
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch('/api/articles', { cache: 'no-store' });
+      if (!res.ok) return [];
+      const json = await res.json();
+      return json.articles || [];
+    } catch {
+      return [];
+    }
+  }
+
+  // Server-side
+  const client = getServerSupabaseClient();
   if (!client) return [];
 
   try {
@@ -41,20 +54,33 @@ export async function fetchSupabaseArticles(): Promise<Article[]> {
       .order('publishedAt', { ascending: false });
 
     if (error) {
-      console.warn('Supabase fetch error:', error.message);
+      console.warn('Server Supabase fetch error:', error.message);
       return [];
     }
-
     return (data as Article[]) || [];
   } catch (err) {
-    console.warn('Failed to fetch from Supabase:', err);
+    console.warn('Failed to fetch from Supabase on server:', err);
     return [];
   }
 }
 
-// Save or publish new article to Supabase
+// Save or publish new article
 export async function saveSupabaseArticle(article: Article): Promise<boolean> {
-  const client = getSupabaseClient();
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch('/api/articles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(article),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  // Server-side
+  const client = getServerSupabaseClient();
   if (!client) return false;
 
   try {
@@ -63,59 +89,66 @@ export async function saveSupabaseArticle(article: Article): Promise<boolean> {
       .upsert(article, { onConflict: 'id' });
 
     if (error) {
-      console.error('Supabase upsert error:', error.message);
+      console.error('Server Supabase save error:', error.message);
       return false;
     }
-
     return true;
-  } catch (err) {
-    console.error('Failed to save to Supabase:', err);
+  } catch {
     return false;
   }
 }
 
-// Update existing article in Supabase
-export async function updateSupabaseArticle(id: string, updates: Partial<Article>): Promise<boolean> {
-  const client = getSupabaseClient();
+// Update existing article
+export async function updateSupabaseArticle(
+  id: string,
+  updates: Partial<Article>
+): Promise<boolean> {
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch('/api/articles', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, updates }),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  // Server-side
+  const client = getServerSupabaseClient();
   if (!client) return false;
 
   try {
-    const { error } = await client
-      .from('articles')
-      .update(updates)
-      .eq('id', id);
-
-    if (error) {
-      console.error('Supabase update error:', error.message);
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    console.error('Failed to update in Supabase:', err);
+    const { error } = await client.from('articles').update(updates).eq('id', id);
+    return !error;
+  } catch {
     return false;
   }
 }
 
-// Delete article from Supabase
+// Delete article
 export async function deleteSupabaseArticle(id: string): Promise<boolean> {
-  const client = getSupabaseClient();
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch(`/api/articles?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  // Server-side
+  const client = getServerSupabaseClient();
   if (!client) return false;
 
   try {
-    const { error } = await client
-      .from('articles')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('Supabase delete error:', error.message);
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    console.error('Failed to delete in Supabase:', err);
+    const { error } = await client.from('articles').delete().eq('id', id);
+    return !error;
+  } catch {
     return false;
   }
 }
