@@ -200,8 +200,8 @@ export default function Navbar() {
         {/* ======================================================= */}
         {/* ROW 1: TOP BRANDING BAR (WHITE BACKGROUND)             */}
         {/* ======================================================= */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-3.5 sm:py-4 border-b border-slate-200">
+        <div className="max-w-[1380px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-2.5 sm:py-4 border-b border-slate-200 gap-1.5 sm:gap-3">
             
             {/* Left: Contact Info (Mail us & Call us) - Real Contact Numbers */}
             <div className="hidden lg:flex flex-col justify-center text-xs sm:text-[13px] text-slate-800 space-y-0.5 shrink-0 font-sans">
@@ -226,38 +226,38 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Left: Hamburger Sections Button */}
-            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden shrink-0">
+            <div className="flex items-center lg:hidden shrink-0">
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 sm:p-2 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="p-1 sm:p-1.5 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
                 aria-label="Toggle Navigation Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
 
-            {/* Center: Brand Masthead Logo matching Reference Image */}
-            <div className="text-center mx-auto lg:mx-0 min-w-0 max-w-[calc(100vw-110px)] sm:max-w-none">
-              <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-3 group max-w-full">
+            {/* Center: Brand Masthead Logo */}
+            <div className="flex-1 flex items-center justify-center lg:justify-start lg:flex-initial min-w-0 px-1 sm:px-0">
+              <Link href="/" className="inline-flex items-center gap-1.5 sm:gap-2.5 md:gap-3 group max-w-full">
                 {/* Official Circular 3D Emblem Logo */}
                 <img
                   src="/images/business-walkins-logo.jpg"
                   alt="Business Walkins Logo"
-                  className="w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full object-cover shadow-sm border border-amber-300/60 shrink-0 group-hover:scale-105 transition-transform"
+                  className="w-8 h-8 sm:w-11 sm:h-11 md:w-16 md:h-16 rounded-full object-cover shadow-sm border border-amber-300/60 shrink-0 group-hover:scale-105 transition-transform"
                 />
 
                 {/* Brand Name: Business Walkins + Subtitle */}
                 <div className="flex flex-col text-left min-w-0">
                   <div className="flex items-baseline leading-none whitespace-nowrap">
-                    <span className="font-serif font-black text-lg sm:text-2xl md:text-[30px] text-[#111827] tracking-tight uppercase">
+                    <span className="font-serif font-black text-[15px] sm:text-2xl md:text-[30px] text-[#111827] tracking-tight uppercase">
                       Business
                     </span>
-                    <span className="font-serif font-black text-lg sm:text-2xl md:text-[30px] text-[#C28B30] tracking-tight ml-1 sm:ml-1.5 md:ml-2 uppercase">
+                    <span className="font-serif font-black text-[15px] sm:text-2xl md:text-[30px] text-[#C28B30] tracking-tight ml-1 sm:ml-1.5 md:ml-2 uppercase">
                       Walkins
                     </span>
                   </div>
-                  <p className="text-[7.5px] sm:text-[9px] md:text-[10px] font-sans font-extrabold uppercase tracking-[0.14em] sm:tracking-[0.22em] text-[#C28B30] mt-0.5 sm:mt-1 leading-none">
+                  <p className="text-[6.5px] sm:text-[9px] md:text-[10px] font-sans font-extrabold uppercase tracking-[0.06em] sm:tracking-[0.22em] text-[#C28B30] mt-0.5 sm:mt-1 leading-none truncate">
                     EMAGZINE • IDEAS | PEOPLE | PROGRESS
                   </p>
                 </div>
@@ -271,7 +271,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsSearchModalOpen(true)}
-                className="p-1.5 text-[#111827] hover:text-[#E11925] transition-colors cursor-pointer flex items-center justify-center"
+                className="p-1 sm:p-1.5 text-[#111827] hover:text-[#E11925] transition-colors cursor-pointer flex items-center justify-center"
                 aria-label="Search publication"
                 title="Search stories (⌘K)"
               >
