@@ -79,14 +79,129 @@ export default function TestimonialsView() {
       {/* ======================================================= */}
       <section className="bg-white border-b border-slate-200 py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Banner Graphic Frame */}
-          <div className="w-full overflow-hidden border border-slate-200 shadow-sm bg-white rounded-none sm:rounded-sm">
-            <img
-              src="/images/testimonials-banner.jpg"
-              alt="Testimonials Banner"
-              className="w-full h-auto object-contain block mx-auto"
-              loading="eager"
-            />
+          {/* Banner Graphic Frame with 100% Business Walkins Branding */}
+          <div className="w-full overflow-hidden border border-slate-200 shadow-sm bg-gradient-to-r from-white via-slate-50 to-slate-100 rounded-xs relative p-4 sm:p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 min-h-[220px]">
+            
+            {/* Background Faint Watermark Grid */}
+            <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
+
+            {/* Left: Official Business Walkins Masthead & Testimonials Box */}
+            <div className="relative z-10 flex flex-col justify-between self-stretch w-full md:w-auto">
+              {/* Top: Business Walkins Official Masthead */}
+              <div className="flex items-center gap-3 sm:gap-3.5 mb-6 md:mb-10">
+                <img
+                  src="/images/business-walkins-logo.jpg"
+                  alt="Business Walkins Logo"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full object-cover shadow-sm border border-amber-300 shrink-0"
+                />
+                <div className="flex flex-col text-left">
+                  <div className="flex items-baseline leading-none">
+                    <span className="font-serif font-black text-2xl sm:text-3xl md:text-4xl text-[#111827] tracking-tight uppercase">
+                      Business
+                    </span>
+                    <span className="font-serif font-black text-2xl sm:text-3xl md:text-4xl text-[#C28B30] tracking-tight ml-1.5 uppercase">
+                      Walkins
+                    </span>
+                  </div>
+                  <p className="text-[8px] sm:text-[9.5px] md:text-[10.5px] font-sans font-extrabold uppercase tracking-[0.18em] sm:tracking-[0.24em] text-[#C28B30] mt-1 leading-none">
+                    INSPIRING BUSINESS COMMUNITY • EMAGZINE
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom: Solid Navy Blue 'Testimonials' Box */}
+              <div className="bg-[#002B49] text-white px-6 sm:px-8 py-3 sm:py-4 shadow-md inline-block max-w-fit">
+                <h2 className="text-2xl sm:text-3xl md:text-[40px] font-black uppercase tracking-tight leading-none font-sans">
+                  Testimonials
+                </h2>
+              </div>
+            </div>
+
+            {/* Right: 3 Fanned-out Business Walkins Magazine Covers */}
+            <div className="relative z-10 flex items-center justify-center md:justify-end gap-2 sm:gap-3 md:pr-4 overflow-visible shrink-0">
+              
+              {/* Cover 1: Woman Entrepreneur (Left, rotated -3deg) */}
+              <div className="w-24 sm:w-32 md:w-38 aspect-[3/4] bg-white border border-slate-300 shadow-md rounded-xs overflow-hidden flex flex-col -rotate-3 hover:rotate-0 transition-transform duration-300 shrink-0">
+                <div className="bg-[#E11925] text-white text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wider px-1.5 py-0.5 text-center truncate">
+                  Business Walkins
+                </div>
+                <div className="px-1 py-0.5 flex items-center justify-between border-b border-slate-100 bg-white">
+                  <span className="font-serif font-black text-[7px] sm:text-[8px] text-slate-900 leading-none uppercase">
+                    BW <span className="text-[#C28B30]">Magazine</span>
+                  </span>
+                  <span className="text-[5.5px] text-slate-400">2026</span>
+                </div>
+                <div className="flex-1 relative overflow-hidden bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80"
+                    alt="Woman Entrepreneur"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-1 sm:p-1.5 text-white">
+                    <span className="text-[6px] sm:text-[7px] font-bold block leading-tight">
+                      Woman Entrepreneur
+                    </span>
+                    <span className="text-[5px] text-amber-300 block">Excellence Award</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cover 2: Executive (Center, elevated) */}
+              <div className="w-26 sm:w-36 md:w-42 aspect-[3/4] bg-white border border-slate-300 shadow-lg rounded-xs overflow-hidden flex flex-col z-20 hover:scale-105 transition-transform duration-300 shrink-0 -translate-y-2">
+                <div className="bg-[#E11925] text-white text-[7px] sm:text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 text-center truncate">
+                  Business Walkins Special
+                </div>
+                <div className="px-1.5 py-0.5 flex items-center justify-between border-b border-slate-100 bg-white">
+                  <span className="font-serif font-black text-[8px] sm:text-[9.5px] text-slate-900 leading-none uppercase">
+                    Business <span className="text-[#C28B30]">Walkins</span>
+                  </span>
+                  <span className="text-[6px] text-slate-400">Vol 14</span>
+                </div>
+                <div className="flex-1 relative overflow-hidden bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
+                    alt="Executive Leader"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-1 sm:p-2 text-white">
+                    <span className="text-[6.5px] sm:text-[8px] font-black uppercase block leading-tight">
+                      Fluid Control
+                    </span>
+                    <span className="text-[5.5px] sm:text-[6.5px] text-slate-200 block truncate">
+                      Precision Engineering
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cover 3: Founder & CEO (Right, rotated 3deg) */}
+              <div className="w-24 sm:w-32 md:w-38 aspect-[3/4] bg-white border border-slate-300 shadow-md rounded-xs overflow-hidden flex flex-col rotate-3 hover:rotate-0 transition-transform duration-300 shrink-0">
+                <div className="bg-[#E11925] text-white text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wider px-1.5 py-0.5 text-center truncate">
+                  Business Walkins
+                </div>
+                <div className="px-1 py-0.5 flex items-center justify-between border-b border-slate-100 bg-white">
+                  <span className="font-serif font-black text-[7px] sm:text-[8px] text-slate-900 leading-none uppercase">
+                    BW <span className="text-[#C28B30]">Edition</span>
+                  </span>
+                  <span className="text-[5.5px] text-slate-400">2026</span>
+                </div>
+                <div className="flex-1 relative overflow-hidden bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80"
+                    alt="Founder & CEO"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-1 sm:p-1.5 text-white">
+                    <span className="text-[6px] sm:text-[7px] font-bold block leading-tight">
+                      Enterprise Leaders
+                    </span>
+                    <span className="text-[5px] text-amber-300 block">Innovator of the Year</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
           {/* Heading directly under banner (Matches Screenshot) */}
