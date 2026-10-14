@@ -146,37 +146,37 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
       caption: `By ${a.author?.name || 'Staff'} • ${a.author?.role || 'Author'}`,
     })),
     ...HERO_QUAD_DATA.freshStories,
-  ].slice(0, 3);
+  ].slice(0, 2);
 
   return (
-    <section className="bg-white border-b border-slate-200 py-6 sm:py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-white border-b border-slate-200 py-5 sm:py-7">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ========================================================= */}
         {/* EXACT 4-COLUMN ROW MATCHING REFERENCE SCREENSHOT          */}
-        {/* Left (3 Cols) | Center-Lead (4 Cols) | Stacked (3 Cols) | List (2 Cols) */}
+        {/* Col 1 (21%) | Col 2 (36%) | Col 3 (23%) | Col 4 (20%)      */}
         {/* ========================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-7 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[21fr_36fr_23fr_20fr] gap-6 lg:gap-7 items-start">
           
           {/* ========================================================= */}
-          {/* COLUMN 1: FRESH STORIES (3 Cols in 12-col grid)           */}
+          {/* COLUMN 1: FRESH STORIES                                   */}
           {/* ========================================================= */}
-          <div className="lg:col-span-3 border-b md:border-b-0 md:border-r border-slate-200 pb-6 md:pb-0 pr-0 md:pr-5 flex flex-col justify-between h-full space-y-4">
+          <div className="flex flex-col justify-between h-full space-y-4">
             <div>
               {/* Header Title + Subtitle */}
               <div className="mb-3.5">
                 <Link href="/news" className="group block">
-                  <h2 className="text-2xl sm:text-[27px] font-black tracking-tight text-slate-900 group-hover:text-[#E11925] transition-colors leading-none font-sans">
+                  <h2 className="text-2xl sm:text-[28px] font-black tracking-tight text-slate-900 group-hover:text-[#E11925] transition-colors leading-none font-sans">
                     Fresh Stories
                   </h2>
-                  <p className="text-xs font-semibold text-slate-700 mt-1.5 leading-snug group-hover:text-slate-900 transition-colors">
+                  <p className="text-xs sm:text-[13px] font-bold text-slate-800 mt-2 leading-snug group-hover:text-slate-900 transition-colors">
                     Today: Browse our editor&apos;s hand picked articles!
                   </p>
                 </Link>
               </div>
 
-              {/* Item 1: Magazine Card with EC Logo & LOUNGE Interview Header Strip */}
-              <div className="group pb-3.5 border-b border-slate-100">
+              {/* Item 1: Magazine Card with BW Logo & LOUNGE Interview Header Strip */}
+              <div className="group pb-4">
                 <Link href={`/article/${freshStories[0].slug}`} className="block">
                   <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-2 relative rounded-xs shadow-2xs">
                     <img
@@ -185,7 +185,7 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
-                    {/* Official Magazine Interview Overlay (EC Logo + Seal + LOUNGE Interview Badge) */}
+                    {/* Official Magazine Interview Overlay */}
                     <MagazineCardOverlay
                       badge={freshStories[0].badge}
                       categoryTag="LOUNGE Interview"
@@ -196,43 +196,23 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
                     />
                   </div>
 
-                  <h3 className="font-extrabold text-xs sm:text-[13px] uppercase leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-3">
+                  {/* Title: Full 4-lines uppercase bold font matching screenshot */}
+                  <h3 className="font-black text-[13px] sm:text-[14px] uppercase leading-[1.3] text-slate-900 group-hover:text-[#E11925] transition-colors mt-2.5">
                     {freshStories[0].title}
                   </h3>
                 </Link>
               </div>
 
-              {/* Item 2: Title + Black Tag Pill + Date */}
-              <div className="group pt-3 pb-3 border-b border-slate-100">
+              {/* Item 2: Title + Black Tag Badge */}
+              <div className="group pt-3 border-t border-slate-100">
                 <Link href={`/article/${freshStories[1].slug}`} className="block">
-                  <h4 className="font-bold text-xs leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-2">
+                  <h4 className="font-bold text-[13px] sm:text-[13.5px] leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors mb-2">
                     {freshStories[1].title}
                   </h4>
                   
-                  <div className="mt-2">
-                    <span className="inline-block bg-black text-white text-[9.5px] font-black uppercase px-2 py-0.5 tracking-wider rounded-2xs">
+                  <div className="mt-1">
+                    <span className="inline-block bg-black text-white text-[9.5px] sm:text-[10px] font-black uppercase px-2.5 py-1 tracking-wider leading-tight">
                       {freshStories[1].badge}
-                    </span>
-                    <span className="text-[10px] text-slate-400 block mt-1 font-normal">
-                      {freshStories[1].date}
-                    </span>
-                  </div>
-                </Link>
-              </div>
-
-              {/* Item 3: Title + Black Pill Badge + Date */}
-              <div className="group pt-3">
-                <Link href={`/article/${freshStories[2].slug}`} className="block">
-                  <h4 className="font-bold text-xs leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors line-clamp-2">
-                    {freshStories[2].title}
-                  </h4>
-                  
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="inline-block bg-black text-white text-[9.5px] font-black uppercase px-2 py-0.5 tracking-wider rounded-2xs">
-                      {freshStories[2].badge}
-                    </span>
-                    <span className="text-[10px] text-slate-400 font-normal">
-                      {freshStories[2].date}
                     </span>
                   </div>
                 </Link>
@@ -241,20 +221,20 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
           </div>
 
           {/* ========================================================= */}
-          {/* COLUMN 2: CENTER MAIN LEAD STORY (4 Cols in 12-col grid)  */}
+          {/* COLUMN 2: CENTER MAIN LEAD STORY (Dominant Hero Column)   */}
           {/* ========================================================= */}
-          <div className="lg:col-span-4 border-b md:border-b-0 md:border-r border-slate-200 pb-6 md:pb-0 pr-0 md:pr-5">
+          <div>
             <div className="group">
               <Link href={`/article/${mainLead.slug}`} className="block">
-                {/* 16:10 Main Lead Image with EC Magazine Brand Overlay */}
-                <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 relative shadow-sm group-hover:shadow-md transition-shadow rounded-xs">
+                {/* 16:10 Main Lead Image with Magazine Brand Overlay */}
+                <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900 border border-slate-200 mb-3 relative shadow-xs group-hover:shadow-md transition-shadow rounded-xs">
                   <img
                     src={mainLead.image}
                     alt={mainLead.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 
-                  {/* Official Magazine Interview Overlay (Matches User Screenshot 100%) */}
+                  {/* Official Magazine Interview Overlay */}
                   <MagazineCardOverlay
                     badge={mainLead.badge}
                     categoryTag="LOUNGE Interview"
@@ -266,17 +246,17 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
                 </div>
 
                 {/* Big Bold Headline */}
-                <h3 className="font-sans text-lg sm:text-[20px] font-black uppercase leading-snug text-slate-900 group-hover:text-[#E11925] transition-colors mb-2.5">
+                <h3 className="font-sans text-[20px] sm:text-[22px] md:text-[23px] font-black uppercase leading-[1.25] text-slate-900 group-hover:text-[#E11925] transition-colors mb-2.5 tracking-tight">
                   {mainLead.title}
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-3 font-normal mb-4">
+                <p className="text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed line-clamp-3 font-normal mb-4">
                   {mainLead.excerpt}
                 </p>
 
                 {/* [ READ MORE ] Box Button */}
-                <div className="inline-block px-4 py-1.5 border border-slate-300 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800 text-[11px] font-bold uppercase tracking-wider transition-all rounded-sm cursor-pointer">
+                <div className="inline-block px-4 py-1.5 border border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-800 text-[11px] font-bold uppercase tracking-wider rounded-none transition-colors">
                   {mainLead.buttonText}
                 </div>
               </Link>
@@ -284,18 +264,17 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
           </div>
 
           {/* ========================================================= */}
-          {/* COLUMN 3: STACKED SPOTLIGHT (3 Cols in 12-col grid)       */}
-          {/* Matches Screenshot 3: White card with EC Logo + Round Pic */}
+          {/* COLUMN 3: STACKED SPOTLIGHT (2 Cards with Avatars)        */}
           {/* ========================================================= */}
-          <div className="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-slate-200 pb-6 lg:pb-0 pr-0 lg:pr-5 space-y-5">
+          <div className="space-y-5">
             {data.stackedSpotlight.map((spot, idx) => (
               <div key={spot.slug} className="group">
                 <Link href={`/article/${spot.slug}`} className="block">
                   
-                  {/* Framed Interview Card with EC Logo & Circular Portrait (Matches Screenshot 100%) */}
+                  {/* Framed Interview Card with BW Logo & Circular Portrait */}
                   <div className="aspect-[16/10] w-full overflow-hidden bg-slate-50 border border-slate-200 mb-2 relative rounded-xs shadow-2xs p-3 pt-8 flex items-center justify-between">
                     
-                    {/* Top Strip with EC Logo (Left) and LOUNGE Interview (Right) */}
+                    {/* Top Strip with Logo (Left) and LOUNGE Interview (Right) */}
                     <div className="absolute top-0 inset-x-0 bg-white/95 backdrop-blur-xs px-2.5 py-1 flex items-center justify-between border-b border-slate-200 z-20">
                       <div className="flex items-center gap-1.5 select-none">
                         <img
@@ -315,7 +294,7 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
 
                     {/* Left Side: Brand Headline & Subtitle */}
                     <div className="pr-2 max-w-[65%] flex flex-col justify-center">
-                      <h5 className="font-extrabold text-[11px] sm:text-xs text-[#006699] uppercase tracking-tight leading-tight line-clamp-1">
+                      <h5 className={`font-extrabold text-[11px] sm:text-xs uppercase tracking-tight leading-tight line-clamp-1 ${idx === 1 ? 'text-[#A81B24]' : 'text-[#006699]'}`}>
                         {spot.brandTitle}
                       </h5>
                       <p className="text-[9.5px] text-slate-600 line-clamp-2 mt-1 leading-snug font-normal">
@@ -344,17 +323,17 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
                   </div>
 
                   {/* Headline */}
-                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 group-hover:text-[#E11925] transition-colors leading-snug line-clamp-2">
+                  <h4 className="text-[14px] sm:text-[14.5px] font-bold text-slate-900 group-hover:text-[#E11925] transition-colors leading-snug line-clamp-2 mt-2">
                     {spot.title}
                   </h4>
 
                   {/* Date */}
-                  <span className="text-[11px] text-slate-400 font-normal my-1 block">
+                  <span className="text-[11.5px] text-slate-500 font-normal my-1 block">
                     {spot.date}
                   </span>
 
                   {/* Excerpt */}
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-[12.5px] sm:text-[13px] text-slate-600 line-clamp-2 leading-relaxed">
                     {spot.excerpt}
                   </p>
                 </Link>
@@ -367,13 +346,13 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
           </div>
 
           {/* ========================================================= */}
-          {/* COLUMN 4: BEST BUSINESS MAGAZINE LIST (2 Cols in 12-col)  */}
+          {/* COLUMN 4: BEST BUSINESS MAGAZINE IN INDIA LIST            */}
           {/* ========================================================= */}
-          <div className="lg:col-span-2">
+          <div>
             {/* Bright Cyan / Aqua Header (3 Lines matching screenshot) */}
             <div className="text-center mb-4">
               <Link href="/magazine" className="group block">
-                <h3 className="font-extrabold text-xl text-[#00BCD4] group-hover:text-[#E11925] transition-colors leading-tight tracking-tight uppercase">
+                <h3 className="font-black text-[22px] sm:text-[24px] text-[#00BCD4] group-hover:text-[#E11925] transition-colors leading-[1.12] tracking-tight uppercase">
                   Best Business<br />
                   Magazine In<br />
                   India
@@ -381,20 +360,20 @@ export default function EditorialHeroQuad({ articles }: EditorialHeroQuadProps) 
               </Link>
             </div>
 
-            {/* 5 Stacked Articles with Red Category Badges */}
-            <div className="space-y-3.5 divide-y divide-slate-100">
-              {data.magazineList.map((story, idx) => (
-                <div key={story.slug} className={`group ${idx === 0 ? '' : 'pt-3'}`}>
+            {/* Stacked Articles with Red Category Badges */}
+            <div className="space-y-4">
+              {data.magazineList.slice(0, 4).map((story, idx) => (
+                <div key={story.slug} className={`group ${idx === 0 ? '' : 'pt-3 border-t border-slate-100'}`}>
                   <Link href={`/article/${story.slug}`} className="block">
-                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#E11925] transition-colors leading-snug line-clamp-2">
+                    <h4 className="text-[13px] sm:text-[13.5px] font-bold text-slate-900 group-hover:text-[#E11925] transition-colors leading-snug line-clamp-2 mb-1.5">
                       {story.title}
                     </h4>
 
-                    <div className="flex items-center gap-1.5 mt-1.5">
-                      <span className="inline-block bg-[#E11925] text-white text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-2xs shrink-0">
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="inline-block bg-[#CC0000] text-white text-[9px] sm:text-[9.5px] font-black uppercase px-2 py-0.5 rounded-none shrink-0">
                         {story.badge}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-normal truncate">
+                      <span className="text-[11px] sm:text-[11.5px] text-slate-500 font-normal truncate">
                         {story.date}
                       </span>
                     </div>

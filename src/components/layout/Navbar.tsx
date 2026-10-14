@@ -309,7 +309,14 @@ export default function Navbar() {
                               : 'text-white hover:text-[#DC2626]'
                           }`}
                         >
-                          <span>{item.name}</span>
+                          {item.name === 'Lounge Interview' ? (
+                            <span className="flex flex-col items-center leading-tight">
+                              <span>Lounge</span>
+                              <span className="text-[10px] opacity-90">Interview</span>
+                            </span>
+                          ) : (
+                            <span>{item.name}</span>
+                          )}
                         </Link>
                       )}
                     </div>
