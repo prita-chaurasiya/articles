@@ -148,6 +148,48 @@ export default function Navbar() {
     { name: 'Testimonials', href: '/category/testimonials' },
   ];
 
+  const renderNavLabel = (name: string) => {
+    switch (name) {
+      case 'Lounge Interview':
+        return (
+          <span className="flex flex-col items-center leading-[1.12] text-center">
+            <span>Lounge</span>
+            <span>Interview</span>
+          </span>
+        );
+      case 'Press Release':
+        return (
+          <span className="flex flex-col items-center leading-[1.12] text-center">
+            <span>Press</span>
+            <span>Release</span>
+          </span>
+        );
+      case 'Guest Posts':
+        return (
+          <span className="flex flex-col items-center leading-[1.12] text-center">
+            <span>Guest</span>
+            <span>Posts</span>
+          </span>
+        );
+      case 'Success Stories':
+        return (
+          <span className="flex flex-col items-center leading-[1.12] text-center">
+            <span>Success</span>
+            <span>Stories</span>
+          </span>
+        );
+      case 'Cover Story':
+        return (
+          <span className="flex flex-col items-center leading-[1.12] text-center">
+            <span>Cover</span>
+            <span>Story</span>
+          </span>
+        );
+      default:
+        return <span>{name}</span>;
+    }
+  };
+
   return (
     <>
       <header
@@ -251,14 +293,15 @@ export default function Navbar() {
 
         {/* ======================================================= */}
         {/* ROW 2: SOLID PITCH BLACK NAVIGATION BAR (Desktop Only)   */}
+        {/* Exact Layout matching User Reference Screenshot          */}
         {/* ======================================================= */}
         <div className="hidden lg:block bg-[#0B0F19] text-white border-b border-slate-900 relative z-50">
-          <div ref={navBarContainerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div ref={navBarContainerRef} className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 relative">
             
-            {/* Horizontal Nav Strip (Desktop) */}
-            <nav className="flex items-center justify-between overflow-x-auto no-scrollbar py-2.5 sm:py-3 text-xs font-bold tracking-wide">
+            {/* Horizontal Nav Strip (Desktop) - Clean Full Width Justified */}
+            <nav className="flex items-center justify-between w-full py-2.5 sm:py-3 text-xs font-bold tracking-wide">
               
-              <div className="flex items-center space-x-4 sm:space-x-6 text-white whitespace-nowrap">
+              <div className="flex items-center justify-between w-full text-white">
                 {NAV_ITEMS.map((item) => {
                   const isActive =
                     pathname === item.href ||
@@ -275,7 +318,7 @@ export default function Navbar() {
                           triggerRefs.current[item.hasDropdown] = el;
                         }
                       }}
-                      className="relative dropdown-trigger py-1"
+                      className="relative dropdown-trigger py-1 px-1.5 sm:px-2"
                       onMouseEnter={() => {
                         if (item.hasDropdown) handleMouseEnter(item.hasDropdown);
                       }}
@@ -285,7 +328,7 @@ export default function Navbar() {
                         <button
                           type="button"
                           onClick={() => toggleDropdown(item.hasDropdown!)}
-                          className={`inline-flex items-center gap-1.5 text-[11px] sm:text-xs uppercase tracking-wider transition-colors cursor-pointer ${
+                          className={`inline-flex items-center gap-1 text-[11.5px] sm:text-[12.5px] font-bold uppercase tracking-wide transition-colors cursor-pointer ${
                             isActive || isDropdownActive
                               ? 'text-[#DC2626] font-black'
                               : 'text-white hover:text-[#DC2626]'
@@ -303,39 +346,18 @@ export default function Navbar() {
                       ) : (
                         <Link
                           href={item.href}
-                          className={`inline-flex items-center gap-1 text-[11px] sm:text-xs uppercase tracking-wider transition-colors ${
+                          className={`inline-flex items-center text-[11.5px] sm:text-[12.5px] font-bold uppercase tracking-wide transition-colors ${
                             isActive
                               ? 'text-[#DC2626] font-black'
                               : 'text-white hover:text-[#DC2626]'
                           }`}
                         >
-                          {item.name === 'Lounge Interview' ? (
-                            <span className="flex flex-col items-center leading-tight">
-                              <span>Lounge</span>
-                              <span className="text-[10px] opacity-90">Interview</span>
-                            </span>
-                          ) : (
-                            <span>{item.name}</span>
-                          )}
+                          {renderNavLabel(item.name)}
                         </Link>
                       )}
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Sections / Directory Mega Menu Trigger on Right of Black Bar */}
-              <div className="flex items-center gap-2 pl-3 sm:pl-4 border-l border-slate-800 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/90 hover:bg-[#DC2626] text-white text-[11px] font-extrabold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm border border-slate-700/60 hover:border-[#DC2626]"
-                  title="Browse All Magazine Sections"
-                  aria-label="Open Directory Sections"
-                >
-                  <Menu className="w-3.5 h-3.5 text-white" />
-                  <span className="hidden sm:inline">Sections</span>
-                </button>
               </div>
 
             </nav>
