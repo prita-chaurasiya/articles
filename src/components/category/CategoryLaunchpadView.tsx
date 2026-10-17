@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { BookOpen, X, Sparkles } from 'lucide-react';
+import { useArticleStore } from '@/store/useArticleStore';
+import { formatDate } from '@/lib/utils';
+import EditorialPagination from '@/components/common/EditorialPagination';
 
 export const LAUNCHPAD_ARTICLES_DATA = [
   {
@@ -149,8 +152,47 @@ export const LAUNCHPAD_RECENT_POSTS = [
 ];
 
 export default function CategoryLaunchpadView() {
+  const { articles } = useArticleStore();
   const [activePage, setActivePage] = useState<number>(1);
-  const [briefModalArticle, setBriefModalArticle] = useState<typeof LAUNCHPAD_ARTICLES_DATA[0] | null>(null);
+  const [briefModalArticle, setBriefModalArticle] = useState<any>(null);
+
+  const ITEMS_PER_PAGE = 6;
+
+  // Filter dynamic articles published to Launchpad
+  const dynamicLaunchpad = useMemo(() => {
+    return articles
+      .filter(
+        (a) =>
+          a.status === 'published' &&
+          (a.category?.toLowerCase() === 'launchpad' ||
+            a.categorySlug?.toLowerCase() === 'launchpad') &&
+          !LAUNCHPAD_ARTICLES_DATA.some((l) => l.slug === a.slug)
+      )
+      .map((a) => ({
+        id: a.id,
+        slug: a.slug,
+        title: a.title,
+        date: formatDate(a.publishedAt),
+        category: a.category?.toUpperCase() || 'LAUNCHPAD',
+        categorySlug: 'launchpad',
+        badge: a.isTrending ? 'Trending' : a.isFeatured ? 'Featured' : 'Launchpad!',
+        image:
+          a.heroImage ||
+          'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80',
+        brief: a.excerpt || a.title,
+        excerpt: a.excerpt || a.title,
+      }));
+  }, [articles]);
+
+  const allArticles = useMemo(() => {
+    return [...dynamicLaunchpad, ...LAUNCHPAD_ARTICLES_DATA];
+  }, [dynamicLaunchpad]);
+
+  const totalPages = Math.ceil(allArticles.length / ITEMS_PER_PAGE) || 1;
+  const paginatedArticles = useMemo(() => {
+    const start = (activePage - 1) * ITEMS_PER_PAGE;
+    return allArticles.slice(start, start + ITEMS_PER_PAGE);
+  }, [allArticles, activePage]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -180,7 +222,7 @@ export default function CategoryLaunchpadView() {
           <main className="lg:col-span-8">
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-              {LAUNCHPAD_ARTICLES_DATA.map((article) => (
+              {paginatedArticles.map((article) => (
                 <article key={article.id} className="group flex flex-col justify-between">
                   <div>
                     {/* 16:10 Thumbnail with BigNews! / Launchpad Badge */}
@@ -230,7 +272,7 @@ export default function CategoryLaunchpadView() {
                   <div className="mt-3.5 pt-2 flex items-center justify-between border-t border-slate-100">
                     <button
                       onClick={() => setBriefModalArticle(article)}
-                      className="text-[11px] font-bold text-[#DC2626] hover:text-red-700 flex items-center gap-1 transition-colors"
+                      className="text-[11px] font-bold text-[#DC2626] hover:text-red-700 flex items-center gap-1 transition-colors cursor-pointer"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Quick Executive Brief →</span>
@@ -247,116 +289,13 @@ export default function CategoryLaunchpadView() {
               ))}
             </div>
 
-            {/* ===================================================== */}
-            {/* RESPONSIVE PAGINATION: [ < ] [ 1 ] [ 2 ] [ 3 ] … [ 84 ] [ > ] */}
-            {/* ===================================================== */}
-            <div className="mt-10 pt-6 border-t border-slate-200">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                
-                <div className="flex items-center flex-wrap gap-1.5 sm:gap-2">
-                  <button
-                    onClick={() => {
-                      if (activePage > 1) {
-                        setActivePage((p) => p - 1);
-                        window.scrollTo({ top: 180, behavior: 'smooth' });
-                      }
-                    }}
-                    disabled={activePage === 1}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                      activePage === 1
-                        ? 'border border-slate-200 text-slate-300 cursor-not-allowed bg-slate-50'
-                        : 'border border-slate-200 text-slate-700 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                    aria-label="Previous page"
-                  >
-                    &lt;
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setActivePage(1);
-                      window.scrollTo({ top: 180, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 1
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    1
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setActivePage(2);
-                      window.scrollTo({ top: 180, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 2
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    2
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setActivePage(3);
-                      window.scrollTo({ top: 180, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 3
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    3
-                  </button>
-
-                  <span className="px-2 text-slate-400 font-bold text-xs select-none">
-                    ...
-                  </span>
-
-                  <button
-                    onClick={() => {
-                      setActivePage(84);
-                      window.scrollTo({ top: 180, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 84
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    84
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      if (activePage < 84) {
-                        setActivePage((p) => p + 1);
-                        window.scrollTo({ top: 180, behavior: 'smooth' });
-                      }
-                    }}
-                    disabled={activePage === 84}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                      activePage === 84
-                        ? 'border border-slate-200 text-slate-300 cursor-not-allowed bg-slate-50'
-                        : 'border border-slate-200 text-slate-700 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                    aria-label="Next page"
-                  >
-                    &gt;
-                  </button>
-                </div>
-
-                <div className="text-[11.5px] text-slate-500 font-medium">
-                  Page <strong className="text-slate-800 font-bold">{activePage}</strong> of <strong className="text-slate-800 font-bold">84</strong>
-                </div>
-
-              </div>
-            </div>
+            {/* RESPONSIVE PAGINATION */}
+            <EditorialPagination
+              currentPage={activePage}
+              totalPages={totalPages}
+              onPageChange={setActivePage}
+              scrollToTop={180}
+            />
 
           </main>
 

@@ -44,8 +44,8 @@ import {
 } from 'lucide-react';
 import { useArticleStore } from '@/store/useArticleStore';
 import { CATEGORIES } from '@/data/categories';
-import { MAGAZINE_ISSUES } from '@/data/magazineIssues';
-import { Article } from '@/types';
+import { MAGAZINE_ISSUES, generatePagesForIssue } from '@/data/magazineIssues';
+import { Article, MagazineIssue } from '@/types';
 import { generateSlug, formatDate, formatNumber } from '@/lib/utils';
 import { useAdminAuth } from './AdminAuthContext';
 
@@ -85,6 +85,8 @@ export default function AdminPage() {
 
   const {
     articles,
+    magazineIssues,
+    addMagazineIssue,
     addArticle,
     updateArticle,
     deleteArticle,
@@ -101,6 +103,61 @@ export default function AdminPage() {
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [successNotification, setSuccessNotification] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+
+  // New Magazine Issue State
+  const [isAddMagazineModalOpen, setIsAddMagazineModalOpen] = useState(false);
+  const [magTitle, setMagTitle] = useState('');
+  const [magIssueNumber, setMagIssueNumber] = useState('');
+  const [magMonthYear, setMagMonthYear] = useState('October 2026');
+  const [magBrandName, setMagBrandName] = useState('');
+  const [magSpecialEditionTitle, setMagSpecialEditionTitle] = useState('SPECIAL EXECUTIVE EDITION');
+  const [magCoverImage, setMagCoverImage] = useState('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1000&auto=format&fit=crop&q=80');
+  const [magExecutiveName, setMagExecutiveName] = useState('');
+  const [magExecutiveRole, setMagExecutiveRole] = useState('');
+  const [magDescription, setMagDescription] = useState('');
+
+  const handleCreateMagazineIssue = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!magTitle.trim()) return;
+
+    const currentIssues = magazineIssues && magazineIssues.length > 0 ? magazineIssues : MAGAZINE_ISSUES;
+    const nextIssueNum = magIssueNumber || `VOL. ${(currentIssues.length + 1).toString().padStart(2, '0')}`;
+
+    const newIssue: MagazineIssue = {
+      id: `issue-${Date.now()}`,
+      issueNumber: nextIssueNum,
+      monthYear: magMonthYear || 'November 2026',
+      title: magTitle,
+      brandName: magBrandName || magTitle,
+      specialEditionTitle: magSpecialEditionTitle || 'EXECUTIVE SPECIAL EDITION',
+      coverImage: magCoverImage || 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1000&auto=format&fit=crop&q=80',
+      description: magDescription || 'Inside the high-stakes deployment of sovereign capital, AI transformation, and corporate leadership.',
+      executiveName: magExecutiveName || 'Executive Leadership',
+      executiveRole: magExecutiveRole || 'Founder & CEO',
+      pagesCount: 8,
+      featuredArticles: [magTitle, 'Sovereign Capital Deployment', 'Executive Deep Dive'],
+      highlights: ['Executive Cover Story', 'Global Industry Outlook', 'Strategic Roadmap'],
+      pages: generatePagesForIssue({
+        title: magTitle,
+        monthYear: magMonthYear,
+        coverImage: magCoverImage,
+        description: magDescription,
+        executiveName: magExecutiveName,
+        executiveRole: magExecutiveRole,
+      }),
+    };
+
+    addMagazineIssue(newIssue);
+    setIsAddMagazineModalOpen(false);
+    setSuccessNotification(`E-Magazine Issue "${newIssue.title}" published! Available in 3D Flipbook on /magazine.`);
+    setTimeout(() => setSuccessNotification(null), 5000);
+
+    setMagTitle('');
+    setMagBrandName('');
+    setMagExecutiveName('');
+    setMagExecutiveRole('');
+    setMagDescription('');
+  };
 
   // Staff Users State (for Admin RBAC tab)
   const [staffUsers, setStaffUsers] = useState<any[]>([]);
@@ -1053,22 +1110,32 @@ export default function AdminPage() {
         {/* 7. MAGAZINE ISSUES TAB */}
         {activeTab === 'magazine' && (
           <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm animate-fadeIn">
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 mb-6 border-b border-slate-200 gap-4">
               <div>
                 <h3 className="font-serif text-xl font-bold text-slate-900">
-                  Digital E-Magazine Editions ({MAGAZINE_ISSUES.length})
+                  Digital E-Magazine Editions ({(magazineIssues || MAGAZINE_ISSUES).length})
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Monthly publications with interactive flipbook reader & PDF distributions.
+                  Monthly publications with interactive 3D flipbook reader &amp; PDF distributions.
                 </p>
               </div>
-              <Link href="/magazine" className="text-xs font-bold text-blue-600 hover:underline">
-                View Public Magazine Archive →
-              </Link>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAddMagazineModalOpen(true)}
+                  className="px-4 py-2 bg-[#DC2626] hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>New Flipbook Edition</span>
+                </button>
+                <Link href="/magazine" className="text-xs font-bold text-blue-600 hover:underline">
+                  View Public Archive →
+                </Link>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {MAGAZINE_ISSUES.map((issue) => (
+              {(magazineIssues || MAGAZINE_ISSUES).map((issue) => (
                 <div key={issue.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex gap-4">
                   <img src={issue.coverImage} alt="" className="w-20 h-28 rounded-lg object-cover shadow shrink-0" />
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
@@ -1998,6 +2065,172 @@ export default function AdminPage() {
                       ? (editingArticleId ? 'Update Draft' : 'Submit Draft for Approval')
                       : (editingArticleId ? 'Update Article' : 'Publish Article Now')}
                   </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 10. NEW MAGAZINE ISSUE MODAL (Flipbook / Slap book edition) */}
+      {isAddMagazineModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200 my-8">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" />
+                <h3 className="font-serif text-lg font-bold text-slate-900">
+                  Publish New Digital E-Magazine Edition (Flipbook)
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsAddMagazineModalOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateMagazineIssue} className="space-y-4 pt-4">
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Edition Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Autonomous Enterprise: The Cognitive Transition"
+                  value={magTitle}
+                  onChange={(e) => setMagTitle(e.target.value)}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Month &amp; Year
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. October 2026"
+                    value={magMonthYear}
+                    onChange={(e) => setMagMonthYear(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Issue Number
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. VOL. 15"
+                    value={magIssueNumber}
+                    onChange={(e) => setMagIssueNumber(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Featured Brand / Header Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. SWADAR GLOBAL"
+                    value={magBrandName}
+                    onChange={(e) => setMagBrandName(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Special Edition Ribbon Label
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 50 FASTEST GROWING TECH"
+                    value={magSpecialEditionTitle}
+                    onChange={(e) => setMagSpecialEditionTitle(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Executive / Leader Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Abhishek Kumar"
+                    value={magExecutiveName}
+                    onChange={(e) => setMagExecutiveName(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Executive Role
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Founder &amp; CEO"
+                    value={magExecutiveRole}
+                    onChange={(e) => setMagExecutiveRole(e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Cover Photo URL
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://..."
+                  value={magCoverImage}
+                  onChange={(e) => setMagCoverImage(e.target.value)}
+                  className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Synopsis / Issue Summary
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Brief synopsis of what this magazine issue spotlights..."
+                  value={magDescription}
+                  onChange={(e) => setMagDescription(e.target.value)}
+                  className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                />
+              </div>
+
+              <div className="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAddMagazineModalOpen(false)}
+                  className="px-4 py-2 rounded-lg border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-lg bg-[#DC2626] hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Publish 3D Flipbook Edition</span>
                 </button>
               </div>
             </form>

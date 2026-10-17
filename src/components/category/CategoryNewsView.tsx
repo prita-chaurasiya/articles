@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { BookOpen, X, ChevronRight, Eye, Calendar, Sparkles } from 'lucide-react';
+import { useArticleStore } from '@/store/useArticleStore';
+import { formatDate } from '@/lib/utils';
+import EditorialPagination from '@/components/common/EditorialPagination';
 
 export const NEWS_ARTICLES_DATA = [
   {
@@ -145,8 +148,45 @@ export const RECENT_POSTS_SIDEBAR = [
 ];
 
 export default function CategoryNewsView() {
+  const { articles } = useArticleStore();
   const [activePage, setActivePage] = useState<number>(1);
-  const [briefModalArticle, setBriefModalArticle] = useState<typeof NEWS_ARTICLES_DATA[0] | null>(null);
+  const [briefModalArticle, setBriefModalArticle] = useState<any>(null);
+
+  const ITEMS_PER_PAGE = 6;
+
+  // Filter dynamic articles published to News
+  const dynamicNews = useMemo(() => {
+    return articles
+      .filter(
+        (a) =>
+          a.status === 'published' &&
+          (a.category?.toLowerCase() === 'news' || a.categorySlug?.toLowerCase() === 'news') &&
+          !NEWS_ARTICLES_DATA.some((n) => n.slug === a.slug)
+      )
+      .map((a) => ({
+        id: a.id,
+        slug: a.slug,
+        title: a.title,
+        date: formatDate(a.publishedAt),
+        category: a.category?.toUpperCase() || 'NEWS',
+        badge: a.isTrending ? 'Trending' : a.isFeatured ? 'Featured' : 'Latest',
+        image:
+          a.heroImage ||
+          'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80',
+        brief: a.excerpt || a.title,
+        excerpt: a.excerpt || a.title,
+      }));
+  }, [articles]);
+
+  const allArticles = useMemo(() => {
+    return [...dynamicNews, ...NEWS_ARTICLES_DATA];
+  }, [dynamicNews]);
+
+  const totalPages = Math.ceil(allArticles.length / ITEMS_PER_PAGE) || 1;
+  const paginatedArticles = useMemo(() => {
+    const start = (activePage - 1) * ITEMS_PER_PAGE;
+    return allArticles.slice(start, start + ITEMS_PER_PAGE);
+  }, [allArticles, activePage]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -211,7 +251,7 @@ export default function CategoryNewsView() {
             {/* ===================================================== */}
             <div className="pt-6 border-t border-slate-200">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                {NEWS_ARTICLES_DATA.map((article) => (
+                {paginatedArticles.map((article) => (
                   <article key={article.id} className="group flex flex-col justify-between">
                     <div>
                       {/* 16:9 Thumbnail with BigNews! Badge */}
@@ -262,7 +302,7 @@ export default function CategoryNewsView() {
                     <div className="mt-3.5 pt-2 flex items-center justify-between">
                       <button
                         onClick={() => setBriefModalArticle(article)}
-                        className="text-[11px] font-bold text-[#DC2626] hover:text-red-700 flex items-center gap-1 transition-colors"
+                        className="text-[11px] font-bold text-[#DC2626] hover:text-red-700 flex items-center gap-1 transition-colors cursor-pointer"
                       >
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>Quick Executive Brief →</span>
@@ -280,125 +320,13 @@ export default function CategoryNewsView() {
               </div>
             </div>
 
-            {/* ===================================================== */}
-            {/* RESPONSIVE PAGINATION (Matches Reference Screenshot)  */}
-            {/* ===================================================== */}
-            <div className="mt-10 pt-6 border-t border-slate-200">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                
-                {/* Page Buttons List */}
-                <div className="flex items-center flex-wrap gap-1.5 sm:gap-2">
-                  {/* Prev Button (<) */}
-                  <button
-                    onClick={() => {
-                      if (activePage > 1) {
-                        setActivePage((p) => p - 1);
-                        window.scrollTo({ top: 380, behavior: 'smooth' });
-                      }
-                    }}
-                    disabled={activePage === 1}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                      activePage === 1
-                        ? 'border border-slate-200 text-slate-300 cursor-not-allowed bg-slate-50'
-                        : 'border border-slate-200 text-slate-700 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                    aria-label="Previous page"
-                  >
-                    &lt;
-                  </button>
-
-                  {/* Page 1 */}
-                  <button
-                    onClick={() => {
-                      setActivePage(1);
-                      window.scrollTo({ top: 380, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 1
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    1
-                  </button>
-
-                  {/* Page 2 */}
-                  <button
-                    onClick={() => {
-                      setActivePage(2);
-                      window.scrollTo({ top: 380, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 2
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    2
-                  </button>
-
-                  {/* Page 3 */}
-                  <button
-                    onClick={() => {
-                      setActivePage(3);
-                      window.scrollTo({ top: 380, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 3
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    3
-                  </button>
-
-                  {/* Ellipsis (...) */}
-                  <span className="px-1 text-slate-400 text-xs select-none">
-                    …
-                  </span>
-
-                  {/* Last Page (305) */}
-                  <button
-                    onClick={() => {
-                      setActivePage(305);
-                      window.scrollTo({ top: 380, behavior: 'smooth' });
-                    }}
-                    className={`min-w-[36px] h-8 sm:min-w-[42px] sm:h-9 px-2.5 flex items-center justify-center text-xs font-black transition-all ${
-                      activePage === 305
-                        ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-sm'
-                        : 'border border-slate-200 text-slate-800 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    305
-                  </button>
-
-                  {/* Next Button (>) */}
-                  <button
-                    onClick={() => {
-                      if (activePage < 305) {
-                        setActivePage((p) => p + 1);
-                        window.scrollTo({ top: 380, behavior: 'smooth' });
-                      }
-                    }}
-                    disabled={activePage === 305}
-                    className={`min-w-[32px] h-8 sm:min-w-[36px] sm:h-9 px-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                      activePage === 305
-                        ? 'border border-slate-200 text-slate-300 cursor-not-allowed bg-slate-50'
-                        : 'border border-slate-200 text-slate-700 bg-white hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                    aria-label="Next page"
-                  >
-                    &gt;
-                  </button>
-                </div>
-
-                {/* Mobile / Desktop Status Text */}
-                <div className="text-[11.5px] text-slate-500 font-medium">
-                  Page <strong className="text-slate-800 font-bold">{activePage}</strong> of <strong className="text-slate-800 font-bold">305</strong>
-                </div>
-
-              </div>
-            </div>
+            {/* RESPONSIVE PAGINATION */}
+            <EditorialPagination
+              currentPage={activePage}
+              totalPages={totalPages}
+              onPageChange={setActivePage}
+              scrollToTop={380}
+            />
 
           </main>
 

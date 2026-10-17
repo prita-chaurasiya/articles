@@ -2,10 +2,14 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { BookOpen, Sparkles, Eye, ArrowRight, Check, ChevronRight } from 'lucide-react';
 import { MAGAZINE_ISSUES } from '@/data/magazineIssues';
 import DigitalReaderModal from '@/components/magazine/DigitalReaderModal';
 import { MagazineIssue } from '@/types';
+import { useArticleStore } from '@/store/useArticleStore';
+import { formatDate } from '@/lib/utils';
+import EditorialPagination from '@/components/common/EditorialPagination';
 
 export default function MagazineArchivePage() {
   return (
@@ -26,9 +30,14 @@ function MagazineArchiveContent() {
   const router = useRouter();
   const yearQuery = searchParams.get('year');
 
+  const { magazineIssues, articles } = useArticleStore();
+
   const [selectedYear, setSelectedYear] = useState<string>(yearQuery || '2026');
   const [selectedIssue, setSelectedIssue] = useState<MagazineIssue | null>(null);
   const [hoveredIssueId, setHoveredIssueId] = useState<string | null>(null);
+
+  const [activeStoryPage, setActiveStoryPage] = useState<number>(1);
+  const STORIES_PER_PAGE = 6;
 
   useEffect(() => {
     if (yearQuery) {
@@ -38,10 +47,29 @@ function MagazineArchiveContent() {
 
   const yearsList = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', 'All'];
 
+  const issuesList = magazineIssues && magazineIssues.length > 0 ? magazineIssues : MAGAZINE_ISSUES;
+
   const filteredIssues = useMemo(() => {
-    if (selectedYear === 'All') return MAGAZINE_ISSUES;
-    return MAGAZINE_ISSUES.filter((issue) => issue.monthYear.includes(selectedYear));
-  }, [selectedYear]);
+    if (selectedYear === 'All') return issuesList;
+    return issuesList.filter((issue) => issue.monthYear.includes(selectedYear));
+  }, [selectedYear, issuesList]);
+
+  // Dynamic articles published under Category = Magazine or Cover Story
+  const magazineArticles = useMemo(() => {
+    return articles.filter(
+      (a) =>
+        a.status === 'published' &&
+        (a.category?.toLowerCase() === 'magazine' ||
+          a.categorySlug?.toLowerCase() === 'magazine' ||
+          a.isCoverStory)
+    );
+  }, [articles]);
+
+  const totalStoryPages = Math.ceil(magazineArticles.length / STORIES_PER_PAGE) || 1;
+  const paginatedMagazineArticles = useMemo(() => {
+    const start = (activeStoryPage - 1) * STORIES_PER_PAGE;
+    return magazineArticles.slice(start, start + STORIES_PER_PAGE);
+  }, [magazineArticles, activeStoryPage]);
 
   const handleYearChange = (year: string) => {
     setSelectedYear(year);
@@ -208,6 +236,88 @@ function MagazineArchiveContent() {
         )}
 
       </div>
+
+      {/* ========================================================= */}
+      {/* SECTION 2.5: EXCLUSIVE MAGAZINE EDITORIAL DISPATCHES       */}
+      {/* Dynamic articles published under category = "Magazine"     */}
+      {/* ========================================================= */}
+      {magazineArticles.length > 0 && (
+        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-4">
+          <div className="flex items-center gap-2.5 mb-6 pb-2.5 border-b border-slate-200">
+            <span className="w-1.5 h-6 bg-[#DC2626] inline-block" />
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-sans">
+              MAGAZINE EXCLUSIVES &amp; COVER DOSSIERS ({magazineArticles.length})
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedMagazineArticles.map((art) => (
+              <article key={art.id} className="bg-white border border-slate-200 group overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <Link href={`/article/${art.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-100">
+                    <img
+                      src={art.heroImage || 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80'}
+                      alt={art.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {art.isCoverStory && (
+                      <span className="absolute top-2 right-2 bg-[#DC2626] text-white font-black text-[10px] px-2 py-0.5 tracking-wider uppercase shadow-md">
+                        Cover Story
+                      </span>
+                    )}
+                  </Link>
+
+                  <div className="p-4">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold mb-2">
+                      <span className="text-[#DC2626] uppercase font-bold tracking-wider text-[11px]">
+                        {art.category || 'MAGAZINE'}
+                      </span>
+                      <span className="text-slate-400 font-normal">—</span>
+                      <span className="text-slate-500 font-normal text-[11px]">
+                        {formatDate(art.publishedAt)}
+                      </span>
+                    </div>
+
+                    <Link href={`/article/${art.slug}`}>
+                      <h3 className="font-bold text-sm sm:text-[15px] leading-snug text-slate-900 group-hover:text-[#DC2626] transition-colors line-clamp-2">
+                        {art.title}
+                      </h3>
+                    </Link>
+
+                    {art.excerpt && (
+                      <p className="text-slate-600 text-xs sm:text-[12.5px] leading-relaxed line-clamp-2 mt-2 font-normal">
+                        {art.excerpt}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="p-4 pt-0">
+                  <Link
+                    href={`/article/${art.slug}`}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#DC2626] hover:text-red-700 transition-colors"
+                  >
+                    <span>Read Executive Story</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {totalStoryPages > 1 && (
+            <div className="mt-8">
+              <EditorialPagination
+                currentPage={activeStoryPage}
+                totalPages={totalStoryPages}
+                onPageChange={setActiveStoryPage}
+                scrollToTop={600}
+              />
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ========================================================= */}
       {/* SECTION 3: EDITORIAL RECOGNITION (MATCHES SCREENSHOT 2)   */}

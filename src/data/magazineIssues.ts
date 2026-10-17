@@ -1,7 +1,7 @@
 import { MagazineIssue, MagazinePage } from '@/types';
 
 // Helper to generate 8-12 realistic interactive pages for any magazine issue
-const generatePagesForIssue = (issue: Partial<MagazineIssue>): MagazinePage[] => [
+export const generatePagesForIssue = (issue: Partial<MagazineIssue>): MagazinePage[] => [
   {
     pageNumber: 1,
     title: 'Cover & Masthead',

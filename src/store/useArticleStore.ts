@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Article, ArticleComment } from '@/types';
+import { Article, ArticleComment, MagazineIssue } from '@/types';
 import { INITIAL_ARTICLES } from '@/data/mockArticles';
 import { ALL_BESPOKE_ARTICLES } from '@/data/bespokeArticlesData';
+import { MAGAZINE_ISSUES } from '@/data/magazineIssues';
 import {
   fetchSupabaseArticles,
   saveSupabaseArticle,
@@ -20,6 +21,7 @@ const COMBINED_STORE_ARTICLES: Article[] = [
 
 interface ArticleState {
   articles: Article[];
+  magazineIssues: MagazineIssue[];
   bookmarkedSlugs: string[];
   searchQuery: string;
   selectedCategoryFilter: string;
@@ -36,6 +38,9 @@ interface ArticleState {
 
   // Supabase Sync
   syncWithSupabase: () => Promise<void>;
+
+  // Magazine Actions
+  addMagazineIssue: (issue: MagazineIssue) => void;
 
   // Article CMS Actions
   addArticle: (newArticle: Omit<Article, 'id' | 'views' | 'comments' | 'sharesCount'> & Partial<Pick<Article, 'id' | 'views' | 'comments' | 'sharesCount'>>) => Article;
@@ -54,12 +59,19 @@ export const useArticleStore = create<ArticleState>()(
   persist(
     (set, get) => ({
       articles: COMBINED_STORE_ARTICLES,
+      magazineIssues: MAGAZINE_ISSUES,
       bookmarkedSlugs: [],
       searchQuery: '',
       selectedCategoryFilter: 'all',
       isSearchModalOpen: false,
       isMegaMenuOpen: false,
       selectedMagazineIssueId: null,
+
+      addMagazineIssue: (newIssue: MagazineIssue) => {
+        set((state) => ({
+          magazineIssues: [newIssue, ...state.magazineIssues.filter((m) => m.id !== newIssue.id)],
+        }));
+      },
 
       setSearchQuery: (query) => set({ searchQuery: query }),
       setSelectedCategoryFilter: (category) => set({ selectedCategoryFilter: category }),
@@ -224,7 +236,7 @@ export const useArticleStore = create<ArticleState>()(
       },
 
       resetToDefaultArticles: () => {
-        set({ articles: INITIAL_ARTICLES });
+        set({ articles: INITIAL_ARTICLES, magazineIssues: MAGAZINE_ISSUES });
       },
     }),
     {

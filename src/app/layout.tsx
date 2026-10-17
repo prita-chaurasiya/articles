@@ -1,11 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Newsreader } from "next/font/google";
+import { Roboto, Work_Sans, Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import BreadcrumbBar from "@/components/layout/BreadcrumbBar";
 import Footer from "@/components/layout/Footer";
 import SearchModal from "@/components/layout/SearchModal";
 import MegaMenu from "@/components/layout/MegaMenu";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  variable: "--font-roboto",
+  display: "swap",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-work-sans",
+  display: "swap",
+});
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -94,7 +108,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${newsreader.variable} scroll-smooth`}>
+    <html lang="en" className={`${roboto.variable} ${workSans.variable} ${manrope.variable} ${newsreader.variable} scroll-smooth`}>
       <body className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#F8FAFC] text-[#111827] font-sans antialiased selection:bg-blue-600 selection:text-white">
         <SupabaseSync />
         <Suspense fallback={null}>
