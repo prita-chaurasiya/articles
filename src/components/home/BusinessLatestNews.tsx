@@ -105,7 +105,7 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
   const displayList = [...dynamicItems, ...LATEST_NEWS_GRID_DATA].slice(0, 8);
 
   return (
-    <section className="bg-[#111622] text-white py-12 sm:py-16 border-t border-b border-slate-800">
+    <section className="bg-black text-white py-12 sm:py-16 border-t border-b border-neutral-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ======================================================= */}
@@ -113,7 +113,7 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
         {/* ======================================================= */}
         <div className="text-center mb-10 sm:mb-12">
           <Link href="/news" className="group inline-block">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#00BCD4] group-hover:text-white transition-colors tracking-tight font-sans">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#00BCD4] group-hover:text-[#DC2626] hover:text-[#DC2626] transition-colors tracking-tight font-sans">
               Business Magazine Latest News
             </h2>
           </Link>
@@ -132,7 +132,7 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
                 {/* 16:10 / 16:9 Aspect Ratio Thumbnail */}
                 <Link
                   href={`/article/${item.slug}`}
-                  className="block aspect-[16/10] w-full overflow-hidden bg-slate-900 rounded-sm border border-slate-800 group-hover:border-slate-700 transition-colors shadow-sm relative"
+                  className="block aspect-[16/10] w-full overflow-hidden bg-black rounded-sm border border-neutral-800 group-hover:border-[#DC2626]/60 transition-colors shadow-sm relative"
                 >
                   <img
                     src={item.image}
@@ -143,26 +143,31 @@ export default function BusinessLatestNews({ articles }: BusinessLatestNewsProps
                   <MagazineCardOverlay categoryTag="LATEST NEWS" />
                 </Link>
 
-                {/* Article Headline */}
+                {/* Article Headline - Turns Red on Card Hover & Direct Hover */}
                 <Link
                   href={`/article/${item.slug}`}
-                  className="block mt-3 group-hover:text-[#DC2626] transition-colors"
+                  className="block mt-3"
                 >
-                  <h3 className="font-bold text-sm sm:text-[14.5px] leading-snug text-white line-clamp-2">
+                  <h3 className="font-bold text-sm sm:text-[14.5px] leading-snug text-white group-hover:text-[#DC2626] hover:text-[#DC2626] transition-colors line-clamp-2">
                     {item.title}
                   </h3>
                 </Link>
 
                 {/* Author Meta: By admin — Date */}
-                <div className="text-[11.5px] text-slate-400 mt-1.5 flex items-center gap-1 font-normal">
+                <div className="text-[11.5px] text-neutral-400 mt-1.5 flex items-center gap-1 font-normal">
                   <span>By</span>
-                  <span className="font-bold text-white">{item.author}</span>
+                  <Link
+                    href={`/article/${item.slug}`}
+                    className="font-bold text-white group-hover:text-[#DC2626] hover:text-[#DC2626] transition-colors"
+                  >
+                    {item.author}
+                  </Link>
                   <span>—</span>
                   <span>{item.date}</span>
                 </div>
 
                 {/* Excerpt */}
-                <p className="text-slate-300 text-xs sm:text-[12.5px] leading-relaxed line-clamp-3 mt-2.5 font-normal">
+                <p className="text-neutral-300 text-xs sm:text-[12.5px] leading-relaxed line-clamp-3 mt-2.5 font-normal">
                   {item.excerpt}
                 </p>
               </div>
